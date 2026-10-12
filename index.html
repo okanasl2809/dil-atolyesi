@@ -165,6 +165,8 @@ textarea{min-height:130px;resize:vertical}
 .path li.cur .pnum{background:var(--hl);border-color:var(--hl);color:var(--hlink)}
 .path li.cur .pnode{border:2px solid var(--ink);box-shadow:inset 0 -5px 0 var(--hl)}
 .path .t{font-weight:700}
+.tile-card.tdone,.item.tdone{border-color:var(--ok);box-shadow:inset 5px 0 0 var(--ok)}
+.chip.tdone{border-color:var(--ok);background:var(--okbg)}
 .hidden{display:none!important}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media (max-width:420px){h1{font-size:1.6rem}.hero{grid-template-columns:1fr}.ring{margin:0 auto}}
@@ -2304,7 +2306,7 @@ let S=null;
 function startSession(title,items,opts={}){S={title,items,i:0,ok:0,xp:0,t0:Date.now(),wrong:[],...opts};renderItem()}
 function head(){return`<div class="qhead"><button class="x" id="qx" aria-label="Çık">✕</button><div class="prog"><i style="width:${100*S.i/(S.total||S.items.length)}%"></i></div><span class="small muted">${S.i+1}/${S.total||S.items.length}</span></div>`}
 function renderItem(){const it=S.items[S.i];if(it.type==="card")return rCard(it);if(it.type==="write")return rWrite(it);if(it.type==="tiles")return rTiles(it);if(it.type==="speak")return rSpeak(it);rMc(it)}
-function bindX(){$("qx").onclick=()=>{if(window.speechSynthesis)speechSynthesis.cancel();const b=S.back;S=null;b?b():setTab(tab)}}
+function bindX(){$("qx").onclick=()=>{ttsStop();const b=S.back;S=null;b?b():setTab(tab)}}
 function rMc(it){
  if(!it._o)it._o=shuffle(it.o.map((_,i)=>i));
  app.innerHTML=head()+`
@@ -2316,13 +2318,13 @@ function rMc(it){
  <div id="fb"></div>`;
  bindX();
  if(it.dlg){S.dp=S.dp||{};const k=it.dlg.id;const left=()=>2-(S.dp[k]||0);$("pdc").textContent=left()+" dinleme hakkın var";if(left()<=0)$("pd").disabled=true;$("pd").onclick=()=>{if(left()<=0)return;S.dp[k]=(S.dp[k]||0)+1;$("pdc").textContent=left()+" dinleme hakkın kaldı";playDlg(it.dlg,$("pd"),()=>{if(left()<=0&&$("pd"))$("pd").disabled=true})}}
- if(it.sayFirst&&window.speechSynthesis){speechSynthesis.cancel();sayV(it.sayFirst,it.sayWho||0)}
+ if(it.sayFirst&&window.speechSynthesis){ttsStop();sayV(it.sayFirst,it.sayWho||0)}
  if(it.listen){if(it.limit){it._pl=0;$("pl").onclick=()=>{if(it._pl>=it.limit)return;it._pl++;say(it.listen,.95);$("pc").textContent=(it.limit-it._pl)+" dinleme hakkın kaldı";if(it._pl>=it.limit)$("pl").disabled=true}}else{say(it.listen);$("pl").onclick=()=>say(it.listen);$("sh").onclick=()=>{$("tx").classList.remove("hidden");$("sh").remove()}}}
  on(".opt",el=>answerMc(it,+el.dataset.oi,el));
  if($("idk"))$("idk").onclick=()=>{document.querySelectorAll(".opt").forEach(b=>b.disabled=true);$("idk").disabled=true;S.adaptive(false,it,true);setTimeout(next,150)};
 }
 function answerMc(it,oi,el){
- if(it.after&&window.speechSynthesis){speechSynthesis.cancel();sayV(it.after,it.afterWho||1)}
+ if(it.after&&window.speechSynthesis){ttsStop();sayV(it.after,it.afterWho||1)}
  if(S.silent){document.querySelectorAll(".opt").forEach(b=>b.disabled=true);el.classList.add("pick");S.adaptive(oi===0,it);setTimeout(next,250);return}
  document.querySelectorAll(".opt").forEach(b=>{b.disabled=true;if(+b.dataset.oi===0)b.classList.add("ok")});
  const ok=oi===0;if(!ok)el.classList.add("bad");
@@ -2344,9 +2346,10 @@ function result(ok,it,body,ai){
  $("nx").onclick=next;$("nx").focus({preventScroll:true});
  $("fb").scrollIntoView({behavior:"smooth",block:"nearest"});
 }
-function next(){if(window.speechSynthesis)speechSynthesis.cancel();S.i++;if(S.i>=S.items.length)return endSession();renderItem();window.scrollTo(0,0)}
+function next(){ttsStop();S.i++;if(S.i>=S.items.length)return endSession();renderItem();window.scrollTo(0,0)}
 function endSession(){
  {const sc=S.items.filter(x=>x.type!=="card");const nn=sc.length;if(nn)logAct({t:S.title,n:nn,ok:S.ok,min:Math.max(1,Math.round((Date.now()-S.t0)/60000))});}
+ markGuide();if(S.wset&&!S.endNote){const w=S.wset;S.endNote=()=>wsetNote(w)}
  if(S.endScreen){const f=S.endScreen;if(S.onEnd)S.onEnd(S);S=null;return f()}
  const n=S.items.filter(x=>x.type!=="card").length||1,pc=Math.round(100*S.ok/n),sec=Math.round((Date.now()-S.t0)/1000);
  if(S.onEnd)S.onEnd(S);
@@ -2583,7 +2586,7 @@ async function genReading(lv,theme,ydsMode){const back=ydsMode?openYdsRead:viewE
   <div class="card" style="font-size:1.05rem;line-height:1.7">${esc(r.text)}</div>
   ${gl.length?`<section class="sec"><h2>Sözlükçe</h2><div class="card scroll"><table class="table"><tbody>${gl.map(g=>`<tr><td><b>${esc(g.en)}</b></td><td>${esc(g.tr)}</td></tr>`).join("")}</tbody></table></div><button class="link" id="sv" style="margin-top:8px">Bu kelimeleri kelimelerime ekle</button></section>`:""}
   <div class="foot"><button class="btn pri wide" id="go">Soruları çöz (${items.length})</button></div>`;
-  $("bk").onclick=back;$("pl").onclick=()=>say(r.text,.9);$("sp").onclick=()=>window.speechSynthesis&&speechSynthesis.cancel();
+  $("bk").onclick=back;$("pl").onclick=()=>say(r.text,.9);$("sp").onclick=()=>ttsStop();
   if($("sv"))$("sv").onclick=()=>{st.words=st.words||[];const have=new Set(st.words.map(w=>w.w.toLowerCase()));gl.forEach(g=>{if(!have.has(String(g.en).toLowerCase()))st.words.push({w:String(g.en),tr:String(g.tr),ex:"",ex_tr:"",lv,th:theme,pos:""})});save();$("sv").textContent="Eklendi ✓";$("sv").disabled=true};
   $("go").onclick=()=>startSession(r.title||"Okuma",items,{back,onEnd:()=>{st.reads=(st.reads||0)+1;save()}});
  }catch(e){fail(e,back)}}
@@ -2676,7 +2679,7 @@ function viewLib(){
 const getBook=id=>BOOKS.find(b=>b.id===id)||(st.mybooks||[]).find(b=>b.id===id);
 function openBook(id){const b=getBook(id);const d=(st.read||{})[id]||0;
  app.innerHTML=`<button class="link" id="bk">‹ Kütüphane</button><div class="row" style="margin-top:14px;align-items:flex-start;gap:16px"><span class="cover" style="min-height:120px;width:84px">${esc(b.t)}</span><div><span class="badge">${b.lv}</span><h1 style="margin-top:6px">${esc(b.t)}</h1><p class="muted">${esc(b.tr||"")}</p><p>${esc(b.d||"")}</p></div></div>
- <div class="list" style="margin-top:16px">${b.ch.map((c,i)=>`<button class="item" data-c="${i}"><span class="num">Bölüm ${i+1}</span><span class="grow t">${esc(c.t)}</span>${i<d?'<span class="badge ok">Okundu</span>':"<span>›</span>"}</button>`).join("")}</div>
+ <div class="list" style="margin-top:16px">${b.ch.map((c,i)=>`<button class="item" data-c="${i}"><span class="num">Bölüm ${i+1}</span><span class="grow t">${esc(c.t)}</span>${chDone(id,i)?'<span class="badge ok">✓ Okundu</span>':"<span>›</span>"}</button>`).join("")}</div>
  ${b.gen?`<button class="btn alt wide ai-only" id="nx" style="margin-top:14px">Sonraki bölümü yazdır</button>`:""}`;
  $("bk").onclick=()=>setTab("lib");on(".item[data-c]",el=>readCh(id,+el.dataset.c));
  if($("nx"))$("nx").onclick=()=>nextChapter(id);
@@ -2694,10 +2697,10 @@ function readCh(id,ci){const b=getBook(id),c=b.ch[ci];const gl=c.g||[];
  <div class="foot"><button class="btn pri wide" id="qq">${c.q&&c.q.length?"Bölüm sınavı: anlama ve kelime soruları":"Bölümü bitir"}</button></div><div id="pop" class="pop hidden"></div>`;
  $("bk").onclick=()=>openBook(id);
  $("lm").onclick=()=>{const r=document.querySelector(".reader");const hid=r.style.filter;r.style.filter=hid?"":"blur(7px)";$("lm").textContent=hid?"🎧 Dinleme modu (metni gizle)":"👁️ Metni göster";if(!hid)say(c.x,.92)};
- $("pl").onclick=()=>say(c.x,.92);$("sl").onclick=()=>say(c.x,.7);$("sp").onclick=()=>window.speechSynthesis&&speechSynthesis.cancel();
+ $("pl").onclick=()=>say(c.x,.92);$("sl").onclick=()=>say(c.x,.7);$("sp").onclick=()=>ttsStop();
  on(".reader .w",el=>wordPop(el.textContent,sents[+el.dataset.s],gl,b.lv));
- const fin=()=>{st.read=st.read||{};st.read[id]=Math.max(st.read[id]||0,ci+1);save()};
- $("qq").onclick=()=>{if(window.speechSynthesis)speechSynthesis.cancel();
+ const fin=()=>{st.read=st.read||{};st.rdc=st.rdc||{};const a=st.rdc[id]=st.rdc[id]||[];if(!a.includes(ci))a.push(ci);st.read[id]=a.length;save()};
+ $("qq").onclick=()=>{ttsStop();
   if(!c.q||!c.q.length){fin();addXP(10);return openBook(id)}
   startSession(c.t,[...c.q.map(q=>({type:"mc",p:c.x,q:q[0],o:q[1],why:q[2]||"Cevabı metindeki ilgili cümlede bulabilirsin.",cat:"Okuma"})),...gl.filter((g,i,arr)=>arr.length>=4).slice(0,4).map(g=>({type:"mc",q:`Metinde geçen "${g[0]}" ne anlama geliyor?`,o:[g[1],...pickN(gl.filter(x=>x!==g).map(x=>x[1]),3)],why:g[0]+" = "+g[1],cat:"Okuma"}))],{back:()=>openBook(id),onEnd:()=>{fin();addXP(10)}})};
 }
@@ -2795,7 +2798,7 @@ function viewHome(){
  ${lv?`<div class="card"><div class="row"><div class="grow"><p class="muted small" style="margin:0">Seviyen</p><div style="font:800 2.2rem/1 'Bricolage Grotesque',sans-serif">${lv}</div><p style="margin:4px 0 0">${LVNAME[lv]}</p></div><button class="btn alt sm" id="rt">Testi tekrar çöz</button></div>${st.place?`<p class="small muted" style="margin-top:8px">Dil bilgisi ${st.place.g}, okuma ${st.place.r}, dinleme ${st.place.l}. Test tarihi: ${st.place.at}. Ayda bir tekrar çözmeni öneririz.</p>`:""}</div>`
  :`<div class="card"><p><b>Nereden başlayacağını bulmak için önce seviye testini çöz.</b></p><p class="muted small">Uyarlanabilir test: dil bilgisi ve kelime, okuma, dinleme. 24 soru, yaklaşık 15 dakika. Sonuca göre sana özel bir çalışma planı çıkar.</p><button class="btn pri wide" id="rt" style="margin-top:10px">Seviye testine başla</button></div>`}</section>
  ${lv?`<section class="sec"><h2><span class="mk">2. Nasıl çalışmalısın?</span></h2><p class="muted">${lv} seviyesi için önerilen günlük rutin, toplam ${gd.reduce((a,s)=>a+s.m,0)} dakika. Sırayla yap; her adıma dokunarak git.</p>
- <ol class="guide" id="gd">${gd.map((s,i)=>`<li><button class="item" data-i="${i}"><span class="grow"><span class="t">${esc(s.t)}</span> <span class="badge">${s.m} dk</span><br><span class="muted small">${esc(s.d)}</span></span><span>›</span></button></li>`).join("")}</ol>
+ <ol class="guide" id="gd">${gd.map((s,i)=>`<li><button class="item${gDone("h",i)?" tdone":""}" data-i="${i}"><span class="grow"><span class="t">${esc(s.t)}</span> <span class="badge">${s.m} dk</span><br><span class="muted small">${esc(s.d)}</span></span>${gDone("h",i)?'<span class="badge ok">✓ Bugün yapıldı</span>':"<span>›</span>"}</button></li>`).join("")}</ol>
  <div class="card" style="margin-top:12px"><b>Haftalık</b><p class="small">${esc(weekly)}</p><b>Neden bu sıra?</b><p class="small muted">Önce yeni bilgi (konu), sonra onu bağlam içinde görme (okuma, dinleme), sonra kullanma (konuşma, yazma) ve en son tekrar. Dil öğrenmede kalıcılığı en çok artıran bu döngü ve aralıklı tekrardır.</p></div></section>`:""}
  <section class="sec"><h2><span class="mk">${lv?"3":"2"}. Nerede ne var?</span></h2><div class="grid2">
   <button class="tile-card" data-go="en"><span class="ic">💬</span><b>İngilizce</b><span class="muted small">A1'den C2'ye kurs: 80 dil bilgisi konusu, 8.657 kelime, konuşma, okuma, yazma.</span></button>
@@ -2806,7 +2809,7 @@ function viewHome(){
   <button class="tile-card" data-go="book"><span class="ic">📒</span><b>Defter</b><span class="muted small">Hatalar, kelimelerin, ilerleme grafiğin.</span></button>
  </div></section>`;
  $("rt").onclick=startPlace;
- if(totalXP()>300&&(!st.lastBackup||(Date.now()-new Date(st.lastBackup))>14*864e5)){const d=document.createElement("div");d.className="card";d.style.cssText="margin-top:14px;border-left:6px solid var(--hl)";d.innerHTML='<b>💾 İlerlemeni yedekle</b><p class="small muted" style="margin:4px 0 8px">Tüm ilerlemen sadece bu cihazda. Telefon değiştirirsen kaybolmaması için yedek al.</p><button class="btn alt sm" id="bkp">Yedek al</button>';app.insertBefore(d,app.children[1]);$("bkp").onclick=openBackup}on("#gd .item",el=>gd[+el.dataset.i].go());on(".tile-card[data-go]",el=>setTab(el.dataset.go));
+ if(totalXP()>300&&(!st.lastBackup||(Date.now()-new Date(st.lastBackup))>14*864e5)){const d=document.createElement("div");d.className="card";d.style.cssText="margin-top:14px;border-left:6px solid var(--hl)";d.innerHTML='<b>💾 İlerlemeni yedekle</b><p class="small muted" style="margin:4px 0 8px">Tüm ilerlemen sadece bu cihazda. Telefon değiştirirsen kaybolmaması için yedek al.</p><button class="btn alt sm" id="bkp">Yedek al</button>';app.insertBefore(d,app.children[1]);$("bkp").onclick=openBackup}on("#gd .item",el=>{GD=["h",+el.dataset.i];gd[+el.dataset.i].go()});on(".tile-card[data-go]",el=>setTab(el.dataset.go));
 }
 
 /* ===== KELİME SİSTEMİ ===== */
@@ -2866,12 +2869,12 @@ function rWrite(it){const v=it.v;
 function openVTopic(id){const t=VT.find(x=>x.id===id);const ws=t.words;
  const k=ws.filter(v=>vstat(v)==="known").length,l=ws.filter(v=>vstat(v)==="learn").length;
  app.innerHTML=`<button class="link" id="bk">‹ ${t.lv} İngilizce</button><p class="muted small" style="margin-top:14px">${t.lv} kelimeleri</p><h1>${t.ic} <span class="mk">${esc(t.t)}</span></h1>
- <p class="muted">${k} öğrenildi, ${l} öğreniliyor, ${ws.length-k-l} yeni.</p><div class="bar" style="margin:8px 0 16px"><i style="width:${100*k/ws.length}%"></i></div>
- <div class="grid2"><button class="btn pri" id="lr">Öğren (${Math.min(10,ws.filter(v=>vstat(v)!=="known").length)||ws.length} kelime)</button><button class="btn alt" id="mt">Eşleştirme oyunu</button></div>
+ <p class="muted">${wpLine(wp(ws))} ${ws.length-k-l} yeni.</p><div style="margin:8px 0 16px">${wpBar(wp(ws),12)}</div>
+ <div class="grid2"><button class="btn pri" id="lr">${wp(ws).done?"Tekrar et":"Öğren"} (${Math.min(10,ws.filter(v=>vstat(v)!=="known").length)||ws.length} kelime)</button><button class="btn alt" id="mt">Eşleştirme oyunu</button></div>
  <div style="margin-top:14px">${ws.map((v,i)=>{const s=vstat(v);return`<div class="sent"><button class="pl" data-i="${i}" aria-label="Dinle">🔊</button><div class="grow"><div><b>${esc(v.w)}</b> = ${esc(v.tr)}</div><div class="muted small">${esc(v.ex)}</div></div><span class="badge ${s==="known"?"ok":""}">${s==="known"?"Öğrenildi":s==="learn"?"Tekrarda":"Yeni"}</span></div>`}).join("")}</div>`;
  $("bk").onclick=()=>{st.viewLv=t.lv;setTab("en")};on(".pl",el=>{const v=ws[+el.dataset.i];say(v.w+". "+v.ex)});
  $("lr").onclick=()=>{let pool=ws.filter(v=>vstat(v)!=="known");if(!pool.length)pool=ws;const nw=pool.filter(v=>vstat(v)==="new").slice(0,10),rv=pool.filter(v=>vstat(v)==="learn").slice(0,10-nw.length);
-  startSession(t.t,learnItems(nw.length?nw:pickN(ws,8),rv),{back:()=>openVTopic(id),onEnd:vUpdate})};
+  startSession(t.t,learnItems(nw.length?nw:pickN(ws,8),rv),{back:()=>openVTopic(id),onEnd:vUpdate,wset:ws})};
  $("mt").onclick=()=>matchGame(ws,()=>openVTopic(id));
 }
 function matchGame(ws,back){const set=pickN(ws,6);let sel=null,miss=0,done=0;const t0=Date.now();
@@ -2896,7 +2899,7 @@ function viewDaily(){
   <p class="small muted" style="margin-top:10px">${known} kelime öğrenildi, ${learn} kelime tekrarda (toplam ${VALL.length}). Bildiğin kelimeler 1, 3, 7, 14, 30 ve 60 gün sonra tekrar sorulur; unuttuğun kelime başa döner.</p>
   <div class="row small" style="flex-wrap:wrap;margin-top:6px"><span class="muted">Günde yeni kelime:</span>${[5,10,15,20].map(n=>`<button class="chip" data-n="${n}" style="${(st.newDay||10)===n?"border-color:var(--ink);box-shadow:inset 0 -4px 0 var(--hl)":""}">${n}</button>`).join("")}</div></div></section>
  <section class="sec"><h2>Kelime konuları</h2><p class="muted small">25 konu, 500 temel kelime. Her kelimenin anlamı, sesli okunuşu ve örnek cümlesi var. B1 ve üstü kelimeler için Seviye yolundaki kelime setlerini ve YDS Kelime Akademisi'ni kullan.</p>
- ${["A1","A2"].map(l=>`<div class="lv">${l}: ${names[l]}</div><div class="grid2">${VT.filter(t=>t.lv===l).map(t=>{const k=t.words.filter(v=>vstat(v)==="known").length;return`<button class="tile-card" data-vt="${t.id}" style="min-height:0"><span class="row"><span class="ic">${t.ic}</span><b class="grow">${esc(t.t)}</b><span class="small muted">${k}/20</span></span><span class="bar" style="height:6px"><i style="width:${k*5}%"></i></span></button>`}).join("")}</div>`).join("")}</section>
+ ${["A1","A2"].map(l=>`<div class="lv">${l}: ${names[l]}</div><div class="grid2">${VT.filter(t=>t.lv===l).map(t=>{const p=wp(t.words);return`<button class="tile-card${p.done?" tdone":""}" data-vt="${t.id}" style="min-height:0"><span class="row"><span class="ic">${t.ic}</span><b class="grow">${esc(t.t)}</b>${wpTag(p)}</span>${wpBar(p)}</button>`}).join("")}</div>`).join("")}</section>
  <section class="sec"><h2>Konuşma üniteleri</h2><p class="muted small">Gerçek hayat cümleleri: dinle, cümle kur, söyle, boşluk doldur.</p>
  ${["A1","A2","B1","B2"].map(l=>`<div class="lv">${l}: ${names[l]}</div><div class="list">${UNITS.filter(u=>u.lv===l).map(u=>{const r=st.units[u.id];return`<button class="item" data-u="${u.id}"><span class="grow"><span class="t">${esc(u.t)}</span><br><span class="muted small">${u.s.length} cümle</span></span>${r&&r.done?`<span class="badge ok">%${r.best}</span>`:'<span class="badge">Başla</span>'}</button>`}).join("")}</div>`).join("")}</section>
  <section class="sec"><h2>Konuş ve yaz</h2><div class="grid2">
@@ -2924,13 +2927,13 @@ function viewEn(){
 
 ${gramSection(lv)}
  <section class="sec"><h2>2. Kelime</h2><p class="muted small">CEFR ${lv} listesinde <b>${WCOUNT[lv]}</b> kelime var. Hepsinin Türkçe anlamı ve sesli okunuşu hazır. İster alfabetik, ister türüne, ister konusuna göre çalış; hepsi aynı aralıklı tekrar sistemine bağlı.</p>
- <button class="item" id="wlv" style="margin-top:10px"><span style="font-size:1.6rem">🔤</span><span class="grow"><span class="t">Tüm ${lv} kelimeleri</span><br><span class="muted small">${kStat(WL[lv])} / ${WCOUNT[lv]} öğrenildi, ${Math.ceil(WCOUNT[lv]/SETN)} set</span></span><span>›</span></button>
- <h3 style="margin:18px 0 8px">Türüne göre</h3><div class="grid2">${POSG.map(p=>{const ws=posWords(lv,p[0]);return ws.length?`<button class="tile-card" data-pos="${p[0]}" style="min-height:0"><span class="row"><span class="ic">${p[2]}</span><b class="grow">${p[1]}</b><span class="small muted">${kStat(ws)}/${ws.length}</span></span><span class="bar" style="height:6px"><i style="width:${100*kStat(ws)/ws.length}%"></i></span></button>`:""}).join("")}</div>
+ <button class="item" id="wlv" style="margin-top:10px"><span style="font-size:1.6rem">🔤</span><span class="grow"><span class="t">Tüm ${lv} kelimeleri</span><br><span class="muted small">${wp(WL[lv]).s} / ${WCOUNT[lv]} çalışıldı, ${kStat(WL[lv])} öğrenildi, ${Math.ceil(WCOUNT[lv]/SETN)} set</span></span><span>›</span></button>
+ <h3 style="margin:18px 0 8px">Türüne göre</h3><div class="grid2">${POSG.map(p=>{const ws=posWords(lv,p[0]);const q=wp(ws);return ws.length?`<button class="tile-card${q.done?" tdone":""}" data-pos="${p[0]}" style="min-height:0"><span class="row"><span class="ic">${p[2]}</span><b class="grow">${p[1]}</b>${wpTag(q)}</span>${wpBar(q)}</button>`:""}).join("")}</div>
  <h3 style="margin:18px 0 8px">Konu sözlüğü <span class="badge">${CURT.length} konu, ${CURT.reduce((a,t)=>a+t.words.length,0)} kelime</span></h3><p class="muted small" style="margin-bottom:8px">Her konu tüm seviyelerin kelimelerini içerir; A1'den başlayarak sıralanır. Kutudaki küçük sayı bu seviyedeki kelime sayısıdır.</p>
- <div class="grid2">${CURT.map(t=>{const k=kStat(t.words),here=t.words.filter(v=>v.lv===lv).length;return`<button class="tile-card" data-ct="${t.id}" style="min-height:0"><span class="row"><span class="ic">${t.ic}</span><b class="grow">${esc(t.t)}</b><span class="small muted">${k}/${t.words.length}</span></span><span class="small muted">${here?lv+": "+here+" kelime":"&nbsp;"}</span><span class="bar" style="height:6px"><i style="width:${100*k/t.words.length}%"></i></span></button>`}).join("")}</div>
+ <div class="grid2">${CURT.map(t=>{const p=wp(t.words),here=t.words.filter(v=>v.lv===lv).length;return`<button class="tile-card${p.done?" tdone":""}" data-ct="${t.id}" style="min-height:0"><span class="row"><span class="ic">${t.ic}</span><b class="grow">${esc(t.t)}</b>${wpTag(p)}</span><span class="small muted">${here?lv+": "+here+" kelime":"&nbsp;"}</span>${wpBar(p)}</button>`}).join("")}</div>
  <h3 style="margin:18px 0 8px">Fiil grupları ve diğer konular</h3><p class="muted small" style="margin-bottom:8px">Tüm seviyelerden, anlamına göre otomatik gruplandı.</p>
  <div class="chips">${wnAll().map(t=>`<button class="chip" data-wn="${t.id}">${t.ic} ${esc(t.t)} (${t.ws.length})</button>`).join("")}</div>
- ${vt.length?`<h3 style="margin:18px 0 8px">Örnek cümleli başlangıç konuları</h3><div class="chips">${vt.map(t=>`<button class="chip" data-vt="${t.id}">${t.ic} ${esc(t.t)} (${kStat(t.words)}/20)</button>`).join("")}</div>`:""}
+ ${vt.length?`<h3 style="margin:18px 0 8px">Örnek cümleli başlangıç konuları</h3><div class="chips">${vt.map(t=>{const p=wp(t.words);return`<button class="chip${p.done?" tdone":""}" data-vt="${t.id}">${p.done?"✓ ":""}${t.ic} ${esc(t.t)} (${p.s}/${p.n})</button>`}).join("")}</div>`:""}
  ${lv==="B2"||lv==="C1"||lv==="C2"?`<div class="grid2" style="margin-top:12px"><a class="tile-card" href="${KELIME_URL}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;min-height:0"><span class="ic">📚</span><b>YDS Kelime Akademisi</b><span class="muted small">Sınavlarda çıkan 366 kelime ve kalıp.</span></a></div>`:""}
  <p class="small muted" style="margin-top:10px">Konu sözlüğü elle hazırlandı. Fiil grupları ve diğer konular WordNet'in anlam sınıflandırmasıyla oluşturulup gözden geçirildi. "Ek" etiketli kelimeler CEFR listesinde yer almayan ama konu için önemli olan kelimelerdir.</p></section>
 
@@ -3053,9 +3056,9 @@ function kStat(ws){return ws.filter(v=>vstat(v)==="known").length}
 function openGroup(g){const ws=g.words,sets=Math.ceil(ws.length/SETN),k=kStat(ws);
  if(sets<=1)return openGroupSet(g,0);
  app.innerHTML=`<button class="link" id="bk">‹ ${esc(g.backLabel)}</button><p class="muted small" style="margin-top:14px">${esc(g.sub||"")}</p><h1>${g.ic?g.ic+" ":""}<span class="mk">${esc(g.title)}</span></h1>
- <p class="muted">${ws.length} kelime, ${sets} set. ${k} kelimeyi öğrendin.</p><div class="bar" style="margin:8px 0 14px"><i style="width:${100*k/ws.length}%"></i></div>
+ <p class="muted">${ws.length} kelime, ${sets} set. ${wpLine(wp(ws))}</p><div style="margin:8px 0 14px">${wpBar(wp(ws),12)}</div>
  <input type="text" id="q" placeholder="Tüm 8.657 kelimede ara (İngilizce ya da Türkçe)" aria-label="Kelime ara" autocomplete="off"><div id="res"></div>
- <div class="grid2" id="sets" style="margin-top:14px">${[...Array(sets)].map((_,i)=>{const s=ws.slice(i*SETN,(i+1)*SETN),kk=kStat(s);return`<button class="tile-card" data-s="${i}" style="min-height:0"><span class="row"><b class="grow">Set ${i+1}</b><span class="small muted">${kk}/${s.length}</span></span><span class="small muted">${esc(s[0].w)} – ${esc(s[s.length-1].w)}</span><span class="bar" style="height:6px"><i style="width:${100*kk/s.length}%"></i></span></button>`}).join("")}</div>`;
+ <div class="grid2" id="sets" style="margin-top:14px">${[...Array(sets)].map((_,i)=>{const s=ws.slice(i*SETN,(i+1)*SETN),q=wp(s);return`<button class="tile-card${q.done?" tdone":""}" data-s="${i}" style="min-height:0"><span class="row"><b class="grow">Set ${i+1}</b>${wpTag(q)}</span><span class="small muted">${esc(s[0].w)} – ${esc(s[s.length-1].w)}</span>${wpBar(q)}</button>`}).join("")}</div>`;
  $("bk").onclick=g.back;on(".tile-card[data-s]",el=>openGroupSet(g,+el.dataset.s));
  $("q").oninput=()=>{const q=$("q").value.trim().toLowerCase();if(q.length<2){$("res").innerHTML="";$("sets").classList.remove("hidden");return}
   const r=ALLV.filter(v=>v.w.toLowerCase().startsWith(q)||v.tr.toLowerCase().includes(q)).slice(0,30);$("sets").classList.add("hidden");
@@ -3064,12 +3067,12 @@ function openGroup(g){const ws=g.words,sets=Math.ceil(ws.length/SETN),k=kStat(ws
 }
 function openGroupSet(g,i){const all=g.words,sets=Math.ceil(all.length/SETN),ws=all.slice(i*SETN,(i+1)*SETN);const back=()=>openGroupSet(g,i);
  app.innerHTML=`<button class="link" id="bk">‹ ${esc(sets>1?g.title:g.backLabel)}</button><p class="muted small" style="margin-top:14px">${esc(g.sub||"")}</p><h1 style="margin-top:4px">${g.ic?g.ic+" ":""}<span class="mk">${esc(g.title)}${sets>1?" "+(i+1):""}</span></h1>
- <p class="muted small">${ws.length} kelime, ${kStat(ws)} öğrenildi.</p>
- <div class="grid2" style="margin:14px 0"><button class="btn pri" id="lr">Öğren</button><button class="btn alt" id="mt" ${ws.length<6?"disabled":""}>Eşleştir</button><button class="btn alt" id="ts">Test et</button></div>
+ <p class="muted small">${ws.length} kelime. ${wpLine(wp(ws))}</p>${wpBar(wp(ws),10)}
+ <div class="grid2" style="margin:14px 0"><button class="btn pri" id="lr">${wp(ws).done?"Tekrar et":"Öğren"}</button><button class="btn alt" id="mt" ${ws.length<6?"disabled":""}>Eşleştir</button><button class="btn alt" id="ts">Test et</button></div>
  <div>${ws.map((v,k)=>{const s=vstat(v);return`<div class="sent"><button class="pl" data-k="${k}" aria-label="Dinle">🔊</button><div class="grow"><b>${esc(v.w)}</b> <span class="badge">${v.lv}</span> = ${esc(v.tr)}<div class="muted small">${esc(v.ex?v.ex:posTxt(v.pos))}</div></div><span class="badge ${s==="known"?"ok":""}">${s==="known"?"Öğrenildi":s==="learn"?"Tekrarda":"Yeni"}</span></div>`}).join("")}</div>
  ${i+1<sets?`<button class="link" id="nx2" style="margin-top:14px">Sonraki set ›</button>`:""}`;
  $("bk").onclick=sets>1?()=>openGroup(g):g.back;on(".pl",el=>say(spoken(ws[+el.dataset.k].w)));
- $("lr").onclick=()=>{let pool=ws.filter(v=>vstat(v)!=="known");if(!pool.length)pool=ws;const nw=pool.filter(v=>vstat(v)==="new").slice(0,10),rv=pool.filter(v=>vstat(v)==="learn").slice(0,10-nw.length);DPOOL=all;const items=learnItems(nw.length?nw:pickN(ws,Math.min(8,ws.length)),rv);DPOOL=null;startSession(g.title,items,{back,onEnd:vUpdate})};
+ $("lr").onclick=()=>{let pool=ws.filter(v=>vstat(v)!=="known");if(!pool.length)pool=ws;const nw=pool.filter(v=>vstat(v)==="new").slice(0,10),rv=pool.filter(v=>vstat(v)==="learn").slice(0,10-nw.length);DPOOL=all;const items=learnItems(nw.length?nw:pickN(ws,Math.min(8,ws.length)),rv);DPOOL=null;startSession(g.title,items,{back,onEnd:vUpdate,wset:ws})};
  $("mt").onclick=()=>matchGame(ws.map(v=>({...v,w:spoken(v.w)})),back);
  $("ts").onclick=()=>{DPOOL=all;const items=shuffle(ws).map(v=>vItem(v,KINDS[Math.floor(Math.random()*KINDS.length)]));DPOOL=null;startSession(g.title+" testi",items,{back,onEnd:vUpdate})};
  if($("nx2"))$("nx2").onclick=()=>openGroupSet(g,i+1);
@@ -3152,12 +3155,12 @@ function openUnit(id){const u=UNITS.find(x=>x.id===id);const back=()=>{st.viewLv
   ${u.kind==="dlg"?`<button class="tile-card" id="rp"><span class="ic">🎭</span><b>Rol yap</b><span class="muted small">Bir rolü seç; karşı taraf konuşur, sen doğru cevabı verirsin.</span></button>`:""}
   <button class="tile-card ai-only" id="cc"><span class="ic">🗣️</span><b>Claude ile bu durumu konuş</b><span class="muted small">Aynı durumu serbestçe konuş; hatalarını düzeltir.</span></button>
  </div></section>`;
- $("bk").onclick=()=>{if(window.speechSynthesis)speechSynthesis.cancel();back()};
+ $("bk").onclick=()=>{ttsStop();back()};
  on(".pl[data-s]",el=>say(u.s[+el.dataset.s][0]));on(".pl[data-p]",el=>say(u.p[+el.dataset.p][0].replace(/…/g,"")));
- on("#dl .msg",el=>{const x=u.d[+el.dataset.i];speechSynthesis&&speechSynthesis.cancel();sayV(x[1],x[0])});
+ on("#dl .msg",el=>{const x=u.d[+el.dataset.i];speechSynthesis&&ttsStop();sayV(x[1],x[0])});
  if($("tt"))$("tt").onclick=()=>{showTr=!showTr;draw()};
- if($("pa"))$("pa").onclick=()=>{if(playing){playing=false;speechSynthesis.cancel();draw();return}playing=true;draw();speechSynthesis.cancel();
-  const run=i=>{document.querySelectorAll("#dl .msg").forEach((b,k)=>b.style.outline=k===i?"3px solid var(--hl)":"");if(i>=u.d.length||!playing){playing=false;if($("pa"))$("pa").textContent="▶ Diyaloğu dinle";return}sayV(u.d[i][1],u.d[i][0],.92,()=>setTimeout(()=>run(i+1),350))};run(0)};
+ if($("pa"))$("pa").onclick=()=>{if(playing){playing=false;ttsStop();draw();return}playing=true;draw();ttsStop();
+  const run=i=>{document.querySelectorAll("#dl .msg").forEach((b,k)=>b.style.outline=k===i?"3px solid var(--hl)":"");if(i>=u.d.length||!playing){playing=false;if($("pa"))$("pa").textContent="▶ Diyaloğu dinle";return}sayV(u.d[i][1],u.d[i][0],.92,()=>{const tok=TTS.gen;setTimeout(()=>{if(TTS.gen===tok)run(i+1);else{playing=false;if($("pa"))$("pa").textContent="▶ Diyaloğu dinle"}},350)})};run(0)};
  $("ex").onclick=()=>startSession(u.t,unitItems(u),{back:()=>openUnit(id),onEnd:s=>{const pc=Math.round(100*s.ok/(s.items.filter(x=>x.type!=="card").length||1));const o=st.units[id]||{};st.units[id]={done:true,best:Math.max(o.best||0,pc)};save()}});
  if($("rp"))$("rp").onclick=()=>pickRole(u);
  $("cc").onclick=()=>openChat({t:u.t,r:`the "${u.r[0]}" in this real-life situation (described in Turkish): "${u.sit}". Start naturally with the first line of that situation`});
@@ -3188,7 +3191,7 @@ function gramSection(lv){const g=GRAMMAR.filter(x=>x[0]===lv);const done=g.filte
  <div class="card" style="margin-top:10px"><div class="row" style="flex-wrap:wrap;gap:14px"><div class="grow"><b>${done} / ${g.length} konu tamamlandı</b><div class="bar" style="margin-top:8px"><i style="width:${100*done/g.length}%"></i></div>
  <p class="small muted" style="margin:8px 0 0">${hand===g.length?"Her derste Türkçe anlatım, yapı tablosu, sesli örnekler, sık yapılan hatalar ve alıştırmalar var.":hand?hand+" konu tam ders, "+(g.length-hand)+" konu Claude ile anlatılıyor.":"Bu seviyenin konuları Claude ile anlatılıyor ve alıştırmalar her seferinde yeniden üretiliyor."} Bir konu alıştırmada %70 ve üzeri alınca tamamlanmış sayılır.</p></div></div>
  <div class="row" style="margin-top:12px;flex-wrap:wrap">${nx?`<button class="btn pri sm" id="gnx">${done?"Devam et":"Başla"}: ${esc(nx[2])}</button>`:`<span class="badge ok">Bu seviyenin tüm konuları tamamlandı</span>`}<button class="btn alt sm" id="gtest">${lv} dil bilgisi testi</button></div></div>
- <ol class="path">${g.map((x,i)=>{const s=gramStatus(x[1]),cur=nx&&nx[1]===x[1];return`<li class="${s}${cur?" cur":""}"><button class="pnode" data-g="${x[1]}"><span class="pnum">${s==="done"?"✓":i+1}</span><span class="grow"><span class="t">${esc(x[2])}</span><span class="muted small" style="display:block">${esc(x[3])}</span><span class="row small" style="gap:6px;margin-top:6px;flex-wrap:wrap"><span class="badge">${LESSON[x[1]]?"Ders, ~10 dk":"Claude dersi"}</span>${st.gram&&st.gram[x[1]]!=null?`<span class="badge ${s==="done"?"ok":""}">En iyi %${st.gram[x[1]]}</span>`:""}${cur?`<span class="badge" style="background:var(--hl);color:var(--hlink)">Sıradaki</span>`:""}</span></span><span aria-hidden="true">›</span></button></li>`}).join("")}</ol></section>
+ <ol class="path">${g.map((x,i)=>{const s=gramStatus(x[1]),cur=nx&&nx[1]===x[1];return`<li class="${s}${cur?" cur":""}"><button class="pnode" data-g="${x[1]}"><span class="pnum">${s==="done"?"✓":i+1}</span><span class="grow"><span class="t">${esc(x[2])}</span><span class="muted small" style="display:block">${esc(x[3])}</span><span class="row small" style="gap:6px;margin-top:6px;flex-wrap:wrap"><span class="badge">${LESSON[x[1]]?"Ders, ~10 dk":"Claude dersi"}</span>${st.gram&&st.gram[x[1]]!=null?`<span class="badge ${s==="done"?"ok":""}">${s==="done"?"✓ Tamamlandı, %"+st.gram[x[1]]:"En iyi %"+st.gram[x[1]]+", tamamlamak için %70"}</span>`:""}${cur?`<span class="badge" style="background:var(--hl);color:var(--hlink)">Sıradaki</span>`:""}</span></span><span aria-hidden="true">›</span></button></li>`}).join("")}</ol></section>
 `}
 function bindGram(lv){const g=GRAMMAR.filter(x=>x[0]===lv);on(".pnode[data-g]",el=>openTopic(el.dataset.g));
  const nx=g.find(x=>gramStatus(x[1])!=="done");if($("gnx"))$("gnx").onclick=()=>openTopic(nx[1]);
@@ -3214,7 +3217,7 @@ function openLesson(id){const x=GRAMMAR.find(g=>g[1]===id),L=LESSON[id];const lv
  </div><div class="ai-box card hidden" id="axo" style="margin-top:12px"></div></section>
  <div class="row" style="margin-top:22px;justify-content:space-between">${prev?`<button class="btn alt sm" id="pv">‹ ${esc(prev[2])}</button>`:"<span></span>"}${nx?`<button class="btn pri sm" id="nl">${esc(nx[2])} ›</button>`:`<span class="badge ok">Seviyenin son dersi</span>`}</div>`;
  $("bk").onclick=()=>{st.viewLv=x[0];setTab("en")};on(".pl",el=>say(L.eg[+el.dataset.k][0]));
- $("qz").onclick=()=>startSession(x[2],lessonItems(id),{back:()=>openLesson(id),onEnd:done,endNote:()=>nx?`<p style="margin-top:10px">Sıradaki ders: <b>${esc(nx[2])}</b></p>`:""});
+ $("qz").onclick=()=>startSession(x[2],lessonItems(id),{back:()=>openLesson(id),onEnd:done,endNote:()=>gramNote(id)+(nx?`<p style="margin-top:10px">Sıradaki ders: <b>${esc(nx[2])}</b></p>`:"")});
  $("mq").onclick=()=>genQuiz(x[0],`"${x[2]}" konusu (${x[3]})`,x[2],()=>openLesson(id),10,done);
  $("ax").onclick=async()=>{const q=await uiPrompt("Bu konuda neyi anlamadın?");if(!q)return;$("axo").classList.remove("hidden");ask(`Bir Türk öğrenci "${x[2]}" (${x[0]}) konusunu çalışıyor ve şunu soruyor: "${q}". Türkçe, sade ve kısa (en fazla 150 kelime) açıkla, 2-3 İngilizce örnek cümle ve Türkçelerini ver. Markdown kullanma.`,$("axo"),{modelTier:"default"})};
  if($("pv"))$("pv").onclick=()=>openTopic(prev[1]);if($("nl"))$("nl").onclick=()=>openTopic(nx[1]);window.scrollTo(0,0);
@@ -3515,9 +3518,9 @@ function ydsToday(){const P=st.ydsPlan;const days=Math.ceil((new Date(P.date+"T0
  app.innerHTML=`<button class="link" id="bk">‹ YDS</button><h1 style="margin-top:14px"><span class="mk">Bugünün YDS planı</span></h1>
  <p class="muted">${days>0?days+" gün ("+wk+" hafta) kaldı.":"Sınav günü geldi ya da geçti; planı güncelle."} Hedef: ${P.target} puan (${Math.ceil(P.target/1.25)} doğru). Günde ${P.min} dakika.</p>
  <div class="card" style="margin-top:12px;border-left:6px solid var(--hl)"><b>${phase==="temel"?"1. aşama":phase==="teknik"?"2. aşama":"3. aşama"}</b><p style="margin-bottom:0">${phaseTxt}</p></div>
- <ol class="guide" id="gd" style="margin-top:14px">${tasks.map((s,i)=>`<li><button class="item" data-i="${i}"><span class="grow"><span class="t">${esc(s.t)}</span><br><span class="muted small">${esc(s.d)}</span></span><span>›</span></button></li>`).join("")}</ol>
+ <ol class="guide" id="gd" style="margin-top:14px">${tasks.map((s,i)=>`<li><button class="item${gDone("y",i)?" tdone":""}" data-i="${i}"><span class="grow"><span class="t">${esc(s.t)}</span><br><span class="muted small">${esc(s.d)}</span></span>${gDone("y",i)?'<span class="badge ok">✓ Bugün yapıldı</span>':"<span>›</span>"}</button></li>`).join("")}</ol>
  <div class="card" style="margin-top:14px"><b>Yol haritası</b><p class="small" style="margin-bottom:0">Sınava 8 haftadan fazla varken temel aşamasında dil bilgisi ve kelime, 3–8 hafta arasında soru tipi teknikleri ve haftalık deneme, son 3 haftada sık deneme ve hata analizi. Plan her gün kendini günceller.</p></div>`;
- $("bk").onclick=()=>setTab("yds");on("#gd .item",el=>tasks[+el.dataset.i].go());
+ $("bk").onclick=()=>setTab("yds");on("#gd .item",el=>{GD=["y",+el.dataset.i];tasks[+el.dataset.i].go()});
 }
 
 /* ===== TEST MERKEZİ ===== */
@@ -3562,7 +3565,7 @@ function viewTest(){const seg=st.testSeg||"yds";
   $("tH").onclick=()=>st.mist.length?startMist():null;if($("tWo"))$("tWo").onclick=()=>{const ws=st.words;startSession("Kelimelerim",wordItems(pickN(ws,10),ws).slice(0,20),{back:bk})};
  }
 }
-function playDlg(u,btn,cb){if(!window.speechSynthesis)return;speechSynthesis.cancel();let i=0;const run=()=>{if(i>=u.d.length){btn&&(btn.disabled=false);cb&&cb();return}sayV(u.d[i][1],u.d[i][0],.93,()=>setTimeout(run,300));i++};btn&&(btn.disabled=true);run()}
+function playDlg(u,btn,cb){if(!window.speechSynthesis)return;ttsStop();let i=0;const run=()=>{if(i>=u.d.length){btn&&(btn.disabled=false);cb&&cb();return}sayV(u.d[i][1],u.d[i][0],.93,()=>{const tok=TTS.gen;setTimeout(()=>{if(TTS.gen===tok)run();else{btn&&(btn.disabled=false)}},300)});i++};btn&&(btn.disabled=true);run()}
 function listenExam(lv,back){const us=pickN(UNITS.filter(x=>x.kind==="dlg"&&x.lv===lv),Math.min(3,UNITS.filter(x=>x.kind==="dlg"&&x.lv===lv).length));
  const others=UNITS.filter(x=>x.kind==="dlg");const items=[];
  us.forEach(u=>{const ln=pickN(u.d,2);
@@ -3709,8 +3712,8 @@ function kaClozeAll(){return KA.cloze.flatMap((c,ci)=>{let t=c[1];for(let i=1;i<
 function openKA(){const back=()=>setTab("yds");
  app.innerHTML=`<button class="link" id="bk">‹ YDS</button><h1 style="margin-top:14px"><span class="mk">YDS kelime programı</span></h1>
  <p class="muted">Kelime Akademisi artık burada: ${KAU.reduce((a,u)=>a+u.words.length,0)} kelime ve kalıp, her biri YDS tarzı örnek cümle ve eş anlamlısıyla. Üç aşamalı program: önce ÖSYM'nin doğrudan sorduğu çekirdek, sonra sık kullanılan akademik kelimeler, en son ileri seviye ve konu kelimeleri.</p>
- <button class="tile-card" id="st" style="margin-top:14px;width:100%"><span class="row"><span class="ic">⭐</span><b class="grow">ÖSYM'de tekrar çıkanlar</b><span class="small muted">${kStat(KASTAR)}/${KASTAR.length}</span></span><span class="muted small">Sınavlarda birden fazla kez doğru cevap ya da şık olan kelimeler. Sınavdan önce mutlaka tekrar et.</span></button>
- ${[1,2,3].map(s=>`<h3 class="lv">${s}. aşama: ${s===1?"Çekirdek":s===2?"Sık kullanılan akademik kelimeler":"İleri seviye ve konu kelimeleri"}</h3><div class="grid2">${KAU.filter(u=>u.stage===s).map(u=>{const k=kStat(u.words);return`<button class="tile-card" data-k="${u.k}" style="min-height:0"><span class="row"><span class="ic">${u.em}</span><b class="grow">${esc(u.name)}</b><span class="small muted">${k}/${u.words.length}</span></span><span class="bar" style="height:6px"><i style="width:${100*k/u.words.length}%"></i></span></button>`}).join("")}</div>`).join("")}
+ <button class="tile-card" id="st" style="margin-top:14px;width:100%"><span class="row"><span class="ic">⭐</span><b class="grow">ÖSYM'de tekrar çıkanlar</b>${wpTag(wp(KASTAR))}</span><span class="muted small">Sınavlarda birden fazla kez doğru cevap ya da şık olan kelimeler. Sınavdan önce mutlaka tekrar et.</span></button>
+ ${[1,2,3].map(s=>`<h3 class="lv">${s}. aşama: ${s===1?"Çekirdek":s===2?"Sık kullanılan akademik kelimeler":"İleri seviye ve konu kelimeleri"}</h3><div class="grid2">${KAU.filter(u=>u.stage===s).map(u=>{const p=wp(u.words);return`<button class="tile-card${p.done?" tdone":""}" data-k="${u.k}" style="min-height:0"><span class="row"><span class="ic">${u.em}</span><b class="grow">${esc(u.name)}</b>${wpTag(p)}</span>${wpBar(p)}</button>`}).join("")}</div>`).join("")}
  <section class="sec"><h2>YDS tarzı kelime testi</h2><p class="muted small">Gerçek sınavdaki gibi 5 şıklı cümle içi boşluk doldurma.</p><div class="chips">${[1,2,3].map(s=>`<button class="chip" data-t="${s}">${s}. aşamadan 20 soru</button>`).join("")}<button class="chip" data-t="star">⭐ Tekrar çıkanlardan 20 soru</button></div></section>`;
  $("bk").onclick=back;$("st").onclick=()=>openGroup({title:"ÖSYM'de tekrar çıkanlar",sub:"Kelime Akademisi",ic:"⭐",words:KASTAR,back:openKA,backLabel:"YDS kelime programı"});
  on(".tile-card[data-k]",el=>{const u=KAU.find(x=>x.k===el.dataset.k);openGroup({title:u.name+" ("+u.stage+". aşama)",sub:u.tip||"",ic:u.em,words:u.words,back:openKA,backLabel:"YDS kelime programı"})});
@@ -3930,10 +3933,8 @@ BOOKS.push({id:"trans",lv:"C2",t:"The Translator",tr:"Çevirmen",d:"Bir çevirme
  q:[["How did Selin finally solve the problem of the word?",["She kept a simple translation but reshaped the rhythm of the lines before it","She added a long footnote","She left the word in English","She replaced the poem with a paraphrase"]],["What does the final sentence suggest about Selin's view of translation?",["Being faithful to a text involves more than word-for-word accuracy","Accuracy is the only goal of a translator","Letters are more important than poems","Reviews should not be trusted"]]]}]});
 
 /* ===== SES AYARLARI ===== */
-function enVoices(){return((window.speechSynthesis&&speechSynthesis.getVoices())||[]).filter(v=>/^en/i.test(v.lang))}
+function enVoices(){return ttsVoices()}
 function applyVoice(){const vs=enVoices();if(st.voice){const v=vs.find(x=>x.name===st.voice);if(v){voice=v;VOICES[0]=v}}}
-const _say=say;say=function(t,rate=.92){if(!window.speechSynthesis)return;applyVoice();_say(t,rate*(st.rate||1))};
-const _sayV=sayV;sayV=function(t,who,rate=.92,onend){applyVoice();_sayV(t,who,rate*(st.rate||1),onend)};
 
 /* ===== HATA BİLDİR ===== */
 const FEEDBACK_EMAIL="";
@@ -4005,7 +4006,7 @@ function openAbout(){const back=()=>setTab("book");
 (function(){const _vb=viewBook;viewBook=function(){_vb();const sec=document.createElement("section");sec.className="sec";
  sec.innerHTML=`<h2>Uygulama</h2><div class="list"><button class="item" id="ob"><span style="font-size:1.4rem">💾</span><span class="grow"><span class="t">Yedekle ve geri yükle</span><br><span class="muted small">Son yedek: ${st.lastBackup||"hiç alınmadı"}</span></span><span>›</span></button>
  <button class="item" id="ov2"><span style="font-size:1.4rem">🔊</span><span class="grow"><span class="t">Ses ayarları</span><br><span class="muted small">İngilizce ses ve konuşma hızı</span></span><span>›</span></button>
- <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.10.12-1 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
+ <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.10.12-2 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
  <button class="item" id="oa"><span style="font-size:1.4rem">ℹ️</span><span class="grow"><span class="t">Hakkında, gizlilik ve lisanslar</span><br><span class="muted small">Hata bildirimlerin de burada</span></span><span>›</span></button></div>`;
  app.appendChild(sec);$("ob").onclick=openBackup;$("oup").onclick=e=>UPD.manual(e.currentTarget);$("ov2").onclick=openVoice;$("oa").onclick=openAbout;}})();
 (function(){const _vh=viewHome;viewHome=function(){_vh();const p=document.createElement("p");p.className="small muted";p.style.cssText="text-align:center;margin-top:28px";p.innerHTML='Dil Atölyesi, geliştirici: <b>Okan Asl</b>';app.appendChild(p)}})();
@@ -4087,7 +4088,7 @@ function openTriText(i,lv){const x=TRI[i];app.innerHTML=`<button class="link" id
  <div class="row" style="margin-bottom:10px"><button class="btn alt sm" id="pl">🔊 Dinle</button><button class="btn alt sm" id="sp">⏹</button></div>
  <div class="card reader">${esc(x.v[lv])}</div>
  <div class="foot"><button class="btn pri wide" id="qq">${lv} soruları</button></div>`;
- $("bk").onclick=openTri;on(".chip[data-l]",el=>openTriText(i,el.dataset.l));$("pl").onclick=()=>say(x.v[lv],.92);$("sp").onclick=()=>speechSynthesis&&speechSynthesis.cancel();
+ $("bk").onclick=openTri;on(".chip[data-l]",el=>openTriText(i,el.dataset.l));$("pl").onclick=()=>say(x.v[lv],.92);$("sp").onclick=()=>ttsStop();
  $("qq").onclick=()=>startSession(x.t+" ("+lv+")",x.q[lv].map(q=>({type:"mc",p:x.v[lv],q:q[0],o:q[1],why:"Cevap metinde.",cat:"Okuma"})),{back:()=>openTriText(i,lv)})}
 
 /* ===== DIŞ KAYNAKLAR ===== */
@@ -4288,7 +4289,7 @@ function whoScreen(){const ov=$("ov"),ps=profiles();
  ${ps.length?`<div class="stack" style="margin-top:16px">${ps.map(n=>`<button class="pick" data-n="${esc(n)}"><b>👤 ${esc(n)}</b><br><span class="muted small">${profXP(n)} puan</span></button>`).join("")}</div>`:""}
  <h2 style="margin-top:22px">${ps.length?"Yeni kişi":"Adın ne?"}</h2><input id="wn" type="text" maxlength="30" placeholder="Adın" autocomplete="given-name" style="margin-top:8px;width:100%">
  <button class="btn pri wide" id="wok" style="margin-top:12px">Giriş yap</button>
- <p class="small muted" style="margin-top:14px">İlerlemen bu telefonda saklanır. Telefon değiştireceksen Defter › Yedekle bölümünden yedek al.</p></div>`;
+ <p class="small muted" style="margin-top:14px">Bu cihazdaki kayıt yalnızca bu tarayıcıda durur. Claude hesabınla giriş yapmış olarak açarsan ilerlemen tüm cihazlarında aynı olur.</p></div>`;
  ov.classList.remove("hidden");
  on(".pick[data-n]",el=>{ov.classList.add("hidden");enterLocal(el.dataset.n)});
  const go=async()=>{const n=$("wn").value.trim().replace(/\s+/g," ");if(n.length<2){$("wn").focus();return}
@@ -4334,6 +4335,60 @@ async function openOwner(){const ov=$("ov");ov.innerHTML=`<div class="in"><butto
 (function(){const _ot=openTopic;openTopic=function(id){if(st.lastTopic!==id){st.lastTopic=id;save()}_ot(id)}})();
 
 /* açılış */
+
+/* ===== SAĞLAM SESLİ OKUMA MOTORU ===== */
+const TTS={q:[],keep:[],gen:0,warned:false};
+function ttsVoices(){return((window.speechSynthesis&&speechSynthesis.getVoices())||[]).filter(v=>/^en[-_]/i.test(v.lang)||/^en$/i.test(v.lang))}
+function ttsPick(alt){const vs=ttsVoices();if(!vs.length)return null;
+ if(!alt&&st.voice){const u=vs.find(v=>v.name===st.voice);if(u)return u}
+ const good=/samantha|daniel|karen|moira|serena|alex|aria|jenny|guy|libby|sonia|ryan|natural|google us english|google uk english|english \(united states\)|english \(united kingdom\)/i;
+ const loc=vs.filter(v=>v.localService!==false);const us=a=>a.filter(v=>/en[-_](US|GB)/i.test(v.lang));
+ const pool=[...us(loc).filter(v=>good.test(v.name)),...us(loc),...loc,...us(vs).filter(v=>good.test(v.name)),...vs];
+ if(!alt)return pool[0];const first=pool[0];return pool.find(v=>v!==first&&(/male|daniel|guy|ryan|david|george|alex|en-GB/i.test(v.name+" "+v.lang)))||pool.find(v=>v!==first)||first}
+function ttsToast(msg){let t=document.getElementById("ttsToast");if(!t){t=document.createElement("div");t.id="ttsToast";t.setAttribute("role","status");t.style.cssText="position:fixed;left:50%;transform:translateX(-50%);bottom:calc(80px + env(safe-area-inset-bottom,0px));max-width:min(92vw,460px);background:var(--ink);color:var(--card);padding:12px 16px;border-radius:12px;font-size:.88rem;z-index:99;box-shadow:0 6px 24px rgba(0,0,0,.25)";document.body.appendChild(t)}
+ t.innerHTML=msg;t.style.display="block";clearTimeout(t._h);t._h=setTimeout(()=>t.style.display="none",6000)}
+function ttsChunks(text){const s=String(text).replace(/\s+/g," ").replace(/----/g,"blank").trim();if(!s)return[];
+ const parts=s.match(/[^.!?;:]+[.!?;:]*\s*/g)||[s];const out=[];let cur="";
+ parts.forEach(p=>{if((cur+p).length>180&&cur){out.push(cur.trim());cur=""}
+  if(p.length>180){p.split(/,\s*/).forEach(x=>{if((cur+x).length>180&&cur){out.push(cur.trim());cur=""}cur+=x+", "})}else cur+=p});
+ if(cur.trim())out.push(cur.trim().replace(/,\s*$/,""));return out}
+function ttsSpeak(text,opt={}){
+ if(!window.speechSynthesis||!window.SpeechSynthesisUtterance){if(!TTS.warned){TTS.warned=true;ttsToast("Bu tarayıcı sesli okumayı desteklemiyor. Chrome, Safari ya da Edge ile dene.")}opt.onend&&opt.onend();return}
+ const gen=++TTS.gen;const chunks=ttsChunks(text);if(!chunks.length){opt.onend&&opt.onend();return}
+ const synth=speechSynthesis;const busy=synth.speaking||synth.pending;if(busy&&!opt.queue){synth.cancel();TTS.cAt=Date.now()}const wait=Date.now()-(TTS.cAt||0)<200;
+ let i=0,retried=false;
+ const next=()=>{if(gen!==TTS.gen)return;if(i>=chunks.length){TTS.keep=[];opt.onend&&opt.onend();return}
+  const u=new SpeechSynthesisUtterance(chunks[i]);const v=retried?null:(opt.alt?ttsPick(true):ttsPick(false));
+  u.lang=v?v.lang:"en-US";if(v)u.voice=v;u.rate=Math.max(.5,Math.min(1.5,(opt.rate||.92)*(st.rate||1)));if(opt.pitch)u.pitch=opt.pitch;
+  u.onend=()=>{i++;next()};
+  u.onerror=e=>{const er=e&&e.error;if(er==="interrupted"||er==="canceled")return;
+   if(er==="not-allowed"){ttsToast("Sesi başlatmak için 🔊 düğmesine bir kez dokun.");return}
+   if(!retried){retried=true;next();return}
+   if(!TTS.warned){TTS.warned=true;ttsToast('Sesli okuma çalışmadı. Cihazında İngilizce ses yüklü olmayabilir. <b>Defter → Ses ayarları</b> bölümüne bak.')}i++;next()};
+  TTS.keep.push(u);try{synth.resume()}catch(_){}synth.speak(u)};
+ if(wait)setTimeout(next,150);else next();
+ if(!ttsVoices().length&&!TTS.checked){TTS.checked=true;setTimeout(()=>{if(!ttsVoices().length&&!TTS.warned){TTS.warned=true;ttsToast('Cihazında İngilizce ses bulunamadı. <b>Defter → Ses ayarları</b> bölümünde nasıl yükleneceği anlatılıyor.')}},2500)}}
+say=function(t,rate=.92){ttsSpeak(t,{rate})};
+sayV=function(t,who,rate=.92,onend){ttsSpeak(t,{rate,alt:who%2===1,pitch:who%2?0.9:1.05,onend,queue:false})};
+function ttsStop(){TTS.gen++;TTS.cAt=Date.now();try{speechSynthesis.cancel()}catch(_){}}
+if(window.speechSynthesis){try{speechSynthesis.getVoices()}catch(_){};if(speechSynthesis.addEventListener)speechSynthesis.addEventListener("voiceschanged",()=>{try{pickVoice();loadVoices()}catch(_){}})}
+document.addEventListener("visibilitychange",()=>{if(document.hidden)ttsStop()});
+
+
+/* ===== İLERLEME GÖSTERİMİ ===== */
+let GD=null;
+function wp(ws){let s=0,k=0;for(const v of ws){const e=vb()[v.id];if(e){s++;if(e.b>=3)k++}}return{s,k,n:ws.length,done:ws.length>0&&s===ws.length}}
+function wpBar(p,h=6){const n=p.n||1;return`<span class="bar" style="height:${h}px;display:flex"><i style="width:${100*p.k/n}%;background:var(--ok)"></i><i style="width:${100*(p.s-p.k)/n}%;border-radius:0"></i></span>`}
+function wpTag(p){return p.done?`<span class="badge ok">✓ ${p.n}/${p.n}</span>`:`<span class="small muted">${p.s}/${p.n}</span>`}
+function wpLine(p){return p.done?`✓ Hepsi çalışıldı (${p.n}/${p.n}), ${p.k} öğrenildi.`:`${p.s}/${p.n} çalışıldı, ${p.k} öğrenildi.`}
+function wsetNote(ws){const p=wp(ws);return p.done?`<div class="card" style="text-align:left;margin:14px 0;border-left:6px solid var(--ok)"><b>✓ Tamamlandı: ${p.n}/${p.n} kelime çalışıldı.</b><p class="small muted" style="margin:4px 0 0">Bu kelimeler 1, 3 ve 7 gün sonra "Bugünün kelimeleri"nde yeniden sorulur; üç kez doğru bildiğinde "öğrenildi" sayılır. Şu an ${p.k} kelime öğrenildi.</p></div>`
+ :`<div class="card" style="text-align:left;margin:14px 0"><b>${p.s}/${p.n} kelime çalışıldı.</b><p class="small muted" style="margin:4px 0 0">Kalan ${p.n-p.s} kelime için "Bitti"ye basıp sayfadaki "Öğren"e tekrar dokun.</p></div>`}
+function gramNote(id){const v=(st.gram||{})[id];return v>=70?`<p style="margin-top:10px"><span class="badge ok">✓ Konu tamamlandı</span></p>`:`<p class="small" style="margin-top:10px">Konunun tamamlanmış sayılması için en az %70 gerekiyor (en iyi: %${v||0}).</p>`}
+function chDone(id,i){const a=(st.rdc||{})[id];return a?a.includes(i):i<((st.read||{})[id]||0)}
+function gDone(k,i){const g=st.gdone;return!!(g&&g.d===dayKey()&&(g[k]||[]).includes(i))}
+try{document.querySelector(".tabs").addEventListener("click",()=>{GD=null},true)}catch(_){}
+function markGuide(){if(!GD)return;const [k,i]=GD;GD=null;if(!st.gdone||st.gdone.d!==dayKey())st.gdone={d:dayKey()};const a=st.gdone[k]=st.gdone[k]||[];if(!a.includes(i))a.push(i);save()}
+
 (async function boot(){st=defState();renderTop();app.innerHTML=`<p class="muted" style="text-align:center;margin-top:40px">Yükleniyor…</p>`;
  const use=n=>window.claude&&window.claude.use?Promise.race([window.claude.use(n).catch(()=>null),new Promise(r=>setTimeout(()=>r(null),6000))]):Promise.resolve(null);
  const [u,d]=await Promise.all([use("user"),use("db")]);let id=null,nm="";
@@ -4351,7 +4406,7 @@ async function openOwner(){const ov=$("ov");ov.innerHTML=`<div class="in"><butto
 <script>
 if("serviceWorker" in navigator&&location.protocol.startsWith("http")){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").then(r=>{r.addEventListener("updatefound",()=>{const w=r.installing;w&&w.addEventListener("statechange",()=>{if(w.state==="installed"&&navigator.serviceWorker.controller){const b=document.createElement("button");b.className="btn pri";b.textContent="Yeni sürüm hazır, yenile";b.style.cssText="position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:50;box-shadow:0 6px 20px rgba(0,0,0,.25)";b.onclick=()=>UPD.run(b);document.body.appendChild(b)}})})}).catch(()=>{})})}
 /* ===== GÜNCELLEME (Güncelle butonu + otomatik yeni sürüm uyarısı) ===== */
-const APP_VER="2026.10.12-1";
+const APP_VER="2026.10.12-2";
 const UPD={
  web:()=>/^https?:$/.test(location.protocol),
  async check(){ try{ const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"}); if(!r.ok) return null; const j=await r.json(); return j&&j.v?String(j.v):null; }catch(e){ return null; } },
