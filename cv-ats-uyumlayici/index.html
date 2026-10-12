@@ -895,6 +895,22 @@ let sample = null, downloads = null, imgLimits = null;
 try { if (window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js"; } catch(e) {}
 
 /* ---------- helpers ---------- */
+function askChoice(msg, buttons){
+  return new Promise(res => {
+    const bg = document.createElement("div"); bg.className = "modalBg"; bg.setAttribute("role", "dialog"); bg.setAttribute("aria-modal", "true");
+    const box = document.createElement("div"); box.className = "modalBox";
+    const p = document.createElement("p"); p.textContent = msg; box.appendChild(p);
+    const bar = document.createElement("div"); bar.className = "toolbar"; bar.style.flexDirection = "column"; bar.style.alignItems = "stretch";
+    let first = null;
+    const done = v => { bg.remove(); document.removeEventListener("keydown", onKey, true); res(v); };
+    const onKey = e => { if (e.key === "Escape"){ e.preventDefault(); done(null); } };
+    buttons.forEach(b => { const x = document.createElement("button"); x.type = "button"; x.className = "btn" + (b.primary ? "" : " ghost"); x.textContent = b.label; x.dataset.k = b.k; x.onclick = () => done(b.k); bar.appendChild(x); if (b.primary && !first) first = x; });
+    box.appendChild(bar); bg.appendChild(box); document.body.appendChild(bg);
+    bg.addEventListener("click", e => { if (e.target === bg) done(null); });
+    document.addEventListener("keydown", onKey, true);
+    (first || bar.firstChild).focus();
+  });
+}
 function ask(msg, okText, cancelText){
   return new Promise(res => {
     const bg = document.createElement("div"); bg.className = "modalBg"; bg.setAttribute("role", "dialog"); bg.setAttribute("aria-modal", "true");
@@ -1387,7 +1403,7 @@ ${cvForAudit(cv)}
 Görevlerin:
 1. ATS olarak: ilandaki unvan ve kritik terimler doğru bölümlerde birebir geçiyor mu, bölümler standart mı, tarihler tutarlı mı?
 2. Müdür olarak: 7 saniyelik ilk bakışta (başlık, özet, son rolün ilk maddeleri, yetkinlikler) ne görürsün, aklında ne kalır, hangi bölümleri/maddeleri atlarsın?
-3. Atlanacak ya da zayıf kalan en fazla 6 yeri dikkat çekecek şekilde yeniden yaz (yalnızca başlık, özet ya da deneyim maddeleri). XYZ formülünü koru, köşeli parantezli yer tutucuları koru, orijinal CV'de olmayan hiçbir gerçeği ekleme. Yeni CV orijinalde olmayan bir şey içeriyorsa onu düzelten bir yama ver${addedList().length ? '; ancak şu terimler adayın isteğiyle eklendi, bunları kaldırma: ' + addedList().map(x => x.term).join(", ") : ""}.
+3. Atlanacak ya da zayıf kalan en fazla 6 yeri dikkat çekecek şekilde yeniden yaz (yalnızca başlık, özet ya da deneyim maddeleri). XYZ formülünü koru, ${autoOn() ? "köşeli parantezli yer tutucu kullanma (varsa rakamsız ama açıklayıcı cümleye çevir)" : "köşeli parantezli yer tutucuları koru"}, orijinal CV'de olmayan hiçbir gerçeği ekleme. Yeni CV orijinalde olmayan bir şey içeriyorsa onu düzelten bir yama ver${addedList().length ? '; ancak şu terimler adayın isteğiyle eklendi, bunları kaldırma: ' + addedList().map(x => x.term).join(", ") : ""}.
 4. Yeni CV'yi (yamalardan önceki haliyle) aynı ölçütle puanla.
 
 ${RUBRIC}
@@ -1655,6 +1671,7 @@ async function run(){
       state.audit = null;
       runErr("Son tarama tamamlanamadı (" + errMsg(e).split(".")[0].toLowerCase() + "). CV hazır; istersen tekrar çalıştırarak taramayı yeniden deneyebilirsin.");
     }
+    if (autoOn() && hasPh()){ try { await cleanPlaceholders(signal); } catch(e){ if (e && e.code === "cancelled") throw e; } }
     setStages(5);
     renderAll();
     recordHistory();
@@ -2033,6 +2050,32 @@ function addRow(term){
   row.append(inp, go); wrap.append(b, row);
   return wrap;
 }
+const PH_RE = /\[[^\]\n]{0,40}\]/;
+function hasPh(cv){ return PH_RE.test(cvToText(cv || state.cv)); }
+function stripPhText(s){
+  if (!s || !PH_RE.test(s)) return s;
+  return String(s)
+    .replace(/\s*(?:yaklaşık|approximately|about|by)?\s*\[[^\]\n]{0,40}\]\s*(?:oranında|oranla|düzeyinde|seviyesinde|kadar|civarında|daha|percent)?/gi, " ")
+    .replace(/\s{2,}/g, " ").replace(/\s+([.,;:!?])/g, "$1").replace(/([,;])\s*([.!?])/g, "$2").trim();
+}
+function stripPlaceholders(cv){
+  cv.headline = stripPhText(cv.headline); cv.summary = stripPhText(cv.summary);
+  cv.experience.forEach(x => x.bullets = x.bullets.map(stripPhText));
+  cv.projects.forEach(x => x.bullets = x.bullets.map(stripPhText));
+  cv.other.forEach(o => o.items = o.items.map(stripPhText));
+  return cv;
+}
+const PH_INSTR = "CV'deki tüm köşeli parantezli yer tutucuları ([%__], [Y%], [X], [sayı], [tutar], [süre] gibi) kaldır. Her birini içeren cümleyi rakam uydurmadan, net ve açıklayıcı biçimde yeniden yaz: ne yapıldı, nasıl yapıldı, neye etkisi oldu. Yeni yer tutucu ekleme ve başka hiçbir şeyi değiştirme.";
+async function cleanPlaceholders(signal){
+  if (!state.cv || !hasPh()) return false;
+  try {
+    const cv = normalizeCv(await sample.json(promptRefine(PH_INSTR), { signal, cache: false }));
+    if (cv.experience.length || cv.summary){ mergeAdded(state.cv, cv); cv.changes = state.cv.changes; if (!cv.questions.length) cv.questions = state.cv.questions; state.cv = cv; }
+  } catch(e){ if (e && e.code === "cancelled") throw e; }
+  if (hasPh()) stripPlaceholders(state.cv);
+  return true;
+}
+
 function placeholderLines(){
   const cv = state.cv, out = [], re = /\[[^\]\n]{0,40}\]/;
   if (re.test(cv.headline)) out.push(cv.headline);
@@ -2090,6 +2133,7 @@ ${arr(state.completeLog).length ? "- Daha önce uygulanan talimatları koru: " +
     renderAll(); recordHistory();
   }
   $("#autoComplete").checked = wasAuto;
+  if (ok && hasPh()){ setBusy(true); setStages(0, ["Boşluklar açıklayıcı cümlelere çevriliyor"]); state.ctl = new AbortController(); try { await cleanPlaceholders(state.ctl.signal); renderAll(); recordHistory(); } catch(e) {} finally { setBusy(false); } }
   if (ok){ toast("Eksikler tamamlandı. Yeni puan hesaplanıyor…"); $("#rescanBtn").click(); }
   else state.pendingCompare = null;
 }
@@ -2170,7 +2214,20 @@ function fileBase(){
 async function preflight(){
   const ph = (cvToText(state.cv).match(/\[[^\]\n]{0,40}\]/g) || []).length;
   const pend = pendingReview().filter(x => x.basis === "dayanaksız").length;
-  if (ph && !(await ask(ph + " yer tutucu hâlâ doldurulmamış ve dosyada görünecek. Yine de indirmek istiyor musun?", "Yine de indir"))) return false;
+  if (ph){
+    const c = await askChoice(ph + " cümlede köşeli parantezli boşluk var (ör. [%__]). Bunlar olduğu gibi dosyaya girerse CV yarım görünür.", [
+      { k: "fix", label: "Boşlukları düzelt ve indir", primary: true },
+      { k: "raw", label: "Olduğu gibi indir" },
+      { k: null, label: "Vazgeç" } ]);
+    if (!c) return false;
+    if (c === "fix"){
+      if (sample){ pushVersion(); setBusy(true); setStages(0, ["Boşluklar açıklayıcı cümlelere çevriliyor"]); state.ctl = new AbortController();
+        try { await cleanPlaceholders(state.ctl.signal); } catch(e){ setBusy(false); return false; } finally { setBusy(false); } }
+      else { pushVersion(); stripPlaceholders(state.cv); }
+      if (hasPh()) stripPlaceholders(state.cv);
+      renderAll(); recordHistory(); toast("Boşluklar düzeltildi");
+    }
+  }
   if (pend && !(await ask(pend + " eklemeyi henüz onaylamadın (\"Kontrol etmen gereken eklemeler\" kartı). Mülakatta sorulursa açıklayabileceğinden eminsen devam et. İndirilsin mi?", "İndir"))) return false;
   return true;
 }
