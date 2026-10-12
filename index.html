@@ -4005,8 +4005,9 @@ function openAbout(){const back=()=>setTab("book");
 (function(){const _vb=viewBook;viewBook=function(){_vb();const sec=document.createElement("section");sec.className="sec";
  sec.innerHTML=`<h2>Uygulama</h2><div class="list"><button class="item" id="ob"><span style="font-size:1.4rem">💾</span><span class="grow"><span class="t">Yedekle ve geri yükle</span><br><span class="muted small">Son yedek: ${st.lastBackup||"hiç alınmadı"}</span></span><span>›</span></button>
  <button class="item" id="ov2"><span style="font-size:1.4rem">🔊</span><span class="grow"><span class="t">Ses ayarları</span><br><span class="muted small">İngilizce ses ve konuşma hızı</span></span><span>›</span></button>
+ <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.10.12-1 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
  <button class="item" id="oa"><span style="font-size:1.4rem">ℹ️</span><span class="grow"><span class="t">Hakkında, gizlilik ve lisanslar</span><br><span class="muted small">Hata bildirimlerin de burada</span></span><span>›</span></button></div>`;
- app.appendChild(sec);$("ob").onclick=openBackup;$("ov2").onclick=openVoice;$("oa").onclick=openAbout;}})();
+ app.appendChild(sec);$("ob").onclick=openBackup;$("oup").onclick=e=>UPD.manual(e.currentTarget);$("ov2").onclick=openVoice;$("oa").onclick=openAbout;}})();
 (function(){const _vh=viewHome;viewHome=function(){_vh();const p=document.createElement("p");p.className="small muted";p.style.cssText="text-align:center;margin-top:28px";p.innerHTML='Dil Atölyesi, geliştirici: <b>Okan Asl</b>';app.appendChild(p)}})();
 
 /* ===== ÖSYM DOĞRULANMIŞ KELİMELER ===== */
@@ -4348,7 +4349,45 @@ async function openOwner(){const ov=$("ov");ov.innerHTML=`<div class="in"><butto
 
 </script>
 <script>
-if("serviceWorker" in navigator&&location.protocol.startsWith("http")){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").then(r=>{r.addEventListener("updatefound",()=>{const w=r.installing;w&&w.addEventListener("statechange",()=>{if(w.state==="installed"&&navigator.serviceWorker.controller){const b=document.createElement("button");b.className="btn pri";b.textContent="Yeni sürüm hazır, yenile";b.style.cssText="position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:50;box-shadow:0 6px 20px rgba(0,0,0,.25)";b.onclick=()=>location.reload();document.body.appendChild(b)}})})}).catch(()=>{})})}
+if("serviceWorker" in navigator&&location.protocol.startsWith("http")){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").then(r=>{r.addEventListener("updatefound",()=>{const w=r.installing;w&&w.addEventListener("statechange",()=>{if(w.state==="installed"&&navigator.serviceWorker.controller){const b=document.createElement("button");b.className="btn pri";b.textContent="Yeni sürüm hazır, yenile";b.style.cssText="position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:50;box-shadow:0 6px 20px rgba(0,0,0,.25)";b.onclick=()=>UPD.run(b);document.body.appendChild(b)}})})}).catch(()=>{})})}
+/* ===== GÜNCELLEME (Güncelle butonu + otomatik yeni sürüm uyarısı) ===== */
+const APP_VER="2026.10.12-1";
+const UPD={
+ web:()=>/^https?:$/.test(location.protocol),
+ async check(){ try{ const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"}); if(!r.ok) return null; const j=await r.json(); return j&&j.v?String(j.v):null; }catch(e){ return null; } },
+ async run(btn){
+  if(btn){ btn.disabled=true; btn.innerHTML="⏳ Güncelleniyor…"; }
+  try{ sessionStorage.setItem("updDone","1"); }catch(e){}
+  try{ if("serviceWorker" in navigator){ const rs=await navigator.serviceWorker.getRegistrations(); await Promise.all(rs.map(r=>r.update().catch(()=>{}))); } }catch(e){}
+  try{ if(window.caches){ const ks=await caches.keys(); await Promise.all(ks.map(k=>caches.delete(k))); } }catch(e){}
+  location.reload();
+ },
+ bar(html,btnText,onBtn,ms){
+  const old=document.getElementById("updBar"); if(old) old.remove();
+  const d=document.createElement("div"); d.id="updBar";
+  d.style.cssText="position:fixed;left:12px;right:12px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:9999;max-width:500px;margin:0 auto;background:#1C1740;color:#fff;border-radius:14px;padding:12px 14px;display:flex;gap:10px;align-items:center;box-shadow:0 8px 24px rgba(0,0,0,.3);font-family:inherit";
+  d.innerHTML='<span style="flex:1;line-height:1.35">'+html+'</span>'+(btnText?'<button id="updGo" style="border:0;border-radius:10px;padding:9px 14px;background:#FFD23F;color:#1C1740;font:inherit;font-weight:800">'+btnText+'</button>':'')+'<button id="updX" aria-label="Kapat" style="border:0;background:transparent;color:#fff;font-size:1.2rem;padding:4px 6px;font-family:inherit">✕</button>';
+  document.body.appendChild(d);
+  document.getElementById("updX").onclick=()=>d.remove();
+  if(btnText) document.getElementById("updGo").onclick=e=>onBtn(e.currentTarget);
+  if(ms) setTimeout(()=>d.remove(),ms);
+ },
+ lastAuto:0,
+ async auto(){
+  if(!UPD.web()||Date.now()-UPD.lastAuto<5*60e3) return; UPD.lastAuto=Date.now();
+  const v=await UPD.check(); if(v&&v!==APP_VER) UPD.bar("🆕 <b>Yeni güncelleme var.</b><br><small>İlerlemen korunur.</small>","Güncelle",b=>UPD.run(b));
+ },
+ async manual(btn){
+  if(!UPD.web()){ location.reload(); return; }
+  return UPD.run(btn);
+ }
+};
+window.addEventListener("load",()=>{
+  let done=false; try{ done=sessionStorage.getItem("updDone")==="1"; sessionStorage.removeItem("updDone"); }catch(e){}
+  if(done) UPD.bar("✅ <b>Uygulama güncellendi.</b><br><small>Sürüm "+APP_VER+"</small>",null,null,4000);
+  setTimeout(UPD.auto,1500);
+});
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible") UPD.auto(); });
 </script>
 </body>
 </html>

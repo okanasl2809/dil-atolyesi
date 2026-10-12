@@ -11,3 +11,11 @@
 
 Güncelleme: Yeni bir index.html geldiğinde depodaki eski dosyanın üzerine yükle.
 Uygulama açılınca altta "Yeni sürüm hazır, yenile" düğmesi çıkar.
+
+## Güncelleme butonu
+Uygulamada "🔄 Uygulamayı güncelle" butonu var (YDS Akademi: ana ekranın altı; Dil Atölyesi: Defter › Uygulama).
+Basınca en yeni sürüm indirilir ve uygulama yenilenir. İlerleme silinmez.
+Yeni sürüm yayınlandığında uygulama bunu kendisi fark eder ve altta "Yeni güncelleme var" uyarısı çıkar.
+
+Yeni sürüm yayınlarken: index.html içindeki APP_VER ile version.json içindeki "v" değerini
+aynı yeni değere getir (örn. 2026.10.20-1). Uyarı bu iki değer farklı olunca çıkar.
