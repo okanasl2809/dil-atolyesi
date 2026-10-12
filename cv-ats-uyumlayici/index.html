@@ -259,7 +259,12 @@ details summary{cursor:pointer;font-size:13px;color:var(--muted);margin-top:10px
   <div id="unavail" class="notice hide" style="margin-bottom:18px">Bu sayfa Claude'a bağlanamıyor. Sayfayı claude.ai içinde açtığından emin ol.</div>
 
   <div class="card hide" id="keyCard" style="margin-bottom:18px;max-width:860px">
-    <h3>Anthropic API anahtarı</h3>
+    <h3>Nasıl kullanmak istersin?</h3>
+    <div class="toolbar" style="margin:4px 0 14px;align-items:flex-start;gap:12px">
+      <a class="btn" id="openClaude" href="https://claude.ai/artifact/9z8SNpfRcV47XaTynpiZAf" target="_blank" rel="noopener">API anahtarım yok: Claude ile aç</a>
+      <span class="hint" style="margin:0;flex:1;min-width:220px">Önerilen. Claude hesabınla giriş yaparsın, anahtar gerekmez. Kullanım kendi Claude hesabından düşer. Verilerin yine yalnızca senin tarayıcında kalır.</span>
+    </div>
+    <h3 style="font-size:15px">Ya da kendi Anthropic API anahtarınla burada kullan</h3>
     <p style="font-size:14px;margin:0 0 8px">Bu sayfa Claude dışında açıldı. Yapay zekâ özelliklerini kullanmak için kendi Anthropic API anahtarını gir. Anahtarı <b>platform.claude.com</b> adresindeki Claude Console'dan alabilirsin; kullanım ücreti kendi API hesabından düşer.</p>
     <div class="refine"><input type="password" id="keyIn" autocomplete="off" spellcheck="false" placeholder="sk-ant-…" aria-label="API anahtarı"><button class="btn" id="keySave" type="button">Kaydet</button></div>
     <label class="toggle" style="margin-top:8px"><input type="checkbox" id="keyRemember" checked> Bu tarayıcıda hatırla</label>
@@ -627,6 +632,11 @@ details summary{cursor:pointer;font-size:13px;color:var(--muted);margin-top:10px
           <button class="btn small ghost" id="bkImport" type="button">Yedeği yükle</button>
         </div>
         <input type="file" id="bkFile" accept=".json,application/json" hidden>
+      </div>
+      <div class="card">
+        <h3>Gizlilik</h3>
+        <p class="hint" style="margin:0 0 10px">CV'n, envanterin ve başvuruların hiçbir sunucuda ya da paylaşılan bir yerde tutulmaz; yalnızca bu cihazın bu tarayıcısında durur. Uygulamayı başka biri açsa da senin bilgilerini göremez. Analiz sırasında metinler yalnızca Claude'a gönderilir. Ortak kullanılan bir bilgisayardaysan işin bitince verilerini sil.</p>
+        <button class="btn small ghost" id="wipeAll" type="button">Bu cihazdaki tüm verilerimi sil</button>
       </div>
     </div>
   </div>
@@ -2642,6 +2652,11 @@ $("#bkExport").onclick = async () => {
   catch(e){ if (!e || e.code !== "declined") toast("Yedek indirilemedi."); }
 };
 $("#bkImport").onclick = () => $("#bkFile").click();
+$("#wipeAll").onclick = () => {
+  if (!confirm("CV'n, fotoğrafın, kariyer envanterin, başvuruların, provaların ve kayıtlı API anahtarın bu cihazdan silinecek. Bu işlem geri alınamaz. Önce yedek almak isteyebilirsin. Silinsin mi?")) return;
+  try { Object.keys(localStorage).filter(k => k.startsWith("cvAyar.")).forEach(k => localStorage.removeItem(k)); Object.keys(sessionStorage).filter(k => k.startsWith("cvAyar.")).forEach(k => sessionStorage.removeItem(k)); } catch(e) {}
+  location.reload();
+};
 $("#bkFile").addEventListener("change", async () => {
   const f = $("#bkFile").files[0]; $("#bkFile").value = ""; if (!f) return;
   try {
