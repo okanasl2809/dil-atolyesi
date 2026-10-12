@@ -242,6 +242,10 @@ details summary{cursor:pointer;font-size:13px;color:var(--muted);margin-top:10px
 .by b{color:var(--ink)}
 .footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 16px}
 .footer a{color:inherit}
+.modalBg{position:fixed;inset:0;z-index:50;background:rgba(10,16,30,.55);display:flex;align-items:center;justify-content:center;padding:20px}
+.modalBox{background:var(--sheet);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:20px;max-width:440px;width:100%;box-shadow:0 18px 50px rgba(0,0,0,.3)}
+.modalBox p{margin:0 0 16px;font-size:15px;line-height:1.5}
+.modalBox .toolbar{justify-content:flex-end}
 .muted{color:var(--muted)}
 .hide{display:none!important}
 .toast{pointer-events:none;position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--btn);color:var(--btn-ink);padding:10px 16px;border-radius:8px;font-size:14px;z-index:20;max-width:90vw}
@@ -891,6 +895,24 @@ let sample = null, downloads = null, imgLimits = null;
 try { if (window.pdfjsLib) pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js"; } catch(e) {}
 
 /* ---------- helpers ---------- */
+function ask(msg, okText, cancelText){
+  return new Promise(res => {
+    const bg = document.createElement("div"); bg.className = "modalBg"; bg.setAttribute("role", "dialog"); bg.setAttribute("aria-modal", "true");
+    const box = document.createElement("div"); box.className = "modalBox";
+    const p = document.createElement("p"); p.textContent = msg; box.appendChild(p);
+    const bar = document.createElement("div"); bar.className = "toolbar";
+    const no = document.createElement("button"); no.type = "button"; no.className = "btn ghost"; no.textContent = cancelText || "Vazgeç";
+    const yes = document.createElement("button"); yes.type = "button"; yes.className = "btn"; yes.textContent = okText || "Devam et";
+    bar.append(no, yes); box.appendChild(bar); bg.appendChild(box); document.body.appendChild(bg);
+    const prev = document.activeElement;
+    const done = v => { bg.remove(); document.removeEventListener("keydown", onKey, true); try { prev && prev.focus && prev.focus(); } catch(e) {} res(v); };
+    const onKey = e => { if (e.key === "Escape"){ e.preventDefault(); done(false); } };
+    no.onclick = () => done(false); yes.onclick = () => done(true);
+    bg.addEventListener("click", e => { if (e.target === bg) done(false); });
+    document.addEventListener("keydown", onKey, true);
+    yes.focus();
+  });
+}
 function el(tag, cls, text){ const e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e; }
 function show(n,on){ n.classList.toggle("hide", !on); }
 function toast(msg){ const t=el("div","toast",msg); t.setAttribute("role","status"); document.body.appendChild(t); setTimeout(()=>t.remove(),2800); }
@@ -972,7 +994,7 @@ function renderHist(){
     b.appendChild(el("span", "meta", d + "  |  " + (h.before != null ? h.before : "–") + " → " + (h.after != null ? h.after : "–")));
     b.onclick = () => openHist(h.id);
     const x = el("button", "del", "×"); x.type = "button"; x.setAttribute("aria-label", "Sil: " + (h.role || "kayıt"));
-    x.onclick = () => { if (!confirm("Bu kayıt silinsin mi?")) return; saveHist(loadHist().filter(k => k.id !== h.id)); if (state.histId === h.id) state.histId = null; renderHist(); };
+    x.onclick = async () => { if (!(await ask("Bu kayıt silinsin mi?", "Sil"))) return; saveHist(loadHist().filter(k => k.id !== h.id)); if (state.histId === h.id) state.histId = null; renderHist(); };
     li.appendChild(b); li.appendChild(x); ul.appendChild(li);
   });
 }
@@ -2145,30 +2167,30 @@ function fileBase(){
   const a = state.analysis || {};
   return [safeName(state.cv.name) || "Aday", "CV", safeName(a.job_title_exact || a.role)].filter(Boolean).join("_");
 }
-function preflight(){
+async function preflight(){
   const ph = (cvToText(state.cv).match(/\[[^\]\n]{0,40}\]/g) || []).length;
   const pend = pendingReview().filter(x => x.basis === "dayanaksız").length;
-  if (ph && !confirm(ph + " yer tutucu hâlâ doldurulmamış ve dosyada görünecek. Yine de indirmek istiyor musun?")) return false;
-  if (pend && !confirm(pend + " eklemeyi henüz onaylamadın (\"Kontrol etmen gereken eklemeler\"). Mülakatta sorulursa açıklayabileceğinden eminsen devam et. İndirilsin mi?")) return false;
+  if (ph && !(await ask(ph + " yer tutucu hâlâ doldurulmamış ve dosyada görünecek. Yine de indirmek istiyor musun?", "Yine de indir"))) return false;
+  if (pend && !(await ask(pend + " eklemeyi henüz onaylamadın (\"Kontrol etmen gereken eklemeler\" kartı). Mülakatta sorulursa açıklayabileceğinden eminsen devam et. İndirilsin mi?", "İndir"))) return false;
   return true;
 }
 async function save(filename, data){
   if (!downloads){ runErr("Bu görünümde dosya indirilemiyor. Metni kopyalayıp Word'e yapıştırabilirsin."); return; }
-  try { await downloads.save({ filename, data }); recordHistory(); }
+  try { await downloads.save({ filename, data }); recordHistory(); toast("Dosya hazır: " + filename); }
   catch(e){
     if (e && e.code === "declined") return;
     runErr(e && e.code === "rate_limited" ? "Bir indirme penceresi zaten açık." : "Dosya indirilemedi. Metni kopyalayıp Word'e yapıştırabilirsin.");
   }
 }
 $("#dlDocx").onclick = async () => {
-  if (!state.cv || !preflight()) return;
+  if (!state.cv || !(await preflight())) return;
   try {
     const bytes = buildDocx(state.cv, exportPhoto(), { role: state.analysis && (state.analysis.job_title_exact || state.analysis.role) });
     await save(fileBase() + ".docx", bytes);
   } catch(e){ runErr("Word dosyası oluşturulamadı. PDF'i dene ya da metni kopyala."); }
 };
 $("#dlPdf").onclick = async () => {
-  if (!state.cv || !preflight()) return;
+  if (!state.cv || !(await preflight())) return;
   if (!window.jspdf){ runErr("PDF oluşturucu yüklenemedi. Word'ü dene ya da metni kopyala."); return; }
   try {
     const doc = buildPdfDoc(state.cv, exportPhoto(), { role: state.analysis && (state.analysis.job_title_exact || state.analysis.role) });
@@ -2222,7 +2244,7 @@ function renderApps(){
     note.onchange = () => updateHist(h.id, { note: note.value.trim() });
     const acts = el("div", "acts");
     const op = el("button", "btn small ghost", "Aç"); op.type = "button"; op.onclick = () => { showView("tailor"); openHist(h.id); };
-    const del = el("button", "btn small ghost", "Sil"); del.type = "button"; del.onclick = () => { if (!confirm("Bu kayıt silinsin mi?")) return; saveHist(loadHist().filter(k => k.id !== h.id)); if (state.histId === h.id) state.histId = null; renderHist(); };
+    const del = el("button", "btn small ghost", "Sil"); del.type = "button"; del.onclick = async () => { if (!(await ask("Bu kayıt silinsin mi?", "Sil"))) return; saveHist(loadHist().filter(k => k.id !== h.id)); if (state.histId === h.id) state.histId = null; renderHist(); };
     const fuOut = el("div", "fu hide"); fuOut.style.gridColumn = "1 / -1";
     if (h.status === "basvuruldu" || h.status === "donus_yok"){ const f = el("button", "btn small" + (followDue(h) ? "" : " ghost"), h.followedAt ? "Yeni takip mesajı" : "Takip mesajı yaz"); f.type = "button"; f.onclick = () => genFollow(h, "follow", fuOut, f); acts.appendChild(f); }
     if (h.status === "gorusme"){
@@ -2541,7 +2563,7 @@ $("#invGen").onclick = async () => {
   if (!sample){ err.textContent = "Bu sayfa Claude'a bağlanamıyor."; show(err, true); return; }
   if (!state.cvText){ err.textContent = state.cvImages.length ? "CV'n görüntü olarak yüklü. Önce bir CV hazırlığı çalıştır ya da CV metnini yapıştır." : "Önce \"CV hazırla\" bölümünde CV'ni yükle."; show(err, true); return; }
   const old = loadInv();
-  if (old.questions.length && !confirm("Sorular yenilenecek. Aynı kalan soruların cevapları korunur, diğerleri silinir. Devam edilsin mi?")) return;
+  if (old.questions.length && !(await ask("Sorular yenilenecek. Aynı kalan soruların cevapları korunur, diğerleri silinir. Devam edilsin mi?", "Yenile"))) return;
   const b = $("#invGen"); b.disabled = true; b.textContent = "Sorular hazırlanıyor…";
   try {
     const qs = arr(await sample.json(promptInventory(), { cache: false })).filter(q => q && str(q.q)).slice(0, 16).map(q => ({ section: str(q.section), q: str(q.q), example: str(q.example) }));
@@ -2654,8 +2676,8 @@ $("#bkExport").onclick = async () => {
   catch(e){ if (!e || e.code !== "declined") toast("Yedek indirilemedi."); }
 };
 $("#bkImport").onclick = () => $("#bkFile").click();
-$("#wipeAll").onclick = () => {
-  if (!confirm("CV'n, fotoğrafın, kariyer envanterin, başvuruların, provaların ve kayıtlı API anahtarın bu cihazdan silinecek. Bu işlem geri alınamaz. Önce yedek almak isteyebilirsin. Silinsin mi?")) return;
+$("#wipeAll").onclick = async () => {
+  if (!(await ask("CV'n, fotoğrafın, kariyer envanterin, başvuruların, provaların ve kayıtlı API anahtarın bu cihazdan silinecek. Bu işlem geri alınamaz. Önce yedek almak isteyebilirsin. Silinsin mi?", "Hepsini sil"))) return;
   try { Object.keys(localStorage).filter(k => k.startsWith("cvAyar.")).forEach(k => localStorage.removeItem(k)); Object.keys(sessionStorage).filter(k => k.startsWith("cvAyar.")).forEach(k => sessionStorage.removeItem(k)); } catch(e) {}
   location.reload();
 };
@@ -2664,7 +2686,7 @@ $("#bkFile").addEventListener("change", async () => {
   try {
     const d = JSON.parse(await f.text());
     if (!d || d.app !== "cv-ayarla") throw 0;
-    if (!confirm("Bu tarayıcıdaki CV, envanter ve başvuru kayıtları yedektekilerle değiştirilecek. Devam edilsin mi?")) return;
+    if (!(await ask("Bu tarayıcıdaki CV, envanter ve başvuru kayıtları yedektekilerle değiştirilecek. Devam edilsin mi?", "Yükle"))) return;
     [[LS_KEY, "settings"], [LS_HIST, "history"], [LS_INV, "inventory"], [LS_TRI, "triage"], [LS_KP, "kprofile"], [LS_IVP, "interviews"]].forEach(([k, n]) => { if (d[n] != null) localStorage.setItem(k, JSON.stringify(d[n])); });
     loadSaved(); renderCvState(); renderPhoto(); renderHist(); renderInventory(); loadTri(); renderTriBoxes(); renderTriResults();
     toast("Yedek yüklendi");
@@ -2722,7 +2744,15 @@ function makeApiSample(key){
   return s;
 }
 const fileDownloads = { save: async ({ filename, data }) => {
-  const blob = data instanceof Blob ? data : new Blob([data]), url = URL.createObjectURL(blob), a = document.createElement("a");
+  const blob = data instanceof Blob ? data : new Blob([data]);
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent) || (/macintosh/i.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
+  if (ios && navigator.canShare){
+    try { const type = /\.pdf$/i.test(filename) ? "application/pdf" : /\.docx$/i.test(filename) ? "application/vnd.openxmlformats-officedocument.wordprocessingml.document" : "application/json";
+      const f = new File([blob], filename, { type });
+      if (navigator.canShare({ files: [f] })){ await navigator.share({ files: [f] }); return { status: "saved" }; } }
+    catch(e){ if (e && e.name === "AbortError") throw { code: "declined" }; }
+  }
+  const url = URL.createObjectURL(blob), a = document.createElement("a");
   a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 5000);
   return { status: "saved" };
 } };
