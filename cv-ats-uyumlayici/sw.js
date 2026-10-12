@@ -1,5 +1,5 @@
 /* CV'ni ilana göre ayarla — © 2026 Okan Asl. Tüm hakları saklıdır. */
-const CACHE = "cv-ayarla-v2";
+const CACHE = "cv-ayarla-v3";
 const CORE = ["./", "./index.html", "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png", "./icons/icon-maskable-512.png", "./icons/apple-touch-icon.png", "./icons/favicon-64.png"];
 const LIBS = [
   "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js",

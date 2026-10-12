@@ -259,17 +259,19 @@ details summary{cursor:pointer;font-size:13px;color:var(--muted);margin-top:10px
   <div id="unavail" class="notice hide" style="margin-bottom:18px">Bu sayfa Claude'a bağlanamıyor. Sayfayı claude.ai içinde açtığından emin ol.</div>
 
   <div class="card hide" id="keyCard" style="margin-bottom:18px;max-width:860px">
-    <h3>Nasıl kullanmak istersin?</h3>
-    <div class="toolbar" style="margin:4px 0 14px;align-items:flex-start;gap:12px">
-      <a class="btn" id="openClaude" href="https://claude.ai/artifact/9z8SNpfRcV47XaTynpiZAf" target="_blank" rel="noopener">API anahtarım yok: Claude ile aç</a>
-      <span class="hint" style="margin:0;flex:1;min-width:220px">Önerilen. Claude hesabınla giriş yaparsın, anahtar gerekmez. Kullanım kendi Claude hesabından düşer. Verilerin yine yalnızca senin tarayıcında kalır.</span>
-    </div>
-    <h3 style="font-size:15px">Ya da kendi Anthropic API anahtarınla burada kullan</h3>
+    <h3>Başlamak için Claude ile aç</h3>
+    <p style="font-size:14px;margin:0 0 12px">Uygulama Claude yapay zekâsıyla çalışır. Claude hesabınla giriş yapman yeterli; kart ya da API anahtarı gerekmez. CV'n ve bilgilerin yalnızca senin cihazında kalır, kimse göremez.</p>
+    <a class="btn" id="openClaude" href="https://claude.ai/artifact/9z8SNpfRcV47XaTynpiZAf" target="_blank" rel="noopener">Claude ile aç</a>
+    <details id="keyMore" style="margin-top:14px">
+    <summary>Geliştiriciysen: kendi Anthropic API anahtarınla burada kullan</summary>
+    <div style="margin-top:10px">
     <p style="font-size:14px;margin:0 0 8px">Bu sayfa Claude dışında açıldı. Yapay zekâ özelliklerini kullanmak için kendi Anthropic API anahtarını gir. Anahtarı <b>platform.claude.com</b> adresindeki Claude Console'dan alabilirsin; kullanım ücreti kendi API hesabından düşer.</p>
     <div class="refine"><input type="password" id="keyIn" autocomplete="off" spellcheck="false" placeholder="sk-ant-…" aria-label="API anahtarı"><button class="btn" id="keySave" type="button">Kaydet</button></div>
     <label class="toggle" style="margin-top:8px"><input type="checkbox" id="keyRemember" checked> Bu tarayıcıda hatırla</label>
     <p class="hint">Anahtarın ve CV'n hiçbir sunucuya gitmez; yalnızca bu tarayıcıda saklanır ve doğrudan Anthropic API'ye gönderilir. Ortak kullanılan bir bilgisayardaysan "hatırla" seçeneğini kapat.</p>
     <div id="keyErr" class="notice hide" style="margin-top:8px"></div>
+    </div>
+    </details>
   </div>
   <div class="toolbar hide" id="keyBar" style="margin:-10px 0 14px;font-size:13px"><span class="muted">Kendi API anahtarınla çalışıyor.</span><button class="linkbtn" id="keyChange" type="button">Anahtarı değiştir</button><button class="linkbtn" id="keyDel" type="button">Anahtarı sil</button></div>
 
@@ -2747,7 +2749,7 @@ $("#keySave").onclick = async () => {
   finally { b.disabled = false; b.textContent = "Kaydet"; }
 };
 $("#keyIn").addEventListener("keydown", e => { if (e.key === "Enter") $("#keySave").click(); });
-$("#keyChange").onclick = () => { show($("#keyCard"), true); $("#keyIn").focus(); };
+$("#keyChange").onclick = () => { show($("#keyCard"), true); $("#keyMore").open = true; $("#keyIn").focus(); };
 $("#keyDel").onclick = () => { try { localStorage.removeItem(LS_APIKEY); sessionStorage.removeItem(LS_APIKEY); } catch(e) {} sample = null; show($("#keyBar"), false); show($("#keyCard"), true); setBusy(false); toast("Anahtar silindi"); };
 
 /* ---------- installable app (GitHub Pages) ---------- */
