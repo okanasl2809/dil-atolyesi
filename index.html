@@ -4175,7 +4175,7 @@ function openAbout(){const back=()=>setTab("book");
 (function(){const _vb=viewBook;viewBook=function(){_vb();const sec=document.createElement("section");sec.className="sec";
  sec.innerHTML=`<h2>Uygulama</h2><div class="list"><button class="item" id="ob"><span style="font-size:1.4rem">💾</span><span class="grow"><span class="t">Yedekle ve geri yükle</span><br><span class="muted small">Son yedek: ${st.lastBackup||"hiç alınmadı"}</span></span><span>›</span></button>
  <button class="item" id="ov2"><span style="font-size:1.4rem">🔊</span><span class="grow"><span class="t">Ses ayarları</span><br><span class="muted small">İngilizce ses ve konuşma hızı</span></span><span>›</span></button>
- <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.10.22-3 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
+ <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.10.22-4 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
  <button class="item" id="oa"><span style="font-size:1.4rem">ℹ️</span><span class="grow"><span class="t">Hakkında, gizlilik ve lisanslar</span><br><span class="muted small">Hata bildirimlerin de burada</span></span><span>›</span></button></div>`;
  app.appendChild(sec);$("ob").onclick=openBackup;$("oup").onclick=e=>UPD.manual(e.currentTarget);$("ov2").onclick=openVoice;$("oa").onclick=openAbout;}})();
 (function(){const _vh=viewHome;viewHome=function(){_vh();const p=document.createElement("p");p.className="small muted";p.style.cssText="text-align:center;margin-top:28px";p.innerHTML='Dil Atölyesi, geliştirici: <b>Okan Asl</b>';app.appendChild(p)}})();
@@ -4508,6 +4508,180 @@ BOOKS.push(
   q:[["What did the blank spaces represent, according to Nazlı?",["A form of testimony about what had been destroyed","Ömer Bey's lack of information","Areas that were dangerous","Mistakes in the drawing"]],["How did the municipality finally respond to the blank shoreline?",["It accepted the map as it was","It refused to pay","It asked another artist to fix it","It destroyed the map"]],["What was the central argument of Nazlı's thesis?",["The value of such maps lies in being honest about what they omit","Hand-drawn maps are more accurate than satellites","Cities should not build apartment blocks","Cartography is no longer necessary"]]]}]}
 );
 
+/* ===== ÇALIŞMA PLANIM: program + yapılacaklar + otomatik takip (22 Ekim) ===== */
+const PL_AREAS={
+ vocab:{ic:"🔤",t:"Kelime"},gram:{ic:"🧩",t:"Dil bilgisi"},read:{ic:"📖",t:"Okuma"},listen:{ic:"🎧",t:"Dinleme"},
+ speak:{ic:"🗣️",t:"Konuşma"},write:{ic:"✍️",t:"Yazma"},tech:{ic:"🎯",t:"YDS soru tipi"},exam:{ic:"📝",t:"Deneme"},unit:{ic:"💬",t:"İngilizce ünite"}};
+const PL_FOCUS=[["vocab","Kelime"],["gram","Dil bilgisi"],["read","Okuma"],["listen","Dinleme"],["speak","Konuşma ve yazma"],["tech","YDS soru teknikleri"],["exam","Deneme sınavı"]];
+const PL_DOW=["Paz","Pzt","Sal","Çar","Per","Cum","Cmt"],PL_DOWL=["Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi"];
+const PL_MON=["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
+const LVS=["A1","A2","B1","B2","C1","C2"];
+
+/* --- hangi bölümde çalışıldığını izle (süre ölçümü) --- */
+let plArea=null,plLastInput=Date.now(),plTick=0;
+(function(){const M={
+ vocab:["startVocabDay","openWordLevel","openWordSet","openGroup","openGroupSet","openPos","openTopicW","openWnAll","openCurTopic","openVTopic","quickRound","startYdsPath","openZK","openKA","matchGame"],
+ gram:["openTopic","openLesson","openTense","openConj","startConj","openTopicAI"],
+ read:["openBook","readCh","openReadLab","readPassage","openYdsRead","readExam"],
+ listen:["dictation","listenExam"],speak:["viewChatList","openChat","roleplay","pickRole"],write:["viewWrite","writeExam"],
+ tech:["openTech","startTechPractice","openTri"],exam:["examIntro","examRun","optikStart","optikRun","openPast","startPlace"],unit:["openUnit"]};
+ for(const a in M)for(const n of M[a]){const f=window[n];if(typeof f!=="function")continue;window[n]=function(...x){plArea=a;return f.apply(this,x)}}
+ const _st=setTab;window.setTab=function(t){plArea=null;return _st.apply(this,arguments)}})();
+["pointerdown","keydown","touchstart","scroll"].forEach(e=>document.addEventListener(e,()=>{plLastInput=Date.now()},{passive:true,capture:true}));
+setInterval(()=>{if(!plArea||document.visibilityState!=="visible"||Date.now()-plLastInput>150000||typeof st==="undefined"||!st)return;
+ const d=dayKey();st.ptime=st.ptime||{};const o=st.ptime[d]=st.ptime[d]||{};o[plArea]=(o[plArea]||0)+15;
+ if(++plTick%4===0){const ks=Object.keys(st.ptime).sort();while(ks.length>400)delete st.ptime[ks.shift()];save()}},15000);
+
+/* --- tarih yardımcıları --- */
+const plD=k=>new Date(k+"T12:00:00");
+const plAdd=(k,n)=>{const d=plD(k);d.setDate(d.getDate()+n);return dk(d)};
+const plMonday=k=>{const d=plD(k);const w=(d.getDay()+6)%7;d.setDate(d.getDate()-w);return dk(d)};
+const plFmt=k=>{const d=plD(k);return d.getDate()+" "+PL_MON[d.getMonth()]};
+
+/* --- programı üret --- */
+function plPhase(P,k){const g=P.goal;
+ if(g!=="en"&&P.date){const left=Math.round((plD(P.date)-plD(k))/864e5);if(left<0)return{id:"bitti",t:"Sınav geçti",d:"Yeni hedef için planı düzenle."};
+  if(left>56)return{id:"temel",t:"Temel aşaması",d:"Dil bilgisi ve akademik kelime tabanı.",left};
+  if(left>21)return{id:"teknik",t:"Teknik aşaması",d:"Soru tiplerini sistemli çalış, haftada bir deneme.",left};
+  return{id:"deneme",t:"Deneme aşaması",d:"Süre tutarak deneme çöz, yanlışları analiz et.",left}}
+ const wk=Math.floor((plD(plMonday(k))-plD(plMonday(P.start)))/6048e5);
+ if(g==="en")return[{id:"temel",t:"Temel haftası",d:"Kelime ve dil bilgisi ağırlıklı."},{id:"beceri",t:"Beceri haftası",d:"Dinleme, okuma ve konuşma ağırlıklı."},{id:"temel",t:"Temel haftası",d:"Kelime ve dil bilgisi ağırlıklı."},{id:"tekrar",t:"Tekrar haftası",d:"Hatalar, tekrar ve küçük sınavlar."}][((wk%4)+4)%4];
+ return[{id:"temel",t:"Temel haftası",d:"Dil bilgisi ve akademik kelime."},{id:"temel",t:"Temel haftası",d:"Dil bilgisi ve akademik kelime."},{id:"teknik",t:"Teknik haftası",d:"Soru tipleri ve okuma."},{id:"deneme",t:"Deneme haftası",d:"Deneme ve yanlış analizi."}][((wk%4)+4)%4]}
+function plWeights(P,ph,both){const y={temel:{vocab:30,gram:35,read:20,tech:15},teknik:{vocab:25,tech:35,read:25,gram:15},deneme:{exam:55,vocab:20,read:15,tech:10},bitti:{vocab:40,read:30,gram:30}};
+ const e={temel:{vocab:30,gram:30,unit:25,read:15},beceri:{listen:25,read:25,unit:20,speak:15,vocab:15},tekrar:{vocab:30,gram:25,listen:20,read:25}};
+ let w=Object.assign({},P.goal==="en"?(e[ph.id]||e.temel):(y[ph.id]||y.temel));
+ if(both&&P.goal==="both"){w={vocab:25,gram:20,listen:15,unit:10,read:15,tech:15};if(ph.id==="deneme")w={exam:40,vocab:20,read:15,listen:15,tech:10}}
+ (P.focus||[]).forEach(f=>{if(f==="speak"){w.speak=(w.speak||0)+15;w.write=(w.write||0)+5}else w[f]=(w[f]||0)*1.6+(w[f]?0:12)});
+ if(P.goal==="en"){delete w.tech;delete w.exam}
+ const ai=typeof sample!=="undefined"&&sample;if(!ai){if(w.speak){w.listen=(w.listen||0)+w.speak;delete w.speak}if(w.write){w.gram=(w.gram||0)+w.write;delete w.write}}
+ return w}
+function plTasks(k){const P=st.plan;if(!P)return[];const dow=plD(k).getDay();if(!(P.days||[]).includes(dow))return[];if(k<P.start)return[];
+ const ph=plPhase(P,k),M=P.min||60;
+ const sd=(P.days||[]).slice().sort((a,b)=>((a+6)%7)-((b+6)%7));const lastDay=sd[sd.length-1];
+ if(P.goal!=="en"&&ph.id!=="temel"&&ph.id!=="bitti"&&dow===lastDay&&k<=(P.date||"9999")){
+  const full=ph.id==="deneme"&&M>=150;const n=(st.mocks||[]).length;
+  return[{a:"exam",m:full?180:Math.max(30,Math.min(M,90)),t:full?(n%2?"YDS Deneme 2 (tam sınav)":"YDS Deneme 1 (tam sınav)"):ph.id==="deneme"?"Mini deneme (40 soru)":"Bölüm denemesi",x:full?(n%2?"m2":"m1"):ph.id==="deneme"?"mini":"sec_"+YSEC[Math.floor(plD(k)/6048e5)%YSEC.length][0]}]}
+ const w=plWeights(P,ph,true),tot=Object.values(w).reduce((a,b)=>a+b,0);
+ let out=Object.entries(w).sort((a,b)=>b[1]-a[1]).map(([a,v])=>({a,m:Math.max(5,Math.round(M*v/tot/5)*5)}));
+ while(out.length>2&&out.reduce((s,x)=>s+x.m,0)>M+5)out.pop();
+ if(M<=25)out=out.slice(0,2);
+ let diff=M-out.reduce((s,x)=>s+x.m,0);if(out.length){if(diff<0)out[0].m=Math.max(5,out[0].m+diff);else{let i=out.length-1;while(diff>=5){out[i].m+=5;diff-=5;i=i>0?i-1:out.length-1}}}
+ const lv=P.level||st.level||"B1",seed=Math.floor(plD(k)/864e5);
+ return out.map(x=>Object.assign(x,plLabel(x.a,lv,seed,P,ph)))}
+function plLabel(a,lv,seed,P,ph){const yds=P.goal!=="en";
+ if(a==="vocab")return yds&&(P.goal==="yds"||seed%2)?{t:"YDS akademik kelimeler",d:"Yeni kelimeler ve aralıklı tekrar."}:{t:"Bugünün kelimeleri",d:"Yeni kelimeler ve tekrar zamanı gelenler."};
+ if(a==="gram"){const band=yds?LVS.slice(Math.max(2,LVS.indexOf(lv))):LVS.slice(Math.max(0,LVS.indexOf(lv)-1),LVS.indexOf(lv)+2);const g=GRAMMAR.filter(x=>band.includes(x[0])).find(x=>gramStatus(x[1])!=="done");return g?{t:"Dil bilgisi: "+g[2],d:g[0]+" düzeyi, sıradaki konu.",x:g[1]}:{t:"Dil bilgisi tekrarı",d:"Hata defterindeki konular."}}
+ if(a==="read"){if(yds&&(P.goal==="yds"||seed%2===0))return{t:"YDS okuma parçası",d:"Süre tutarak bir parça çöz."};const b=BOOKS.filter(x=>x.lv===lv).find(x=>!(x.ch||[]).every((_,i)=>chDone(x.id,i)))||BOOKS.find(x=>x.lv===lv);return{t:"Okuma: "+b.t,d:b.lv+" kitabı, sıradaki bölüm.",x:b.id}}
+ if(a==="tech"){const t=TECH[seed%TECH.length];return{t:"Soru tipi: "+t.t,d:"Tekniği gözden geçir, alıştırmaları çöz.",x:t.id}}
+ if(a==="exam"){const s=YSEC[seed%YSEC.length];return{t:s[1]+" bölüm denemesi",d:"Gerçek sınav süresiyle.",x:"sec_"+s[0]}}
+ if(a==="listen")return{t:"Dinleme: dikte ("+lv+")",d:"Duyduğun cümleleri yaz."};
+ if(a==="speak")return{t:"Konuşma pratiği",d:"Claude ile yazışarak konuş."};
+ if(a==="write")return{t:"Yazma çalışması",d:"Kısa bir metin yaz, değerlendirilsin."};
+ if(a==="unit"){const u=UNITS.find(x=>x.lv===lv&&!(st.units[x.id]&&st.units[x.id].done))||UNITS.find(x=>x.lv===lv);return u?{t:"Ünite: "+u.t,d:lv+" düzeyi, sıradaki ünite.",x:u.id}:{t:"İngilizce ünite",d:""}}
+ return{t:PL_AREAS[a].t,d:""}}
+function plGo(x){const lv=(st.plan&&st.plan.level)||st.level||"B1";
+ ({vocab:()=>x.t.startsWith("YDS")?startYdsPath():startVocabDay(),gram:()=>x.x?openTopic(x.x):setTab("en"),read:()=>x.x?openBook(x.x):openReadLab(),
+  tech:()=>openTech(x.x),exam:()=>examIntro(x.x),listen:()=>dictation(lv),speak:()=>viewChatList(),write:()=>viewWrite(),unit:()=>x.x?openUnit(x.x):setTab("en")})[x.a]()}
+function plSpent(k,a){return Math.round(((st.ptime||{})[k]||{})[a]/60||0)}
+function plDone(k,x){return((st.pdone||{})[k]||[]).includes(x.a)||plSpent(k,x.a)>=x.m*0.8}
+function plDayPct(k){const T=plTasks(k);if(!T.length)return null;const tot=T.reduce((s,x)=>s+x.m,0);
+ const got=T.reduce((s,x)=>s+(plDone(k,x)?x.m:Math.min(x.m,plSpent(k,x.a))),0);return Math.round(100*got/tot)}
+function plRangePct(a,b){let t=0,n=0;for(let k=a;k<=b;k=plAdd(k,1)){const p=plDayPct(k);if(p!=null){t+=p;n++}}return n?{p:Math.round(t/n),n}:null}
+function plColor(p){return p==null?"transparent":p>=80?"var(--ok)":p>=40?"var(--hl)":p>0?"#F2A65A":"var(--badbg)"}
+
+/* --- ekranlar --- */
+let plView="today",plMonth=null;
+function openPlanner(v){if(!st.plan)return planSetup();if(v)plView=v;const P=st.plan,today=dayKey(),ph=plPhase(P,today);
+ const wk=plRangePct(P.start>plMonday(today)?P.start:plMonday(today),today),all=plRangePct(P.start,today);
+ const goalT={en:"İngilizce",yds:"YDS / YÖKDİL",both:"İngilizce + YDS"}[P.goal];
+ app.innerHTML=`<button class="link" id="plb">‹ Ana sayfa</button>
+ <h1 style="margin-top:14px"><span class="mk">📅 Çalışma planım</span></h1>
+ <div class="card" style="margin-top:14px"><div class="row"><div class="grow"><b>${goalT} · ${esc(P.level||"")}</b><div class="small muted">${ph.t}: ${ph.d}${ph.left!=null?` <b>Sınava ${ph.left} gün.</b>`:""}</div><div class="small muted">Günde ${P.min} dk · ${(P.days||[]).slice().sort((a,b)=>((a+6)%7)-((b+6)%7)).map(d=>PL_DOW[d]).join(", ")}</div></div><button class="btn alt sm" id="ple">Düzenle</button></div>
+ <div class="row" style="margin-top:12px;gap:16px"><div class="grow"><div class="small muted">Bu hafta plana uyum</div><div class="bar" style="margin-top:4px"><i style="width:${wk?wk.p:0}%"></i></div><b>%${wk?wk.p:0}</b></div><div class="grow"><div class="small muted">Başlangıçtan beri</div><div class="bar" style="margin-top:4px"><i style="width:${all?all.p:0}%;background:var(--ok)"></i></div><b>%${all?all.p:0}</b> <span class="small muted">(${all?all.n:0} gün)</span></div></div></div>
+ <div class="chips" style="margin-top:16px" id="plt">${[["today","Bugün"],["week","Hafta"],["month","Ay"],["todo","Yapılacaklar"]].map(([k,t])=>`<button class="chip" data-v="${k}" style="${plView===k?"border-color:var(--ink);box-shadow:inset 0 -4px 0 var(--hl)":""}">${t}</button>`).join("")}</div>
+ <div id="plc" style="margin-top:14px"></div>`;
+ $("plb").onclick=()=>setTab("home");$("ple").onclick=planSetup;on("#plt .chip",el=>{plView=el.dataset.v;openPlanner()});
+ ({today:plToday,week:plWeek,month:plMonthV,todo:plTodo})[plView]()}
+function plToday(){const k=dayKey(),T=plTasks(k),c=$("plc");const p=plDayPct(k);
+ const todos=(st.todo||[]).filter(t=>!t.done&&(!t.d||t.d<=k));
+ c.innerHTML=`<h2>${PL_DOWL[new Date().getDay()]}, ${plFmt(k)}${p!=null?` <span class="badge ${p>=80?"ok":""}">%${p}</span>`:""}</h2>
+ ${T.length?`<div class="stack" style="margin-top:10px">${T.map((x,i)=>{const s=plSpent(k,x.a),d=plDone(k,x);return`<div class="card" style="${d?"border-color:var(--ok);box-shadow:inset 5px 0 0 var(--ok)":""}"><div class="row"><span style="font-size:1.4rem">${PL_AREAS[x.a].ic}</span><div class="grow"><b>${esc(x.t)}</b><div class="small muted">${esc(x.d||"")}</div></div><span class="small"><b>${x.m}</b> dk</span></div>
+  <div class="row" style="margin-top:10px"><div class="bar grow"><i style="width:${Math.min(100,d?100:100*s/x.m)}%;${d?"background:var(--ok)":""}"></i></div><span class="small muted" style="min-width:64px;text-align:right">${Math.min(s,x.m*3)}/${x.m} dk</span></div>
+  <div class="row" style="margin-top:10px"><button class="btn pri sm" data-go="${i}">${d?"Tekrar aç":"Başla"} ›</button><label class="small row" style="gap:6px;margin-left:auto"><input type="checkbox" data-ck="${x.a}" ${((st.pdone||{})[k]||[]).includes(x.a)?"checked":""}> Yaptım</label></div></div>`}).join("")}</div>
+  <p class="small muted" style="margin-top:10px">Süre, ilgili bölümde çalıştıkça kendiliğinden işlenir. Uygulama dışında çalıştıysan "Yaptım"ı işaretle.</p>`
+ :`<div class="card" style="margin-top:10px"><b>😌 Bugün dinlenme günü</b><p class="small muted" style="margin:4px 0 0">Planında bugün ders yok. İstersen birkaç kelime tekrarı yapabilirsin.</p><button class="btn alt sm" id="plv" style="margin-top:10px">Kelime tekrarı ›</button></div>`}
+ ${todos.length?`<h2 style="margin-top:22px">Yapılacaklar</h2><div class="stack" style="margin-top:8px">${todos.map(t=>plTodoRow(t)).join("")}</div>`:""}`;
+ on("[data-go]",el=>plGo(T[+el.dataset.go]));if($("plv"))$("plv").onclick=startVocabDay;
+ c.querySelectorAll("[data-ck]").forEach(el=>el.onchange=()=>{st.pdone=st.pdone||{};const a=st.pdone[k]=st.pdone[k]||[];const i=a.indexOf(el.dataset.ck);if(el.checked&&i<0)a.push(el.dataset.ck);if(!el.checked&&i>=0)a.splice(i,1);save();openPlanner()});
+ plBindTodo()}
+function plWeek(){const today=dayKey();let m=plMonday(today);const c=$("plc");let tt=0,td=0;
+ const rows=[...Array(7)].map((_,i)=>{const k=plAdd(m,i),T=plTasks(k),p=plDayPct(k),fut=k>today;const mins=T.reduce((s,x)=>s+x.m,0);if(!fut&&T.length){tt+=mins;td+=Math.round(mins*(p||0)/100)}
+  return`<div class="card" style="${k===today?"border:2px solid var(--ink)":""}${fut?";opacity:.85":""}"><div class="row"><b style="min-width:92px">${PL_DOWL[plD(k).getDay()]}<br><span class="small muted">${plFmt(k)}</span></b><div class="grow small">${k<st.plan.start?`<span class="muted">Plan başlamadan önce</span>`:T.length?T.map(x=>`<span style="white-space:nowrap">${PL_AREAS[x.a].ic} ${x.m} dk</span>`).join(" · "):`<span class="muted">Dinlenme</span>`}</div>${T.length?(fut?`<span class="small muted">${mins} dk</span>`:`<span class="badge ${p>=80?"ok":""}" style="background:${p>=80?"":plColor(p)}">%${p}</span>`):""}</div>
+  ${T.length?`<div class="small muted" style="margin-top:6px">${T.map(x=>esc(x.t)).join(" • ")}</div>`:""}</div>`});
+ c.innerHTML=`<h2>Bu hafta</h2><p class="small muted">${plFmt(m)} – ${plFmt(plAdd(m,6))} · ${plPhase(st.plan,today).t}</p><div class="stack" style="margin-top:10px">${rows.join("")}</div>
+ <div class="card" style="margin-top:12px"><b>Haftanın özeti</b><p class="small" style="margin:4px 0 0">Bugüne kadar planlanan ${tt} dakikanın yaklaşık <b>${td} dakikası</b> yapıldı.</p></div>`}
+function plMonthV(){const today=dayKey();if(!plMonth)plMonth=today.slice(0,7);const [y,mo]=plMonth.split("-").map(Number);const first=`${plMonth}-01`;
+ const start=plMonday(first);const c=$("plc");const cells=[];const lastD=new Date(y,mo,0).getDate();
+ for(let i=0;i<42;i++){const k=plAdd(start,i);if(i>=35&&k.slice(0,7)!==plMonth)break;const inM=k.slice(0,7)===plMonth,T=plTasks(k),p=k<=today?plDayPct(k):null;
+  cells.push(`<div title="${plFmt(k)}" style="aspect-ratio:1;border-radius:8px;border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:.8rem;opacity:${inM?1:.35};background:${p!=null?plColor(p):T.length?"var(--soft)":"var(--card)"};${k===today?"outline:2px solid var(--ink)":""}"><b>${plD(k).getDate()}</b>${p!=null?`<span style="font-size:.65rem">%${p}</span>`:T.length?`<span style="font-size:.65rem">${T.reduce((s,x)=>s+x.m,0)}′</span>`:""}</div>`)}
+ const mp=plRangePct(first<st.plan.start?st.plan.start:first,`${plMonth}-${String(lastD).padStart(2,"0")}`<today?`${plMonth}-${String(lastD).padStart(2,"0")}`:today);
+ const weeks=[];for(let w=plMonday(first);w<=`${plMonth}-${String(lastD).padStart(2,"0")}`;w=plAdd(w,7)){if(plAdd(w,6)<st.plan.start)continue;const ph=plPhase(st.plan,w<st.plan.start?st.plan.start:w);const mins=[...Array(7)].reduce((s,_,i)=>s+plTasks(plAdd(w,i)).reduce((a,x)=>a+x.m,0),0);weeks.push(`<div class="row small" style="padding:6px 0;border-bottom:1px solid var(--line)"><span style="min-width:110px">${plFmt(w)} haftası</span><span class="grow"><b>${ph.t}</b> <span class="muted">${ph.d}</span></span><span class="muted">${mins} dk</span></div>`)}
+ c.innerHTML=`<div class="row"><button class="btn alt sm" id="pm1">‹</button><h2 class="grow" style="text-align:center">${PL_MON[mo-1]} ${y}</h2><button class="btn alt sm" id="pm2">›</button></div>
+ <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:12px">${["Pzt","Sal","Çar","Per","Cum","Cmt","Paz"].map(d=>`<div class="small muted" style="text-align:center">${d}</div>`).join("")}${cells.join("")}</div>
+ <div class="row small muted" style="flex-wrap:wrap;gap:10px;margin-top:10px"><span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--ok)"></i> %80+</span><span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--hl)"></i> %40–79</span><span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#F2A65A"></i> az</span><span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--badbg)"></i> yapılmadı</span><span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--soft)"></i> planlı</span></div>
+ <div class="card" style="margin-top:14px"><b>Ayın uyumu: %${mp?mp.p:0}</b> <span class="small muted">(${mp?mp.n:0} çalışma günü)</span><div style="margin-top:8px">${weeks.join("")}</div></div>`;
+ const sh=n=>{const d=new Date(y,mo-1+n,1);plMonth=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");plMonthV()};$("pm1").onclick=()=>sh(-1);$("pm2").onclick=()=>sh(1)}
+function plTodoRow(t){return`<div class="card row" style="padding:10px 14px"><input type="checkbox" data-td="${t.id}" ${t.done?"checked":""} style="width:20px;height:20px"><span class="grow" style="${t.done?"text-decoration:line-through;opacity:.6":""}">${esc(t.t)}${t.d?` <span class="small muted">· ${plFmt(t.d)}</span>`:""}</span><button class="x" data-tx="${t.id}" aria-label="Sil">✕</button></div>`}
+function plBindTodo(){document.querySelectorAll("#plc [data-td]").forEach(el=>el.onchange=()=>{const t=(st.todo||[]).find(x=>x.id===el.dataset.td);if(t){t.done=el.checked;t.at=dayKey();save();openPlanner()}});
+ document.querySelectorAll("#plc [data-tx]").forEach(el=>el.onclick=()=>{st.todo=(st.todo||[]).filter(x=>x.id!==el.dataset.tx);save();openPlanner()})}
+function plTodo(){const c=$("plc"),L=st.todo||[],open=L.filter(t=>!t.done).sort((a,b)=>(a.d||"9")<(b.d||"9")?-1:1),done=L.filter(t=>t.done).slice(-10).reverse();
+ c.innerHTML=`<h2>Yapılacaklar</h2><div class="card" style="margin-top:10px"><input type="text" id="tdt" maxlength="120" placeholder="Örn. Deneme 1'in yanlışlarını gözden geçir"><div class="row" style="margin-top:8px"><input type="date" id="tdd" style="flex:1;font:inherit;padding:9px;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink)"><button class="btn pri sm" id="tda">Ekle</button></div><p class="small muted" style="margin:6px 0 0">Tarih isteğe bağlı; o gün "Bugün" ekranında görünür.</p></div>
+ <div class="stack" style="margin-top:12px">${open.map(plTodoRow).join("")||`<p class="muted">Açık iş yok.</p>`}</div>${done.length?`<h3 style="margin-top:18px">Tamamlananlar</h3><div class="stack" style="margin-top:8px">${done.map(plTodoRow).join("")}</div>`:""}`;
+ const add=()=>{const t=$("tdt").value.trim();if(!t)return;st.todo=st.todo||[];st.todo.push({id:Date.now().toString(36),t,d:$("tdd").value||"",done:false});save();openPlanner()};$("tda").onclick=add;$("tdt").onkeydown=e=>{if(e.key==="Enter")add()};plBindTodo()}
+function planSetup(){const P=st.plan||{},yp=st.ydsPlan||{};const S={goal:P.goal||(st.goal==="yds"?"yds":st.goal==="en"?"en":"both"),level:P.level||st.level||"B1",date:P.date||yp.date||"",target:P.target||yp.target||70,min:P.min||yp.min||60,days:P.days||[1,2,3,4,5,6],focus:P.focus||[]};
+ const sel="border-color:var(--ink);box-shadow:inset 0 -4px 0 var(--hl)";
+ const draw=()=>{app.innerHTML=`<button class="link" id="plb">‹ Geri</button><h1 style="margin-top:14px"><span class="mk">${st.plan?"Planı düzenle":"Çalışma planı oluştur"}</span></h1>
+ <p class="muted" style="margin-top:6px">Birkaç soruya cevap ver; sana günlük, haftalık ve aylık bir program hazırlayalım. İlerlemen kendiliğinden takip edilir.</p>
+ <div class="card stack" style="margin-top:14px">
+ <div><b>1. Ne için çalışıyorsun?</b><div class="chips" style="margin-top:8px">${[["en","İngilizce"],["yds","YDS / YÖKDİL"],["both","İkisi de"]].map(([k,t])=>`<button class="chip" data-g="${k}" style="${S.goal===k?sel:""}">${t}</button>`).join("")}</div></div>
+ <div><b>2. Seviyen</b><div class="chips" style="margin-top:8px">${LVS.map(l=>`<button class="chip" data-l="${l}" style="${S.level===l?sel:""}">${l}</button>`).join("")}</div><p class="small muted" style="margin:4px 0 0">Bilmiyorsan Testler › Seviye testi'ni çöz.</p></div>
+ ${S.goal!=="en"?`<div><b>3. Sınav tarihi ve hedef puan</b><div class="row" style="margin-top:8px"><input type="date" id="pd" value="${S.date}" style="flex:2;font:inherit;padding:9px;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink)"><input type="text" inputmode="numeric" id="pt" value="${S.target}" style="flex:1" aria-label="Hedef puan"></div><p class="small muted" style="margin:4px 0 0">Tarih boş kalırsa 4 haftalık döngüyle çalışılır.</p></div>`:""}
+ <div><b>${S.goal!=="en"?4:3}. Günde kaç dakika ayırabilirsin?</b><div class="chips" style="margin-top:8px">${[20,30,45,60,90,120,180].map(m=>`<button class="chip" data-m="${m}" style="${S.min===m?sel:""}">${m} dk</button>`).join("")}</div></div>
+ <div><b>${S.goal!=="en"?5:4}. Hangi günler çalışacaksın?</b><div class="chips" style="margin-top:8px">${[1,2,3,4,5,6,0].map(d=>`<button class="chip" data-d="${d}" style="${S.days.includes(d)?sel:""}">${PL_DOW[d]}</button>`).join("")}</div></div>
+ <div><b>${S.goal!=="en"?6:5}. Neye ağırlık verelim? <span class="muted small">(isteğe bağlı, birden fazla)</span></b><div class="chips" style="margin-top:8px">${PL_FOCUS.filter(f=>S.goal!=="en"||!["tech","exam"].includes(f[0])).map(([k,t])=>`<button class="chip" data-f="${k}" style="${S.focus.includes(k)?sel:""}">${t}</button>`).join("")}</div></div>
+ </div><button class="btn pri wide" id="pls" style="margin-top:14px">${st.plan?"Planı güncelle":"Planımı oluştur"}</button>`;
+ const keep=()=>{if($("pd"))S.date=$("pd").value;if($("pt"))S.target=parseInt($("pt").value)||70};
+ $("plb").onclick=()=>st.plan?openPlanner():setTab("home");
+ on("[data-g]",el=>{keep();S.goal=el.dataset.g;draw()});on("[data-l]",el=>{keep();S.level=el.dataset.l;draw()});on("[data-m]",el=>{keep();S.min=+el.dataset.m;draw()});
+ on("[data-d]",el=>{keep();const d=+el.dataset.d,i=S.days.indexOf(d);i<0?S.days.push(d):S.days.splice(i,1);draw()});
+ on("[data-f]",el=>{keep();const f=el.dataset.f,i=S.focus.indexOf(f);i<0?S.focus.push(f):S.focus.splice(i,1);draw()});
+ $("pls").onclick=()=>{keep();if(!S.days.length){uiAlert("En az bir gün seç.");return}
+  st.plan=Object.assign({},S,{start:(st.plan&&st.plan.start)||dayKey(),v:1});if(!st.level)st.level=S.level;
+  if(S.goal!=="en"&&S.date)st.ydsPlan=Object.assign({},st.ydsPlan||{},{date:S.date,target:S.target,min:S.min});
+  save();plView="week";openPlanner()}};draw()}
+function plHomeCard(){const k=dayKey();if(!st.plan)return`<button class="tile-card" id="plh" style="text-align:left;min-height:0;border:2px dashed var(--pri)"><span class="row"><span class="ic">📅</span><b class="grow">Çalışma planı oluştur</b><span class="badge">Yeni</span></span><span class="muted small">Hedefine göre günlük, haftalık ve aylık program; ne kadarını yaptığın otomatik takip edilir.</span></button>`;
+ const T=plTasks(k),p=plDayPct(k);return`<button class="tile-card" id="plh" style="text-align:left;min-height:0"><span class="row"><span class="ic">📅</span><b class="grow">Çalışma planım: bugün</b>${p!=null?`<span class="badge ${p>=80?"ok":""}">%${p}</span>`:""}</span>
+ <span class="muted small">${T.length?T.map(x=>`${PL_AREAS[x.a].ic} ${esc(x.t)} (${x.m} dk)${plDone(k,x)?" ✓":""}`).join("<br>"):"Bugün dinlenme günü."}</span>${p!=null?`<span class="bar" style="margin-top:4px"><i style="width:${p}%"></i></span>`:""}</button>`}
+(function(){const ins=(sel,first)=>{const d=document.createElement("section");d.className="sec";d.innerHTML=plHomeCard();const anchor=document.querySelector(sel);if(anchor)anchor.after(d);else first?app.prepend(d):app.appendChild(d);const b=d.querySelector("#plh");if(b)b.onclick=()=>openPlanner("today")};
+ const _vh=viewHome;window.viewHome=function(){_vh.apply(this,arguments);try{ins("#app .hero")}catch(e){}};
+ const _vy=viewYds;window.viewYds=function(){_vy.apply(this,arguments);try{const d=document.createElement("div");d.style.marginTop="14px";d.innerHTML=plHomeCard();const h=app.querySelector("h1");(h&&h.parentElement===app?h:app.firstElementChild).after(d);d.querySelector("#plh").onclick=()=>openPlanner("today")}catch(e){}};
+ const _vs=viewStats;window.viewStats=function(){_vs.apply(this,arguments);try{if(!st.plan)return;const d=document.createElement("section");d.className="sec";const today=dayKey(),wk=plRangePct(st.plan.start>plMonday(today)?st.plan.start:plMonday(today),today),all=plRangePct(st.plan.start,today);
+  const last=[...Array(14)].map((_,i)=>plAdd(today,i-13));d.innerHTML=`<h2><span class="mk">Plana uyum</span></h2><div class="card" style="margin-top:8px"><div class="row small"><span class="grow">Bu hafta</span><b>%${wk?wk.p:0}</b></div><div class="row small"><span class="grow">Başlangıçtan beri</span><b>%${all?all.p:0}</b></div>
+  <div style="display:flex;gap:3px;align-items:flex-end;height:60px;margin-top:10px">${last.map(k=>{const p=plDayPct(k);return`<div title="${plFmt(k)}: ${p==null?"plan yok":"%"+p}" style="flex:1;height:${p==null?4:Math.max(4,p*0.6)}px;border-radius:4px;background:${p==null?"var(--soft)":plColor(p)}"></div>`}).join("")}</div><div class="row small muted" style="margin-top:4px"><span class="grow">${plFmt(last[0])}</span><span>bugün</span></div>
+  <button class="btn alt sm" id="pls2" style="margin-top:10px">Planı aç ›</button></div>`;app.appendChild(d);$("pls2").onclick=()=>openPlanner("month")}catch(e){}}})();
+
+/* ===== YENİLİKLER: her sürümde bir kez gösterilir ===== */
+const WN_VER="2026.10.22-4";
+const WN_NOTES=["📅 Yeni: Çalışma planım. Hedefine, seviyene ve ayırabildiğin süreye göre günlük, haftalık ve aylık program hazırlanır; ne kadarını yaptığın kendiliğinden takip edilir.", "✅ Yeni: Yapılacaklar listesi. Kendi işlerini ekle, tarih ver, bitince işaretle.", "📚 Kütüphaneye 6 yeni kitap, YDS soru tiplerine 33 yeni alıştırma eklendi.", "🛠️ Dinleme sınavındaki bir hata düzeltildi.", "💾 İlerlemen her gün İndirilenler klasörüne otomatik yedekleniyor; silinirse açılıştaki ekrandan geri yükleyebilirsin.", "🔄 Yeni güncellemeler artık uygulama açılınca gösteriliyor."];
+function showWhatsNew(tries=0){let seen=null;try{seen=localStorage.getItem("da:seenVer")}catch(e){}
+ if(seen===WN_VER)return;
+ const busy=!$("ov").classList.contains("hidden")||($("dlg")&&!$("dlg").classList.contains("hidden"));
+ if(busy){if(tries<20)setTimeout(()=>showWhatsNew(tries+1),1500);return}
+ try{localStorage.setItem("da:seenVer",WN_VER)}catch(e){}
+ if(seen===null&&xpOf(st)<1)return;
+ uiDialog("✅ Uygulama güncellendi (sürüm "+WN_VER+")\n\nBu sürümde neler değişti?\n\n"+WN_NOTES.map(n=>"• "+n).join("\n\n"),{ok:"Harika, devam et"})}
+(function(){const _ae=afterEnter;window.afterEnter=function(){_ae.apply(this,arguments);setTimeout(showWhatsNew,1600)}})();
+
 /* ===== SAYFA İÇİ PENCERELER (alert / confirm / prompt yerine) ===== */
 function uiDialog(msg,{input=false,ok="Tamam",cancel=null,ph=""}={}){return new Promise(res=>{let d=document.getElementById("dlg");if(!d){d=document.createElement("div");d.id="dlg";d.className="dlg";document.body.appendChild(d)}
  d.innerHTML=`<div class="dlg-in" role="dialog" aria-modal="true"><p style="white-space:pre-line;margin:0 0 14px">${esc(msg)}</p>${input?`<textarea id="dlgI" placeholder="${esc(ph)}" style="min-height:80px;margin-bottom:12px"></textarea>`:""}<div class="row" style="justify-content:flex-end;gap:8px">${cancel?`<button class="btn alt" id="dlgC">${esc(cancel)}</button>`:""}<button class="btn pri" id="dlgO">${esc(ok)}</button></div></div>`;
@@ -4725,44 +4899,39 @@ function markGuide(){if(!GD)return;const [k,i]=GD;GD=null;if(!st.gdone||st.gdone
 </script>
 <script>
 if("serviceWorker" in navigator&&location.protocol.startsWith("http")){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").then(r=>{r.addEventListener("updatefound",()=>{const w=r.installing;w&&w.addEventListener("statechange",()=>{if(w.state==="installed"&&navigator.serviceWorker.controller){const b=document.createElement("button");b.className="btn pri";b.textContent="Yeni sürüm hazır, yenile";b.style.cssText="position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:50;box-shadow:0 6px 20px rgba(0,0,0,.25)";b.onclick=()=>UPD.run(b);document.body.appendChild(b)}})})}).catch(()=>{})})}
-/* ===== GÜNCELLEME (Güncelle butonu + otomatik yeni sürüm uyarısı) ===== */
-const APP_VER="2026.10.22-3";
+/* ===== GÜNCELLEME: yeni sürüm varsa açılışta zorunlu güncelleme ekranı ===== */
+const APP_VER="2026.10.22-4";
 const UPD={
  web:()=>/^https?:$/.test(location.protocol),
- async check(){ try{ const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"}); if(!r.ok) return null; const j=await r.json(); return j&&j.v?String(j.v):null; }catch(e){ return null; } },
- async run(btn){
-  if(btn){ btn.disabled=true; btn.innerHTML="⏳ Güncelleniyor…"; }
-  try{ sessionStorage.setItem("updDone","1"); }catch(e){}
-  try{ if("serviceWorker" in navigator){ const rs=await navigator.serviceWorker.getRegistrations(); await Promise.all(rs.map(r=>r.update().catch(()=>{}))); } }catch(e){}
-  try{ if(window.caches){ const ks=await caches.keys(); await Promise.all(ks.map(k=>caches.delete(k))); } }catch(e){}
-  location.reload();
- },
- bar(html,btnText,onBtn,ms){
-  const old=document.getElementById("updBar"); if(old) old.remove();
-  const d=document.createElement("div"); d.id="updBar";
+ async check(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return null;const j=await r.json();return j&&j.v?{v:String(j.v),notes:Array.isArray(j.notes)?j.notes:[]}:null}catch(e){return null}},
+ async run(btn,v){if(btn){btn.disabled=true;btn.innerHTML="⏳ Güncelleniyor…"}
+  try{sessionStorage.setItem("updTry",v||"")}catch(e){}
+  try{if("serviceWorker" in navigator){const rs=await navigator.serviceWorker.getRegistrations();await Promise.all(rs.map(r=>r.update().catch(()=>{})))}}catch(e){}
+  try{if(window.caches){const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}}catch(e){}
+  location.replace(location.pathname+"?v="+encodeURIComponent(v||Date.now()))},
+ block(info){if(document.getElementById("updWall"))return;const d=document.createElement("div");d.id="updWall";
+  d.style.cssText="position:fixed;inset:0;z-index:10000;background:var(--bg);overflow:auto;padding:calc(40px + env(safe-area-inset-top,0px)) 20px 40px";
+  const esc2=x=>String(x).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  d.innerHTML='<div style="max-width:480px;margin:0 auto;text-align:center"><div style="font-size:3rem">🆕</div><h1 style="margin-top:8px">Yeni güncelleme var</h1><p class="muted">Uygulamayı kullanmaya devam etmek için önce güncelle. İlerlemen korunur, bir şey kaybolmaz.</p>'
+   +'<div class="card" style="text-align:left;margin-top:18px"><b>Bu güncellemede neler değişti?</b><ul style="margin:8px 0 0;padding-left:1.2em">'+(info.notes.length?info.notes:["Hata düzeltmeleri ve iyileştirmeler."]).map(n=>'<li style="margin:8px 0">'+esc2(n)+'</li>').join("")+'</ul><p class="small muted" style="margin:10px 0 0">Yeni sürüm '+esc2(info.v)+' · Senin sürümün '+APP_VER+'</p></div>'
+   +'<button class="btn pri wide" id="updGo2" style="margin-top:18px;font-size:1.05rem">🔄 Şimdi güncelle</button></div>';
+  document.body.appendChild(d);document.getElementById("updGo2").onclick=e=>UPD.run(e.currentTarget,info.v)},
+ bar(html,btnText,onBtn,ms){const old=document.getElementById("updBar");if(old)old.remove();const d=document.createElement("div");d.id="updBar";
   d.style.cssText="position:fixed;left:12px;right:12px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:9999;max-width:500px;margin:0 auto;background:#1C1740;color:#fff;border-radius:14px;padding:12px 14px;display:flex;gap:10px;align-items:center;box-shadow:0 8px 24px rgba(0,0,0,.3);font-family:inherit";
   d.innerHTML='<span style="flex:1;line-height:1.35">'+html+'</span>'+(btnText?'<button id="updGo" style="border:0;border-radius:10px;padding:9px 14px;background:#FFD23F;color:#1C1740;font:inherit;font-weight:800">'+btnText+'</button>':'')+'<button id="updX" aria-label="Kapat" style="border:0;background:transparent;color:#fff;font-size:1.2rem;padding:4px 6px;font-family:inherit">✕</button>';
-  document.body.appendChild(d);
-  document.getElementById("updX").onclick=()=>d.remove();
-  if(btnText) document.getElementById("updGo").onclick=e=>onBtn(e.currentTarget);
-  if(ms) setTimeout(()=>d.remove(),ms);
- },
+  document.body.appendChild(d);document.getElementById("updX").onclick=()=>d.remove();if(btnText)document.getElementById("updGo").onclick=e=>onBtn(e.currentTarget);if(ms)setTimeout(()=>d.remove(),ms)},
  lastAuto:0,
- async auto(){
-  if(!UPD.web()||Date.now()-UPD.lastAuto<5*60e3) return; UPD.lastAuto=Date.now();
-  const v=await UPD.check(); if(v&&v!==APP_VER) UPD.bar("🆕 <b>Yeni güncelleme var.</b><br><small>İlerlemen korunur.</small>","Güncelle",b=>UPD.run(b));
- },
- async manual(btn){
-  if(!UPD.web()){ location.reload(); return; }
-  return UPD.run(btn);
- }
+ async auto(force){if(!UPD.web())return;if(!force&&Date.now()-UPD.lastAuto<60e3)return;UPD.lastAuto=Date.now();
+  const info=await UPD.check();if(!info||info.v===APP_VER)return;
+  let tried="";try{tried=sessionStorage.getItem("updTry")||""}catch(e){}
+  if(tried===info.v){UPD.bar("🆕 <b>Güncelleme hazırlanıyor.</b><br><small>Birkaç dakika sonra tekrar dene.</small>","Tekrar dene",b=>UPD.run(b,info.v));return}
+  UPD.block(info)},
+ async manual(btn){if(!UPD.web()){location.reload();return}const info=await UPD.check();return UPD.run(btn,info&&info.v)}
 };
-window.addEventListener("load",()=>{
-  let done=false; try{ done=sessionStorage.getItem("updDone")==="1"; sessionStorage.removeItem("updDone"); }catch(e){}
-  if(done) UPD.bar("✅ <b>Uygulama güncellendi.</b><br><small>Sürüm "+APP_VER+"</small>",null,null,4000);
-  setTimeout(UPD.auto,1500);
-});
-document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible") UPD.auto(); });
+try{if(/[?&]v=/.test(location.search))history.replaceState(null,"",location.pathname)}catch(e){}
+UPD.auto(true);
+window.addEventListener("load",()=>UPD.auto(true));
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")UPD.auto()});
 </script>
 </body>
 </html>

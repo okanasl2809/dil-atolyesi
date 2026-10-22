@@ -1,1 +1,11 @@
-{"v":"2026.10.22-3"}
+{
+ "v": "2026.10.22-4",
+ "notes": [
+  "📅 Yeni: Çalışma planım. Hedefine, seviyene ve ayırabildiğin süreye göre günlük, haftalık ve aylık program hazırlanır; ne kadarını yaptığın kendiliğinden takip edilir.",
+  "✅ Yeni: Yapılacaklar listesi. Kendi işlerini ekle, tarih ver, bitince işaretle.",
+  "📚 Kütüphaneye 6 yeni kitap, YDS soru tiplerine 33 yeni alıştırma eklendi.",
+  "🛠️ Dinleme sınavındaki bir hata düzeltildi.",
+  "💾 İlerlemen her gün İndirilenler klasörüne otomatik yedekleniyor; silinirse açılıştaki ekrandan geri yükleyebilirsin.",
+  "🔄 Yeni güncellemeler artık uygulama açılınca gösteriliyor."
+ ]
+}
