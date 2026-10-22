@@ -4122,7 +4122,7 @@ function reportIssue(ctx){const ov=$("ov");
 (function(){const _rev=examReview;examReview=function(ex,filter){_rev(ex,filter);document.querySelectorAll(".card").forEach(c=>{const h=c.querySelector("b.grow");if(!h)return;const m=h.textContent.match(/Soru (\d+)/);if(!m)return;const q=ex.qs[+m[1]-1];const b=document.createElement("button");b.className="link small";b.style.cssText="display:block;margin-top:8px";b.textContent="⚑ Hata bildir";b.onclick=()=>reportIssue(`${ex.title}, soru ${m[1]}\n${q[1]}\nŞıklar: ${q[2].join(" | ")}\nKayıtlı doğru: ${q[2][0]}`);c.appendChild(b)})}})();
 
 /* ===== YEDEKLEME ===== */
-function backupJSON(){return JSON.stringify({app:"dil-atolyesi",v:1,at:new Date().toISOString(),data:st})}
+function backupJSON(){return JSON.stringify({app:"dil-atolyesi",v:1,at:new Date().toISOString(),who:(typeof ME!=="undefined"&&ME.name)||st.name||"",data:st})}
 async function doRestore(txt){let o;try{o=JSON.parse(txt.trim())}catch(e){uiAlert("Yedek okunamadı. Kodu eksiksiz yapıştırdığından emin ol.");return false}
  const d=o&&o.app==="dil-atolyesi"&&o.data?o.data:null;if(!d||typeof d!=="object"||!d.days){uiAlert("Bu bir Dil Atölyesi yedeği değil.");return false}
  if(!await uiConfirm("Mevcut ilerlemenin yerine yedekteki ilerleme yüklenecek. Devam edilsin mi?"))return false;
@@ -4175,7 +4175,7 @@ function openAbout(){const back=()=>setTab("book");
 (function(){const _vb=viewBook;viewBook=function(){_vb();const sec=document.createElement("section");sec.className="sec";
  sec.innerHTML=`<h2>Uygulama</h2><div class="list"><button class="item" id="ob"><span style="font-size:1.4rem">💾</span><span class="grow"><span class="t">Yedekle ve geri yükle</span><br><span class="muted small">Son yedek: ${st.lastBackup||"hiç alınmadı"}</span></span><span>›</span></button>
  <button class="item" id="ov2"><span style="font-size:1.4rem">🔊</span><span class="grow"><span class="t">Ses ayarları</span><br><span class="muted small">İngilizce ses ve konuşma hızı</span></span><span>›</span></button>
- <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.10.22-1 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
+ <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.10.22-2 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
  <button class="item" id="oa"><span style="font-size:1.4rem">ℹ️</span><span class="grow"><span class="t">Hakkında, gizlilik ve lisanslar</span><br><span class="muted small">Hata bildirimlerin de burada</span></span><span>›</span></button></div>`;
  app.appendChild(sec);$("ob").onclick=openBackup;$("oup").onclick=e=>UPD.manual(e.currentTarget);$("ov2").onclick=openVoice;$("oa").onclick=openAbout;}})();
 (function(){const _vh=viewHome;viewHome=function(){_vh();const p=document.createElement("p");p.className="small muted";p.style.cssText="text-align:center;margin-top:28px";p.innerHTML='Dil Atölyesi, geliştirici: <b>Okan Asl</b>';app.appendChild(p)}})();
@@ -4475,6 +4475,22 @@ async function offerRecovery(force){if(!force&&window._recDone)return;window._re
  if(!c.length){if(force)await uiAlert("Bu cihazda şu anki ilerlemenden daha büyük bir kayıt bulunamadı.");return}
  const b=c[0];if(await uiConfirm(`Bu cihazda şu ankinden daha fazla ilerleme içeren bir kayıt bulundu:\n\n${b.label}: ${b.x} puan\n(Şu an: ${xpOf(st)} puan)\n\nBu ilerlemeyi geri yükleyelim mi? Mevcut ilerlemen de korunur, ikisi birleştirilir.`)){st=mergeState(st,b.d);st._at=Date.now();save();renderTop();setTab("home");uiAlert("İlerlemen geri yüklendi ✓")}
  else{try{localStorage.setItem("da:snap:"+stKey(),JSON.stringify({d:dayKey(),st}))}catch(e){}}}
+
+/* ===== OTOMATİK DOSYA YEDEĞİ (telefon tarayıcının verisini silse bile İndirilenler'de kalır) ===== */
+async function restoreFromWho(txt){let o;try{o=JSON.parse(String(txt).trim())}catch(e){uiAlert("Bu dosya okunamadı. dil-atolyesi-yedek ile başlayan dosyayı seç.");return}
+ const data=o&&o.data&&o.data.days?o.data:(o&&o.days?o:null);if(!data){uiAlert("Bu dosyada ilerleme bulunamadı.");return}
+ let n=(o.who||data.name||"").trim();if(!n)n=(await uiPrompt("Bu yedek kimin? Adını yaz.","Adın"))||"Ben";n=n.slice(0,30);
+ addProfile(n);ME={mode:"local",id:null,name:n};try{localStorage.setItem(CURP_KEY,n)}catch(e){}load();st=mergeState(st,data);st._at=Date.now();save();
+ try{localStorage.setItem("da:autoBk:"+stKey(),dayKey())}catch(e){}
+ $("ov").classList.add("hidden");afterEnter();uiAlert(`İlerlemen geri yüklendi ✓\n${n}: ${xpOf(st)} puan`)}
+function autoFileBackup(){if(!/^https?:$/.test(location.protocol)||!ME||ME.mode==="cloud"||!ME.name)return;if(xpOf(st)<1)return;
+ const k="da:autoBk:"+stKey();let last="";try{last=localStorage.getItem(k)||""}catch(e){}if(last===dayKey())return;
+ try{const fn="dil-atolyesi-yedek-"+ME.name.toLocaleLowerCase("tr").replace(/[^a-z0-9çğıöşü]+/g,"-")+".json";
+  const b=new Blob([backupJSON()],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=fn;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),5000);
+  localStorage.setItem(k,dayKey());st.lastBackup=dayKey();
+  const t=document.createElement("div");t.textContent="💾 Günlük yedek İndirilenler klasörüne kaydedildi";t.style.cssText="position:fixed;left:50%;transform:translateX(-50%);top:calc(64px + env(safe-area-inset-top,0px));z-index:60;background:#1E8A6E;color:#fff;padding:8px 14px;border-radius:999px;font-size:.85rem;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.2)";document.body.appendChild(t);setTimeout(()=>t.remove(),3500)}catch(e){}}
+/* indirme yalnızca kullanıcı bir yere dokununca izinli: günün ilk dokunuşunda yedek al */
+document.addEventListener("click",()=>{setTimeout(autoFileBackup,0)},true);
 /* yerel kişiler (bulut yoksa) */
 const profiles=()=>{try{return JSON.parse(localStorage.getItem(PROF_KEY)||"[]")}catch(e){return[]}};
 function addProfile(n){const p=profiles();if(!p.some(x=>x.toLocaleLowerCase("tr")===n.toLocaleLowerCase("tr"))){p.push(n);try{localStorage.setItem(PROF_KEY,JSON.stringify(p))}catch(e){}}}
@@ -4489,12 +4505,14 @@ function whoScreen(){const ov=$("ov"),ps=profiles();
  ${ps.length?`<div class="stack" style="margin-top:16px">${ps.map(n=>`<button class="pick" data-n="${esc(n)}"><b>👤 ${esc(n)}</b><br><span class="muted small">${profXP(n)} puan</span></button>`).join("")}</div>`:""}
  <h2 style="margin-top:22px">${ps.length?"Yeni kişi":"Adın ne?"}</h2><input id="wn" type="text" maxlength="30" placeholder="Adın" autocomplete="given-name" style="margin-top:8px;width:100%">
  <button class="btn pri wide" id="wok" style="margin-top:12px">Giriş yap</button>
+ <div class="card" style="margin-top:18px"><b>📂 İlerlemen silindiyse</b><p class="small muted" style="margin:4px 0 10px">Uygulama her gün telefonunun <b>İndirilenler</b> klasörüne otomatik yedek kaydeder. En yeni <b>dil-atolyesi-yedek</b> dosyasını seç, ilerlemen geri gelsin.</p><label class="btn alt wide" style="cursor:pointer">Yedek dosyasını seç<input type="file" id="wfi" accept=".json,application/json,text/plain" style="display:none"></label></div>
  <p class="small muted" style="margin-top:14px">Bu cihazdaki kayıt yalnızca bu tarayıcıda durur. Claude hesabınla giriş yapmış olarak açarsan ilerlemen tüm cihazlarında aynı olur.</p></div>`;
  ov.classList.remove("hidden");
  on(".pick[data-n]",el=>{ov.classList.add("hidden");enterLocal(el.dataset.n)});
  const go=async()=>{const n=$("wn").value.trim().replace(/\s+/g," ");if(n.length<2){$("wn").focus();return}
   if(ps.some(x=>x.toLocaleLowerCase("tr")===n.toLocaleLowerCase("tr"))){ov.classList.add("hidden");enterLocal(ps.find(x=>x.toLocaleLowerCase("tr")===n.toLocaleLowerCase("tr")));return}
   addProfile(n);ov.classList.add("hidden");ME={mode:"local",id:null,name:n};try{localStorage.setItem(CURP_KEY,n)}catch(e){}load();if(!ps.length)await adoptLegacy();afterEnter()};
+ $("wfi").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>restoreFromWho(r.result);r.readAsText(f)};
  $("wok").onclick=go;$("wn").onkeydown=e=>{if(e.key==="Enter")go()}}
 async function askName(){const n=await uiDialog("Sana nasıl hitap edelim?",{input:true,ok:"Kaydet",ph:"Adın"});if(n){st.name=n.slice(0,30);save()}}
 
@@ -4608,7 +4626,7 @@ function markGuide(){if(!GD)return;const [k,i]=GD;GD=null;if(!st.gdone||st.gdone
 <script>
 if("serviceWorker" in navigator&&location.protocol.startsWith("http")){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").then(r=>{r.addEventListener("updatefound",()=>{const w=r.installing;w&&w.addEventListener("statechange",()=>{if(w.state==="installed"&&navigator.serviceWorker.controller){const b=document.createElement("button");b.className="btn pri";b.textContent="Yeni sürüm hazır, yenile";b.style.cssText="position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:50;box-shadow:0 6px 20px rgba(0,0,0,.25)";b.onclick=()=>UPD.run(b);document.body.appendChild(b)}})})}).catch(()=>{})})}
 /* ===== GÜNCELLEME (Güncelle butonu + otomatik yeni sürüm uyarısı) ===== */
-const APP_VER="2026.10.22-1";
+const APP_VER="2026.10.22-2";
 const UPD={
  web:()=>/^https?:$/.test(location.protocol),
  async check(){ try{ const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"}); if(!r.ok) return null; const j=await r.json(); return j&&j.v?String(j.v):null; }catch(e){ return null; } },
