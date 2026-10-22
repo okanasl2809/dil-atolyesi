@@ -4175,7 +4175,7 @@ function openAbout(){const back=()=>setTab("book");
 (function(){const _vb=viewBook;viewBook=function(){_vb();const sec=document.createElement("section");sec.className="sec";
  sec.innerHTML=`<h2>Uygulama</h2><div class="list"><button class="item" id="ob"><span style="font-size:1.4rem">💾</span><span class="grow"><span class="t">Yedekle ve geri yükle</span><br><span class="muted small">Son yedek: ${st.lastBackup||"hiç alınmadı"}</span></span><span>›</span></button>
  <button class="item" id="ov2"><span style="font-size:1.4rem">🔊</span><span class="grow"><span class="t">Ses ayarları</span><br><span class="muted small">İngilizce ses ve konuşma hızı</span></span><span>›</span></button>
- <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.10.12-3 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
+ <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.10.22-1 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
  <button class="item" id="oa"><span style="font-size:1.4rem">ℹ️</span><span class="grow"><span class="t">Hakkında, gizlilik ve lisanslar</span><br><span class="muted small">Hata bildirimlerin de burada</span></span><span>›</span></button></div>`;
  app.appendChild(sec);$("ob").onclick=openBackup;$("oup").onclick=e=>UPD.manual(e.currentTarget);$("ov2").onclick=openVoice;$("oa").onclick=openAbout;}})();
 (function(){const _vh=viewHome;viewHome=function(){_vh();const p=document.createElement("p");p.className="small muted";p.style.cssText="text-align:center;margin-top:28px";p.innerHTML='Dil Atölyesi, geliştirici: <b>Okan Asl</b>';app.appendChild(p)}})();
@@ -4428,22 +4428,53 @@ function save(){st._at=Date.now();try{localStorage.setItem(stKey(),JSON.stringif
 function myName(){return ME.name||st.name||""}
 function queueSync(){if(ME.mode!=="cloud"||!DB)return;clearTimeout(_syncT);_syncT=setTimeout(pushNow,3000)}
 const base=()=>"data/users/"+ME.id+"/app";
-async function pushNow(){if(ME.mode!=="cloud"||!DB)return;if(_syncBusy){_syncAgain=true;return}
+async function pushNow(){if(ME.mode!=="cloud"||!DB||!_pullOK)return;if(_syncBusy){_syncAgain=true;return}
  const txt=JSON.stringify(st);if(txt===_lastPushed)return;_syncBusy=true;setSync("⏳");
  try{const n=Math.max(1,Math.ceil(txt.length/CHUNK));
-  for(let i=0;i<n;i++)await DB.doc(base()+"/chunks/c"+i).set({t:txt.slice(i*CHUNK,(i+1)*CHUNK)});
-  await DB.doc(base()).set({n,at:st._at||Date.now()});_lastPushed=txt;setSync("☁️");
+  const g=Date.now().toString(36);for(let i=0;i<n;i++)await DB.doc(base()+"/chunks/g"+g+"c"+i).set({t:txt.slice(i*CHUNK,(i+1)*CHUNK)});
+  await DB.doc(base()).set({n,g,at:st._at||Date.now(),xp:xpOf(st)});_lastPushed=txt;setSync("☁️");
   try{await DB.doc("learners/"+ME.id).set({xp:totalXP(),streak:streak(),level:st.level||"",goal:st.goal||"",seen:dayKey(),mocks:(st.mocks||[]).length,best:Math.max(0,...(st.mocks||[]).filter(m=>m.n===80).map(m=>m.score))})}catch(e){}
  }catch(e){if(e&&e.code==="invalid_argument"){goLocalFromCloud();return}setSync("⚠️")}
  finally{_syncBusy=false;if(_syncAgain){_syncAgain=false;queueSync()}}}
-async function pullRemote(){const m=await DB.doc(base()).get();if(!m.exists)return null;const meta=m.data();let txt="";
- for(let i=0;i<meta.n;i++){const c=await DB.doc(base()+"/chunks/c"+i).get();if(!c.exists)return null;txt+=c.data().t}
- try{return JSON.parse(txt)}catch(e){return null}}
+async function pullRemote(){const m=await DB.doc(base()).get();if(!m.exists)return null;const meta=m.data();let txt="";const pre=meta.g?"g"+meta.g+"c":"c";
+ for(let i=0;i<meta.n;i++){const c=await DB.doc(base()+"/chunks/"+pre+i).get();if(!c.exists)throw new Error("eksik parça");txt+=c.data().t}
+ return JSON.parse(txt)}
 function setSync(s){const b=$("hdMe");if(b)b.dataset.sync=s;const t=$("hdSync");if(t)t.textContent=s}
 function goLocalFromCloud(){const nm=myName(),data=st;ME={mode:"local",id:null,name:nm||"Ben"};DB=null;addProfile(ME.name);st=data;save();setSync("📱");
  uiAlert("Bu bağlantı üzerinden ilerlemen buluta kaydedilemiyor (paylaşım izni yalnızca görüntüleme). İlerlemen bu cihazda \""+ME.name+"\" adıyla saklanmaya devam edecek.")}
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"&&ME.mode==="cloud"){clearTimeout(_syncT);pushNow()}});
 
+
+/* ===== İLERLEME KORUMA ===== */
+let _pullOK=false,_pullTimer=null;
+function xpOf(d){return d&&d.days?Object.values(d.days).reduce((a,b)=>a+(+b||0),0):0}
+function mergeState(a,b){if(!a)return b;if(!b)return a;const[o,n]=(a._at||0)>(b._at||0)?[b,a]:[a,b];const r=Object.assign(defState(),o,n);
+ for(const k of Object.keys(r)){const x=o[k],y=n[k];
+  if(k==="exam"){r.exam=y!==undefined?y:x;continue}
+  if(k==="days"&&x&&y){const d=Object.assign({},x);for(const t in y)d[t]=Math.max(+d[t]||0,+y[t]||0);r.days=d;continue}
+  if(x&&y&&typeof x==="object"&&typeof y==="object"&&!Array.isArray(x)&&!Array.isArray(y)){r[k]=Object.assign({},x,y);continue}
+  if(Array.isArray(x)&&Array.isArray(y)){r[k]=y.length>=x.length||y.length?y:x;if(!y.length&&x.length)r[k]=x;continue}
+  if((y===null||y===undefined||y==="")&&x!=null)r[k]=x}
+ r.best=Math.max(+o.best||0,+n.best||0);r._at=Math.max(o._at||0,n._at||0);return r}
+async function syncFromRemote(){let remote;try{remote=await pullRemote()}catch(e){return false}
+ _pullOK=true;if(remote){st=mergeState(st,remote);try{localStorage.setItem(stKey(),JSON.stringify(st))}catch(e){}}else if(!st._at)await adoptLegacy();
+ return true}
+function retryPull(){clearInterval(_pullTimer);_pullTimer=setInterval(async()=>{if(await syncFromRemote()){clearInterval(_pullTimer);setSync("☁️");renderTop();renderMe();queueSync()}},20000)}
+/* günlük yedek: büyük bir kayıt, küçüğüyle asla ezilmez */
+(function(){const _s=save;save=function(){_s();try{const k="da:snap:"+stKey(),p=JSON.parse(localStorage.getItem(k)||"null");
+ if(!p||(p.d!==dayKey()&&xpOf(st)>=xpOf(p.st)))localStorage.setItem(k,JSON.stringify({d:dayKey(),st}))}catch(e){}}})();
+function lostCandidates(){const mine=xpOf(st),out=[];
+ for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(!k||k===stKey())continue;let d=null,label="";
+  try{if(k==="da:snap:"+stKey()){d=JSON.parse(localStorage.getItem(k)).st;label="Otomatik günlük yedek"}
+   else if(k===KEY){d=JSON.parse(localStorage.getItem(k));label="Eski kayıt (ad girişinden önce)"}
+   else if(k.startsWith(KEY+":u:")){d=JSON.parse(localStorage.getItem(k));label="Claude hesabıyla açılan kayıt"+(d&&d.name?" ("+d.name+")":"")}
+   else if(ME.mode==="cloud"&&k.startsWith(KEY+":p:")){d=JSON.parse(localStorage.getItem(k));label='"'+k.slice((KEY+":p:").length)+'" adıyla bu cihazdaki kayıt'}}catch(e){continue}
+  const x=xpOf(d);if(d&&x>mine&&x>=20)out.push({k,d,x,label})}
+ return out.sort((a,b)=>b.x-a.x)}
+async function offerRecovery(force){if(!force&&window._recDone)return;window._recDone=1;const c=lostCandidates();
+ if(!c.length){if(force)await uiAlert("Bu cihazda şu anki ilerlemenden daha büyük bir kayıt bulunamadı.");return}
+ const b=c[0];if(await uiConfirm(`Bu cihazda şu ankinden daha fazla ilerleme içeren bir kayıt bulundu:\n\n${b.label}: ${b.x} puan\n(Şu an: ${xpOf(st)} puan)\n\nBu ilerlemeyi geri yükleyelim mi? Mevcut ilerlemen de korunur, ikisi birleştirilir.`)){st=mergeState(st,b.d);st._at=Date.now();save();renderTop();setTab("home");uiAlert("İlerlemen geri yüklendi ✓")}
+ else{try{localStorage.setItem("da:snap:"+stKey(),JSON.stringify({d:dayKey(),st}))}catch(e){}}}
 /* yerel kişiler (bulut yoksa) */
 const profiles=()=>{try{return JSON.parse(localStorage.getItem(PROF_KEY)||"[]")}catch(e){return[]}};
 function addProfile(n){const p=profiles();if(!p.some(x=>x.toLocaleLowerCase("tr")===n.toLocaleLowerCase("tr"))){p.push(n);try{localStorage.setItem(PROF_KEY,JSON.stringify(p))}catch(e){}}}
@@ -4467,7 +4498,7 @@ function whoScreen(){const ov=$("ov"),ps=profiles();
  $("wok").onclick=go;$("wn").onkeydown=e=>{if(e.key==="Enter")go()}}
 async function askName(){const n=await uiDialog("Sana nasıl hitap edelim?",{input:true,ok:"Kaydet",ph:"Adın"});if(n){st.name=n.slice(0,30);save()}}
 
-function afterEnter(){renderTop();renderMe();if(!st.goal)onboard();setTab("home")}
+function afterEnter(){renderTop();renderMe();if(!st.goal)onboard();setTab("home");setTimeout(()=>{if($("ov").classList.contains("hidden"))offerRecovery()},800)}
 function renderMe(){let b=$("hdMe");if(!b){b=document.createElement("button");b.id="hdMe";b.className="btn alt sm";b.title="Hesabım";$("hdBook").before(b);b.onclick=openMe}
  const n=myName();b.innerHTML=`👤 ${esc(n?n.split(" ")[0]:"Ben")}<span id="hdSync" style="margin-left:4px;font-size:.8em">${ME.mode==="cloud"?"☁️":"📱"}</span>`}
 async function openMe(){const ov=$("ov"),own=ME.mode==="cloud"&&USR?await USR.isOwner():false;
@@ -4475,10 +4506,12 @@ async function openMe(){const ov=$("ov"),own=ME.mode==="cloud"&&USR?await USR.is
  <div class="card" style="margin-top:14px">${ME.mode==="cloud"?`<b>☁️ Hesabına kayıtlı</b><p class="small muted" style="margin:4px 0 0">İlerlemen Claude hesabına bağlı. Telefonda, bilgisayarda, hangi cihazdan açarsan aç kaldığın yerden devam edersin. Son eşitleme: ${_lastPushed?"tamam":"bekliyor"}.</p>`:`<b>📱 Bu cihazda kayıtlı</b><p class="small muted" style="margin:4px 0 0">İlerlemen bu tarayıcıda "${esc(ME.name)}" adıyla saklanıyor. Başka cihaza geçeceksen Defter › Yedekle bölümünden yedek al.</p>`}</div>
  <div class="stack" style="margin-top:12px"><div class="row small"><span class="grow">Toplam puan</span><b>${totalXP()}</b></div><div class="row small"><span class="grow">Günlük seri</span><b>${streak()} gün</b></div><div class="row small"><span class="grow">Seviye</span><b>${st.level||"—"}</b></div></div>
  <div class="stack" style="margin-top:16px">${ME.mode==="cloud"?`<button class="btn alt wide" id="mn">Adımı değiştir</button>`:`<button class="btn alt wide" id="ms">Kişi değiştir</button>`}
+ <button class="btn alt wide" id="mr">🔎 Kayıp ilerlemeyi ara</button>
  ${own?`<button class="btn pri wide" id="mo">👥 Öğrencilerim ve bildirimler</button>`:""}</div></div>`;
  ov.classList.remove("hidden");$("mx").onclick=()=>ov.classList.add("hidden");
  if($("mn"))$("mn").onclick=async()=>{await askName();renderMe();openMe()};
  if($("ms"))$("ms").onclick=()=>{clearTimeout(_syncT);try{localStorage.removeItem(CURP_KEY)}catch(e){}whoScreen()};
+ if($("mr"))$("mr").onclick=()=>{ov.classList.add("hidden");offerRecovery(true)};
  if($("mo"))$("mo").onclick=openOwner}
 async function openOwner(){const ov=$("ov");ov.innerHTML=`<div class="in"><button class="link" id="mx">‹ Geri</button><h1 style="margin-top:12px"><span class="mk">Öğrencilerim</span></h1><p class="muted" id="ol">Yükleniyor…</p></div>`;$("mx").onclick=openMe;
  try{const q=await DB.collection("learners").get();const rows=q.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.seen||"").localeCompare(a.seen||"")||b.xp-a.xp);
@@ -4559,13 +4592,13 @@ try{document.querySelector(".tabs").addEventListener("click",()=>{GD=null},true)
 function markGuide(){if(!GD)return;const [k,i]=GD;GD=null;if(!st.gdone||st.gdone.d!==dayKey())st.gdone={d:dayKey()};const a=st.gdone[k]=st.gdone[k]||[];if(!a.includes(i))a.push(i);save()}
 
 (async function boot(){st=defState();renderTop();app.innerHTML=`<p class="muted" style="text-align:center;margin-top:40px">Yükleniyor…</p>`;
- const use=n=>window.claude&&window.claude.use?Promise.race([window.claude.use(n).catch(()=>null),new Promise(r=>setTimeout(()=>r(null),6000))]):Promise.resolve(null);
- const [u,d]=await Promise.all([use("user"),use("db")]);let id=null,nm="";
+ try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist().catch(()=>{})}catch(e){}
+ const use=(n,ms)=>window.claude&&window.claude.use?Promise.race([window.claude.use(n).catch(()=>null),new Promise(r=>setTimeout(()=>r(null),ms))]):Promise.resolve(null);
+ let [u,d]=await Promise.all([use("user",8000),use("db",8000)]);
+ if(window.claude&&window.claude.use&&(!u||!d))[u,d]=await Promise.all([u||use("user",15000),d||use("db",15000)]);let id=null,nm="";
  if(u){try{id=await u.id();const me=await u.me();nm=me&&me.name||""}catch(e){}}
  if(id&&d){ME={mode:"cloud",id,name:nm};DB=d;USR=u;load();setSync("⏳");
-  let remote=null;try{remote=await pullRemote()}catch(e){}
-  if(remote&&(remote._at||0)>(st._at||0)){st=Object.assign(defState(),remote);try{localStorage.setItem(stKey(),JSON.stringify(st))}catch(e){}_lastPushed=JSON.stringify(st)}
-  else if(!remote&&!(st._at))await adoptLegacy();
+  let ok=await syncFromRemote();if(!ok)ok=await syncFromRemote();if(!ok){setSync("⚠️");retryPull()}
   afterEnter();if(!myName())await askName(),renderMe();queueSync();return}
  const cur=localStorage.getItem(CURP_KEY);if(cur&&profiles().includes(cur)){enterLocal(cur);return}
  whoScreen()})();
@@ -4575,7 +4608,7 @@ function markGuide(){if(!GD)return;const [k,i]=GD;GD=null;if(!st.gdone||st.gdone
 <script>
 if("serviceWorker" in navigator&&location.protocol.startsWith("http")){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").then(r=>{r.addEventListener("updatefound",()=>{const w=r.installing;w&&w.addEventListener("statechange",()=>{if(w.state==="installed"&&navigator.serviceWorker.controller){const b=document.createElement("button");b.className="btn pri";b.textContent="Yeni sürüm hazır, yenile";b.style.cssText="position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:50;box-shadow:0 6px 20px rgba(0,0,0,.25)";b.onclick=()=>UPD.run(b);document.body.appendChild(b)}})})}).catch(()=>{})})}
 /* ===== GÜNCELLEME (Güncelle butonu + otomatik yeni sürüm uyarısı) ===== */
-const APP_VER="2026.10.12-4";
+const APP_VER="2026.10.22-1";
 const UPD={
  web:()=>/^https?:$/.test(location.protocol),
  async check(){ try{ const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"}); if(!r.ok) return null; const j=await r.json(); return j&&j.v?String(j.v):null; }catch(e){ return null; } },
