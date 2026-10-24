@@ -1,11 +1,13 @@
 {
- "v": "2026.10.22-4",
+ "v": "2026.10.24-1",
  "notes": [
-  "📅 Yeni: Çalışma planım. Hedefine, seviyene ve ayırabildiğin süreye göre günlük, haftalık ve aylık program hazırlanır; ne kadarını yaptığın kendiliğinden takip edilir.",
-  "✅ Yeni: Yapılacaklar listesi. Kendi işlerini ekle, tarih ver, bitince işaretle.",
-  "📚 Kütüphaneye 6 yeni kitap, YDS soru tiplerine 33 yeni alıştırma eklendi.",
-  "🛠️ Dinleme sınavındaki bir hata düzeltildi.",
-  "💾 İlerlemen her gün İndirilenler klasörüne otomatik yedekleniyor; silinirse açılıştaki ekrandan geri yükleyebilirsin.",
-  "🔄 Yeni güncellemeler artık uygulama açılınca gösteriliyor."
+  "🎓 Yeni: İngilizce kursu. Ders, kelime, diyalog, dinleme ve sınavdan oluşan üniteler; \"Devam et\"e bas, kurs seni sıradaki adıma götürsün. Ünite sınavını geçince sıradaki açılır.",
+  "🏅 Seviye sınavı ve belge: Bir seviyenin tüm ünitelerini bitirince seviye sınavına gir, geçince başarı belgeni al.",
+  "🗣️ Kelimelerin okunuşu eklendi: Her kelimenin yanında Türkçe harflerle nasıl okunduğu (vurgulu hece büyük harfle) ve uluslararası okunuşu yazıyor.",
+  "🎮 Yeni: Kelime oyunları. Doğru mu yanlış mı, harfleri diz, adam asmaca, dinle ve bul, eşleştirme yarışı. Çalıştığın kelimelerle oynarsın, rekorun kaydedilir.",
+  "👅 Türkler için telaffuz: th, w ile v, ship ile sheep gibi zor sesler; dinleyip ayırt etme alıştırması.",
+  "🚫 Türklerin sık yaptığı 51 hata (\"I am agree\" gibi) ve alıştırmaları.",
+  "🎙️ Dinle ve tekrar et: Cümleyi dinle, sesli söyle; doğru söylediğin kelimeler yeşil görünür. Ayrıca Türkçeden İngilizceye yazma alıştırması.",
+  "🔁 Günlük tekrar ve daha akıllı kelime tekrarı: Aynı gün tekrar etmek artık kelimeyi erkenden \"öğrenildi\" saymıyor; bitirdiğin konular aralıklarla tekrar karşına çıkıyor."
  ]
 }
