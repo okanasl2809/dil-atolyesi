@@ -1,7 +1,9 @@
 {
- "v": "2026.10.24-1",
+ "v": "2026.10.24-2",
  "notes": [
-  "🎓 Yeni: İngilizce kursu. Ders, kelime, diyalog, dinleme ve sınavdan oluşan üniteler; \"Devam et\"e bas, kurs seni sıradaki adıma götürsün. Ünite sınavını geçince sıradaki açılır.",
+  "📝 Yeni: Örneği olmayan 9.000'den fazla kelimeye örnek cümle eklendi. Artık neredeyse her kelimenin kartında, listesinde ve alıştırmasında, o kelimenin nasıl kullanıldığını gösteren bir cümle var.",
+  "🛠️ Küçük düzeltmeler: uzun bildirim pencereleri telefonda artık kaydırılabiliyor.",
+  "🎓 İngilizce kursu: İngilizce kursu. Ders, kelime, diyalog, dinleme ve sınavdan oluşan üniteler; \"Devam et\"e bas, kurs seni sıradaki adıma götürsün. Ünite sınavını geçince sıradaki açılır.",
   "🏅 Seviye sınavı ve belge: Bir seviyenin tüm ünitelerini bitirince seviye sınavına gir, geçince başarı belgeni al.",
   "🗣️ Kelimelerin okunuşu eklendi: Her kelimenin yanında Türkçe harflerle nasıl okunduğu (vurgulu hece büyük harfle) ve uluslararası okunuşu yazıyor.",
   "🎮 Yeni: Kelime oyunları. Doğru mu yanlış mı, harfleri diz, adam asmaca, dinle ve bul, eşleştirme yarışı. Çalıştığın kelimelerle oynarsın, rekorun kaydedilir.",
