@@ -1,19 +1,12 @@
 {
- "v": "2026.10.25-1",
+ "v": "2026.11.03-1",
  "notes": [
-  "🇹🇷 Yeni: Bütün örnek cümlelerin Türkçesi eklendi. 10.500'den fazla cümlenin altında artık ne anlama geldiği yazıyor (kelime kartlarında ve kelime listelerinde).",
-  "📖 Yeni: Kısa hikâyeler. Her seviyede (A1'den C2'ye) 10 hikâye, toplam 60 hikâye. Her hikâyenin sonunda anlama soruları var. İngilizce sekmesinde \"Kısa hikâyeler\"e dokun.",
-  "🎯 Yeni: Zayıf noktalarım. En çok yanlış yaptığın kelimeleri ve konuları tek sayfada gör, sadece onlardan alıştırma yap.",
-  "🎭 Yeni: Diyaloglarda sesli rol yapma. Rolünü seç, \"Sesli söyleyerek\"i işaretle; sıra sana gelince cümleyi kendin söyle.",
-  "🏅 Yeni: Rozetler ve aylık hedef. Ayda kaç gün çalışacağını seç; çalıştıkça 32 rozetin kilidini aç. Gelişim sekmesinde ve ana sayfada.",
-  "🔎 Okurken bilinmeyen bir kelimeye dokununca anlamı artık internet olmadan da çıkıyor.",
-  "🎓 İngilizce kursu: İngilizce kursu. Ders, kelime, diyalog, dinleme ve sınavdan oluşan üniteler; \"Devam et\"e bas, kurs seni sıradaki adıma götürsün. Ünite sınavını geçince sıradaki açılır.",
-  "🏅 Seviye sınavı ve belge: Bir seviyenin tüm ünitelerini bitirince seviye sınavına gir, geçince başarı belgeni al.",
-  "🗣️ Kelimelerin okunuşu eklendi: Her kelimenin yanında Türkçe harflerle nasıl okunduğu (vurgulu hece büyük harfle) ve uluslararası okunuşu yazıyor.",
-  "🎮 Yeni: Kelime oyunları. Doğru mu yanlış mı, harfleri diz, adam asmaca, dinle ve bul, eşleştirme yarışı. Çalıştığın kelimelerle oynarsın, rekorun kaydedilir.",
-  "👅 Türkler için telaffuz: th, w ile v, ship ile sheep gibi zor sesler; dinleyip ayırt etme alıştırması.",
-  "🚫 Türklerin sık yaptığı 51 hata (\"I am agree\" gibi) ve alıştırmaları.",
-  "🎙️ Dinle ve tekrar et: Cümleyi dinle, sesli söyle; doğru söylediğin kelimeler yeşil görünür. Ayrıca Türkçeden İngilizceye yazma alıştırması.",
-  "🔁 Günlük tekrar ve daha akıllı kelime tekrarı: Aynı gün tekrar etmek artık kelimeyi erkenden \"öğrenildi\" saymıyor; bitirdiğin konular aralıklarla tekrar karşına çıkıyor."
+  "🔍 Yeni: Sözlük. Üst çubuktaki 🔍 düğmesiyle 10.000'den fazla kelime ve kalıpta İngilizce ya da Türkçe ara. Okunuşu, örnek cümleyi ve Türkçesini gör, dinle, tek dokunuşla tekrar listene ekle. \"went, found, children\" gibi çekimli hâlleri de tanır.",
+  "🌓 Yeni: Görünüm seçimi. 👤 Hesabım bölümünden Otomatik, Açık ya da Koyu tema seç.",
+  "🛠️ Düzeltildi: Yeni başlayanlarda \"Zayıf noktalarım\" bölümünde uygulamanın donması giderildi; çalışılacak soru yoksa artık bilgi veriliyor.",
+  "👁️ Düzeltildi: Koyu temada sarı vurgulu başlıklar artık rahat okunuyor.",
+  "💾 Daha güvenli kayıt: Cihazın depolama alanı dolarsa ilerlemen sessizce kaybolmaz, seni yedek alman için uyarırız. Hesapla eşitlemede deneme sınavı sonuçların artık birleştirilerek korunuyor.",
+  "🧹 Ana sayfa sadeleşti: CV bölümü uygulamadan ayrıldı; ana sayfa yalnızca İngilizce ve YDS çalışmana odaklanıyor.",
+  "✅ Tüm ilerlemen, puanların, serin ve kelimelerin olduğu gibi korundu."
  ]
 }

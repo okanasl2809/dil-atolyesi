@@ -13,6 +13,7 @@
 <meta name="apple-mobile-web-app-title" content="Dil Atölyesi">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>Dil Atölyesi: YDS ve İngilizce</title>
+<script>try{const t=localStorage.getItem("da:theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -31,7 +32,12 @@ h3{font-size:1.05rem;font-weight:600}
 p{margin:.4em 0}
 button{font:inherit;color:inherit;cursor:pointer}
 :focus-visible{outline:3px solid var(--pri);outline-offset:2px}
-.mk{background:linear-gradient(transparent 52%,var(--hl) 52%,var(--hl) 90%,transparent 90%);padding:0 .1em}
+.mk{background:linear-gradient(transparent 52%,var(--mk,var(--hl)) 52%,var(--mk,var(--hl)) 90%,transparent 90%);padding:0 .1em}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--mk:rgba(232,200,58,.38)}}
+:root[data-theme="dark"]{--mk:rgba(232,200,58,.38)}
+.dict-r{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.dict-r:hover{border-color:var(--ink)}
+.dict-r .w{font-weight:700}
 mark{background:var(--hl);color:var(--hlink);border-radius:3px;padding:0 .15em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
 .top .in{max-width:760px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px}
@@ -43,7 +49,7 @@ main{max-width:760px;margin:0 auto;padding:18px 16px 110px}
 .tabs button{background:none;border:0;padding:9px 2px 10px;min-width:0;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.7rem;font-weight:600;color:var(--muted);white-space:nowrap}
 .tabs button .ic{font-size:1.25rem;line-height:1}
 .tabs button[aria-current="page"]{color:var(--ink)}
-.tabs button[aria-current="page"] .lb{background:linear-gradient(transparent 55%,var(--hl) 55%)}
+.tabs button[aria-current="page"] .lb{background:linear-gradient(transparent 55%,var(--mk,var(--hl)) 55%)}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
 .stack>*+*{margin-top:12px}
 .sec{margin-top:26px}
@@ -2974,9 +2980,7 @@ function viewHome(){
   <button class="tile-card" data-go="stats"><span class="ic">📈</span><b>Gelişim</b><span class="muted small">Günlük çalışma kaydın, istatistikler ve zayıf alanların.</span></button>
   <button class="tile-card" data-go="book"><span class="ic">📒</span><b>Defter</b><span class="muted small">Hatalar, kelimelerin, ilerleme grafiğin.</span></button>
  </div></section>
- <section class="sec"><h2><span class="mk">İş başvurusu için</span></h2>
-  <a class="tile-card" href="cv-ats-uyumlayici/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;min-height:0"><span class="row"><span class="ic">📄</span><b class="grow">CV'ni ilana göre ayarla</b><span class="badge">Yeni</span></span><span class="muted small">CV'ni iş ilanına göre ATS uyumlu hale getir, puanla, Word ya da PDF olarak indir. Türkçe ve İngilizce CV, mülakat provası, Kariyer.net profili.</span></a>
- </section>`;
+`;
  $("rt").onclick=startPlace;
  if(totalXP()>300&&(!st.lastBackup||(Date.now()-new Date(st.lastBackup))>14*864e5)){const d=document.createElement("div");d.className="card";d.style.cssText="margin-top:14px;border-left:6px solid var(--hl)";d.innerHTML='<b>💾 İlerlemeni yedekle</b><p class="small muted" style="margin:4px 0 8px">Tüm ilerlemen sadece bu cihazda. Telefon değiştirirsen kaybolmaması için yedek al.</p><button class="btn alt sm" id="bkp">Yedek al</button>';app.insertBefore(d,app.children[1]);$("bkp").onclick=openBackup}on("#gd .item",el=>{GD=["h",+el.dataset.i];gd[+el.dataset.i].go()});on(".tile-card[data-go]",el=>setTab(el.dataset.go));
 }
@@ -4176,7 +4180,7 @@ function openAbout(){const back=()=>setTab("book");
 (function(){const _vb=viewBook;viewBook=function(){_vb();const sec=document.createElement("section");sec.className="sec";
  sec.innerHTML=`<h2>Uygulama</h2><div class="list"><button class="item" id="ob"><span style="font-size:1.4rem">💾</span><span class="grow"><span class="t">Yedekle ve geri yükle</span><br><span class="muted small">Son yedek: ${st.lastBackup||"hiç alınmadı"}</span></span><span>›</span></button>
  <button class="item" id="ov2"><span style="font-size:1.4rem">🔊</span><span class="grow"><span class="t">Ses ayarları</span><br><span class="muted small">İngilizce ses ve konuşma hızı</span></span><span>›</span></button>
- <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.10.25-1 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
+ <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.11.03-1 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
  <button class="item" id="oa"><span style="font-size:1.4rem">ℹ️</span><span class="grow"><span class="t">Hakkında, gizlilik ve lisanslar</span><br><span class="muted small">Hata bildirimlerin de burada</span></span><span>›</span></button></div>`;
  app.appendChild(sec);$("ob").onclick=openBackup;$("oup").onclick=e=>UPD.manual(e.currentTarget);$("ov2").onclick=openVoice;$("oa").onclick=openAbout;}})();
 (function(){const _vh=viewHome;viewHome=function(){_vh();const p=document.createElement("p");p.className="small muted";p.style.cssText="text-align:center;margin-top:28px";p.innerHTML='Dil Atölyesi, geliştirici: <b>Okan Asl</b>';app.appendChild(p)}})();
@@ -4672,8 +4676,9 @@ function plHomeCard(){const k=dayKey();if(!st.plan)return`<button class="tile-ca
   <button class="btn alt sm" id="pls2" style="margin-top:10px">Planı aç ›</button></div>`;app.appendChild(d);$("pls2").onclick=()=>openPlanner("month")}catch(e){}}})();
 
 /* ===== YENİLİKLER: her sürümde bir kez gösterilir ===== */
-const WN_VER="2026.10.25-1";
-const WN_NOTES=["🇹🇷 Yeni: Bütün örnek cümlelerin Türkçesi eklendi. 10.500'den fazla cümlenin altında artık ne anlama geldiği yazıyor (kelime kartlarında ve kelime listelerinde).", "📖 Yeni: Kısa hikâyeler. Her seviyede (A1'den C2'ye) 10 hikâye, toplam 60 hikâye. Her hikâyenin sonunda anlama soruları var. İngilizce sekmesinde \"Kısa hikâyeler\"e dokun.", "🎯 Yeni: Zayıf noktalarım. En çok yanlış yaptığın kelimeleri ve konuları tek sayfada gör, sadece onlardan alıştırma yap.", "🎭 Yeni: Diyaloglarda sesli rol yapma. Rolünü seç, \"Sesli söyleyerek\"i işaretle; sıra sana gelince cümleyi kendin söyle.", "🏅 Yeni: Rozetler ve aylık hedef. Ayda kaç gün çalışacağını seç; çalıştıkça 32 rozetin kilidini aç. Gelişim sekmesinde ve ana sayfada.", "🔎 Okurken bilinmeyen bir kelimeye dokununca anlamı artık internet olmadan da çıkıyor.", "🎓 İngilizce kursu: İngilizce kursu. Ders, kelime, diyalog, dinleme ve sınavdan oluşan üniteler; \"Devam et\"e bas, kurs seni sıradaki adıma götürsün. Ünite sınavını geçince sıradaki açılır.", "🏅 Seviye sınavı ve belge: Bir seviyenin tüm ünitelerini bitirince seviye sınavına gir, geçince başarı belgeni al.", "🗣️ Kelimelerin okunuşu eklendi: Her kelimenin yanında Türkçe harflerle nasıl okunduğu (vurgulu hece büyük harfle) ve uluslararası okunuşu yazıyor.", "🎮 Yeni: Kelime oyunları. Doğru mu yanlış mı, harfleri diz, adam asmaca, dinle ve bul, eşleştirme yarışı. Çalıştığın kelimelerle oynarsın, rekorun kaydedilir.", "👅 Türkler için telaffuz: th, w ile v, ship ile sheep gibi zor sesler; dinleyip ayırt etme alıştırması.", "🚫 Türklerin sık yaptığı 51 hata (\"I am agree\" gibi) ve alıştırmaları.", "🎙️ Dinle ve tekrar et: Cümleyi dinle, sesli söyle; doğru söylediğin kelimeler yeşil görünür. Ayrıca Türkçeden İngilizceye yazma alıştırması.", "🔁 Günlük tekrar ve daha akıllı kelime tekrarı: Aynı gün tekrar etmek artık kelimeyi erkenden \"öğrenildi\" saymıyor; bitirdiğin konular aralıklarla tekrar karşına çıkıyor."];
+const WN_VER="2026.11.03-1";
+const WN_NOTES=["🔍 Yeni: Sözlük. Üst çubuktaki 🔍 düğmesiyle 10.000'den fazla kelime ve kalıpta İngilizce ya da Türkçe ara. Okunuşu, örnek cümleyi ve Türkçesini gör, dinle, tek dokunuşla tekrar listene ekle. \"went, found, children\" gibi çekimli hâlleri de tanır.", "🌓 Yeni: Görünüm seçimi. 👤 Hesabım bölümünden Otomatik, Açık ya da Koyu tema seç.", "🛠️ Düzeltildi: Yeni başlayanlarda \"Zayıf noktalarım\" bölümünde uygulamanın donması giderildi; çalışılacak soru yoksa artık bilgi veriliyor.", "👁️ Düzeltildi: Koyu temada sarı vurgulu başlıklar artık rahat okunuyor.", "💾 Daha güvenli kayıt: Cihazın depolama alanı dolarsa ilerlemen sessizce kaybolmaz, seni yedek alman için uyarırız. Hesapla eşitlemede deneme sınavı sonuçların artık birleştirilerek korunuyor.", "🧹 Ana sayfa sadeleşti: CV bölümü uygulamadan ayrıldı; ana sayfa yalnızca İngilizce ve YDS çalışmana odaklanıyor.", "✅ Tüm ilerlemen, puanların, serin ve kelimelerin olduğu gibi korundu."];
+const WN_OLD=["🇹🇷 Yeni: Bütün örnek cümlelerin Türkçesi eklendi. 10.500'den fazla cümlenin altında artık ne anlama geldiği yazıyor (kelime kartlarında ve kelime listelerinde).", "📖 Yeni: Kısa hikâyeler. Her seviyede (A1'den C2'ye) 10 hikâye, toplam 60 hikâye. Her hikâyenin sonunda anlama soruları var. İngilizce sekmesinde \"Kısa hikâyeler\"e dokun.", "🎯 Yeni: Zayıf noktalarım. En çok yanlış yaptığın kelimeleri ve konuları tek sayfada gör, sadece onlardan alıştırma yap.", "🎭 Yeni: Diyaloglarda sesli rol yapma. Rolünü seç, \"Sesli söyleyerek\"i işaretle; sıra sana gelince cümleyi kendin söyle.", "🏅 Yeni: Rozetler ve aylık hedef. Ayda kaç gün çalışacağını seç; çalıştıkça 32 rozetin kilidini aç. Gelişim sekmesinde ve ana sayfada.", "🔎 Okurken bilinmeyen bir kelimeye dokununca anlamı artık internet olmadan da çıkıyor.", "🎓 İngilizce kursu: İngilizce kursu. Ders, kelime, diyalog, dinleme ve sınavdan oluşan üniteler; \"Devam et\"e bas, kurs seni sıradaki adıma götürsün. Ünite sınavını geçince sıradaki açılır.", "🏅 Seviye sınavı ve belge: Bir seviyenin tüm ünitelerini bitirince seviye sınavına gir, geçince başarı belgeni al.", "🗣️ Kelimelerin okunuşu eklendi: Her kelimenin yanında Türkçe harflerle nasıl okunduğu (vurgulu hece büyük harfle) ve uluslararası okunuşu yazıyor.", "🎮 Yeni: Kelime oyunları. Doğru mu yanlış mı, harfleri diz, adam asmaca, dinle ve bul, eşleştirme yarışı. Çalıştığın kelimelerle oynarsın, rekorun kaydedilir.", "👅 Türkler için telaffuz: th, w ile v, ship ile sheep gibi zor sesler; dinleyip ayırt etme alıştırması.", "🚫 Türklerin sık yaptığı 51 hata (\"I am agree\" gibi) ve alıştırmaları.", "🎙️ Dinle ve tekrar et: Cümleyi dinle, sesli söyle; doğru söylediğin kelimeler yeşil görünür. Ayrıca Türkçeden İngilizceye yazma alıştırması.", "🔁 Günlük tekrar ve daha akıllı kelime tekrarı: Aynı gün tekrar etmek artık kelimeyi erkenden \"öğrenildi\" saymıyor; bitirdiğin konular aralıklarla tekrar karşına çıkıyor."];
 function showWhatsNew(tries=0){let seen=null;try{seen=localStorage.getItem("da:seenVer")}catch(e){}
  if(seen===WN_VER)return;
  const busy=!$("ov").classList.contains("hidden")||($("dlg")&&!$("dlg").classList.contains("hidden"));
@@ -4699,7 +4704,7 @@ let ME={mode:"local",id:null,name:""},DB=null,USR=null,_syncT=null,_syncBusy=fal
 const CHUNK=60000;
 function stKey(){return ME.mode==="cloud"?KEY+":u:"+ME.id:ME.name?KEY+":p:"+ME.name.toLocaleLowerCase("tr"):KEY}
 function load(){try{st=Object.assign(defState(),JSON.parse(localStorage.getItem(stKey())||"{}"))}catch(e){st=defState()}}
-function save(){st._at=Date.now();try{localStorage.setItem(stKey(),JSON.stringify(st))}catch(e){}queueSync()}
+function save(){st._at=Date.now();try{localStorage.setItem(stKey(),JSON.stringify(st))}catch(e){if(!window._qWarn){window._qWarn=1;setTimeout(()=>uiAlert("⚠️ İlerlemen bu cihaza kaydedilemedi: tarayıcının depolama alanı dolu ya da kapalı (gizli sekme olabilir).\n\nKaybetmemek için Defter › Yedekle bölümünden hemen yedek al."),0)}}queueSync()}
 function myName(){return ME.name||st.name||""}
 function queueSync(){if(ME.mode!=="cloud"||!DB)return;clearTimeout(_syncT);_syncT=setTimeout(pushNow,3000)}
 const base=()=>"data/users/"+ME.id+"/app";
@@ -4726,6 +4731,7 @@ function xpOf(d){return d&&d.days?Object.values(d.days).reduce((a,b)=>a+(+b||0),
 function mergeState(a,b){if(!a)return b;if(!b)return a;const[o,n]=(a._at||0)>(b._at||0)?[b,a]:[a,b];const r=Object.assign(defState(),o,n);
  for(const k of Object.keys(r)){const x=o[k],y=n[k];
   if(k==="exam"){r.exam=y!==undefined?y:x;continue}
+  if(k==="mocks"&&Array.isArray(x)&&Array.isArray(y)){const seen=new Set();r.mocks=[...x,...y].filter(m=>{const s=JSON.stringify(m);if(seen.has(s))return false;seen.add(s);return true}).slice(-50);continue}
   if(k==="days"&&x&&y){const d=Object.assign({},x);for(const t in y)d[t]=Math.max(+d[t]||0,+y[t]||0);r.days=d;continue}
   if(x&&y&&typeof x==="object"&&typeof y==="object"&&!Array.isArray(x)&&!Array.isArray(y)){r[k]=Object.assign({},x,y);continue}
   if(Array.isArray(x)&&Array.isArray(y)){r[k]=y.length>=x.length||y.length?y:x;if(!y.length&&x.length)r[k]=x;continue}
@@ -5544,6 +5550,66 @@ function openBadges(){checkBadges(true);const got=st.badges||{};
 (function(){const _ve=viewEn;viewEn=function(){const r=_ve.apply(this,arguments);try{const g=$("tfH");if(g){g.insertAdjacentHTML("afterend",`<button class="tile-card" id="tfW"><span class="ic">🎯</span><b>Zayıf noktalarım</b><span class="muted small">En çok yanlış yaptığın kelimeler ve konular; sadece onlardan alıştırma.</span></button><button class="tile-card" id="tfB"><span class="ic">🏅</span><b>Rozetlerim ve aylık hedef</b><span class="muted small">${Object.keys(st.badges||{}).length}/${BADGES.length} rozet. Hedefini seç, rozetleri topla.</span></button><button class="tile-card" id="tfR"><span class="ic">📖</span><b>Kısa hikâyeler</b><span class="muted small">Her seviyede 10 hikâye ve soruları. Bilmediğin kelimeye dokun.</span></button>`);
  $("tfW").onclick=openWeak;$("tfB").onclick=openBadges;$("tfR").onclick=()=>{const L=st.viewLv||curLv();const b=BOOKS.find(x=>x.ss&&x.lv===L)||BOOKS.find(x=>x.ss);if(b){cuSetArea("read");openBook(b.id)}}}}catch(e){console.error(e)}return r}})();
 
+/* ===== İYİLEŞTİRMELER 2026.11.02: boş oturum koruması, tema, sözlük ===== */
+(function(){const _ss=startSession;startSession=function(title,items,opts){
+ if(!items||!items.length){const b=opts&&opts.back;uiAlert("Bu bölümde şu an çalışılacak soru yok. Önce birkaç ders ya da kelime çalış, sonra tekrar dene.").then(()=>b?b():setTab(tab));return}
+ return _ss.apply(this,arguments)}})();
+(function(){const _ri=renderItem;renderItem=function(){if(!S)return;if(!S.items[S.i])return endSession();return _ri.apply(this,arguments)}})();
+
+function themeGet(){try{return localStorage.getItem("da:theme")||"auto"}catch(e){return"auto"}}
+function themeSet(t){try{t==="auto"?localStorage.removeItem("da:theme"):localStorage.setItem("da:theme",t)}catch(e){}
+ if(t==="auto")delete document.documentElement.dataset.theme;else document.documentElement.dataset.theme=t}
+(function(){const _om=openMe;openMe=async function(){await _om.apply(this,arguments);const ov=$("ov"),inn=ov.querySelector(".in");if(!inn)return;
+ const cur=themeGet(),T=[["auto","🌓 Otomatik"],["light","☀️ Açık"],["dark","🌙 Koyu"]];
+ inn.insertAdjacentHTML("beforeend",`<div class="card" style="margin-top:16px"><b>Görünüm</b><div class="row" style="margin-top:10px;flex-wrap:wrap">${T.map(([k,n])=>`<button class="btn ${k===cur?"pri":"alt"} sm" data-th="${k}">${n}</button>`).join("")}</div></div>`);
+ on("[data-th]",el=>{themeSet(el.dataset.th);openMe()})}})();
+
+/* Sözlük: tüm kelime listelerinde İngilizce ya da Türkçe arama */
+let DICT=null;
+function dictIdx(){if(DICT)return DICT;const seen=new Set();DICT=[];
+ for(const v of ALLV){if(!v||!v.w||!v.tr)continue;const k=v.w.toLowerCase()+"|"+v.tr;if(seen.has(k))continue;seen.add(k);DICT.push({v,en:v.w.toLowerCase(),tr:v.tr.toLocaleLowerCase("tr")})}
+ return DICT}
+const IRR=(()=>{const m={};("be:was,were:been go:went:gone have:had:had do:did:done say:said:said make:made:made get:got:got,gotten know:knew:known think:thought:thought take:took:taken see:saw:seen come:came:come give:gave:given find:found:found tell:told:told become:became:become leave:left:left feel:felt:felt bring:brought:brought begin:began:begun keep:kept:kept hold:held:held write:wrote:written stand:stood:stood hear:heard:heard let:let:let mean:meant:meant set:set:set meet:met:met run:ran:run pay:paid:paid sit:sat:sat speak:spoke:spoken lie:lay:lain lead:led:led read:read:read grow:grew:grown lose:lost:lost fall:fell:fallen send:sent:sent build:built:built understand:understood:understood draw:drew:drawn break:broke:broken spend:spent:spent cut:cut:cut rise:rose:risen drive:drove:driven buy:bought:bought wear:wore:worn choose:chose:chosen seek:sought:sought throw:threw:thrown catch:caught:caught deal:dealt:dealt win:won:won forget:forgot:forgotten sell:sold:sold fight:fought:fought teach:taught:taught eat:ate:eaten drink:drank:drunk sleep:slept:slept fly:flew:flown sing:sang:sung swim:swam:swum ride:rode:ridden hide:hid:hidden shake:shook:shaken steal:stole:stolen bite:bit:bitten freeze:froze:frozen wake:woke:woken forgive:forgave:forgiven arise:arose:arisen bear:bore:born,borne bind:bound:bound feed:fed:fed flee:fled:fled hang:hung:hung light:lit:lit shoot:shot:shot shine:shone:shone strike:struck:struck swear:swore:sworn tear:tore:torn undergo:underwent:undergone withdraw:withdrew:withdrawn overcome:overcame:overcome blow:blew:blown dig:dug:dug lend:lent:lent bend:bent:bent burn:burnt:burnt learn:learnt:learnt dream:dreamt:dreamt spread:spread:spread").split(" ").forEach(r=>{const[b,...f]=r.split(":");f.join(",").split(",").forEach(x=>{if(x&&x!==b)m[x]=b})});
+ Object.assign(m,{children:"child",men:"man",women:"woman",feet:"foot",teeth:"tooth",mice:"mouse",people:"person",geese:"goose",better:"good",best:"good",worse:"bad",worst:"bad",phenomena:"phenomenon",criteria:"criterion",analyses:"analysis",crises:"crisis",hypotheses:"hypothesis",data:"datum"});return m})();
+function dictFind(q){q=q.trim();if(!q)return[];const ql=q.toLowerCase();let base=IRR[ql];
+ if(!base&&/^[a-z'-]+$/i.test(q)&&!dictIdx().some(d=>d.en===ql)){const l=ldLookup(q);if(l)base=spoken(l.w).toLowerCase()}
+ const own=dictSearch(q);if(!base||base===ql)return own;
+ const b=dictSearch(base).filter(v=>v.w.toLowerCase().split("/").includes(base));return[...b,...own.filter(v=>!b.includes(v))].slice(0,60)}
+function dictSearch(q){const qe=q.toLowerCase(),qt=q.toLocaleLowerCase("tr"),wre=new RegExp("(^|[\\s,;(/])"+qt.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"($|[\\s,;)/])");
+ const out=[];for(const d of dictIdx()){let r=-1;
+  if(d.en===qe||d.en.split("/").includes(qe))r=0;else if(d.en.startsWith(qe))r=1;else if(wre.test(d.tr))r=2;else if(qe.length>2&&d.en.includes(qe))r=3;else if(qt.length>2&&d.tr.includes(qt))r=4;
+  if(r>=0)out.push([r,LVORD(d.v),d.en.length,d.v])}
+ return out.sort((a,b)=>a[0]-b[0]||a[1]-b[1]||a[2]-b[2]).slice(0,60).map(x=>x[3])}
+function dictStatus(v){const e=vb()[v.id];return!e?"":e.b>=3?`<span class="badge ok">Biliyorsun</span>`:`<span class="badge">Tekrar listende</span>`}
+function dictDetail(v){const ex=exOf(v),ex1=ex?ex.split("\n")[0]:"",trx=ex?(ex.split("\n")[1]||exTr(v)):"",e=vb()[v.id];
+ return`<div class="card" id="dd" style="margin-top:14px"><div class="row"><b class="grow" style="font:800 1.6rem/1.15 'Bricolage Grotesque',sans-serif;overflow-wrap:anywhere">${esc(v.w)}</b>${v.lv?`<span class="badge">${esc(v.lv)}</span>`:""}</div>
+ ${v.pos?`<p class="muted small" style="margin:4px 0 0">${esc(posTxt(v.pos))}</p>`:""}${oknHTML(v.w,true)}
+ <p class="big" style="margin-top:10px"><span class="mk">${esc(v.tr)}</span></p>
+ ${ex1?`<p style="margin-top:10px">${fmt(ex1,[spoken(v.w)],true)}</p>${trx?`<p class="muted small">${esc(trx)}</p>`:""}`:""}
+ <div class="row" style="margin-top:12px;flex-wrap:wrap"><button class="btn pri sm" id="ddp">🔊 Dinle</button>${ex1?`<button class="btn alt sm" id="dde">Cümleyi dinle</button>`:""}
+ ${e?dictStatus(v):`<button class="btn alt sm" id="dda">➕ Tekrar listeme ekle</button><button class="btn alt sm" id="ddk">✓ Biliyorum</button>`}</div></div>`}
+function openDict(q0=""){const ov=$("ov");
+ ov.innerHTML=`<div class="in"><button class="link" id="dx">‹ Kapat</button><h1 style="margin-top:12px"><span class="mk">🔍 Sözlük</span></h1>
+ <p class="muted small" style="margin-top:6px">${dictIdx().length.toLocaleString("tr")} kelime ve kalıp. İngilizce ya da Türkçe yaz.</p>
+ <input id="dq" type="text" placeholder="ör. improve ya da geliştirmek" autocomplete="off" autocapitalize="off" spellcheck="false" style="margin-top:10px" value="${esc(q0)}">
+ <div id="dd0"></div><div class="stack" id="dl" style="margin-top:12px"></div></div>`;
+ ov.classList.remove("hidden");$("dx").onclick=()=>{ttsStop();ov.classList.add("hidden")};
+ let res=[];
+ const show=v=>{$("dd0").innerHTML=dictDetail(v);say(spoken(v.w),.85);$("ddp").onclick=()=>say(spoken(v.w),.8);
+  if($("dde"))$("dde").onclick=()=>say(exOf(v).split("\n")[0]);
+  if($("dda"))$("dda").onclick=()=>{vb()[v.id]={b:1,d:dayKey(),n:0,f:dayKey()};save();show(v);draw()};
+  if($("ddk"))$("ddk").onclick=()=>{vb()[v.id]={b:4,d:dayKey(INT[4]),n:1,f:dayKey()};save();show(v);draw()};
+  $("dd0").scrollIntoView({block:"nearest"})};
+ const draw=()=>{const q=$("dq").value;res=dictFind(q);
+  $("dl").innerHTML=!q.trim()?`<p class="muted small">Örnek: <button class="link" data-q="take off">take off</button>, <button class="link" data-q="sürdürülebilir">sürdürülebilir</button>, <button class="link" data-q="although">although</button></p>`
+   :res.length?res.map((v,i)=>`<button class="dict-r" data-i="${i}"><span class="row"><span class="w grow">${esc(v.w)}</span>${dictStatus(v)}${v.lv?`<span class="badge">${esc(v.lv)}</span>`:""}</span><span class="muted small">${esc(v.tr)}</span></button>`).join("")
+   :`<p class="muted">"${esc(q)}" bulunamadı. Yazımı kontrol et ya da kelimenin yalın hâlini dene (ör. went → go).</p>`;
+  on(".dict-r[data-i]",el=>show(res[+el.dataset.i]));on("[data-q]",el=>{$("dq").value=el.dataset.q;draw()})};
+ let t=null;$("dq").oninput=()=>{clearTimeout(t);t=setTimeout(draw,120)};
+ $("dq").onkeydown=e=>{if(e.key==="Enter"&&res[0])show(res[0])};
+ draw();if(q0&&res[0])show(res[0]);setTimeout(()=>$("dq").focus(),50)}
+(function(){const b=document.createElement("button");b.className="btn alt sm";b.id="hdDict";b.title="Sözlük";b.setAttribute("aria-label","Sözlük");b.textContent="🔍";$("hdBook").before(b);b.onclick=()=>openDict()})();
+
 (async function boot(){st=defState();renderTop();app.innerHTML=`<p class="muted" style="text-align:center;margin-top:40px">Yükleniyor…</p>`;
  try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist().catch(()=>{})}catch(e){}
  const use=(n,ms)=>window.claude&&window.claude.use?Promise.race([window.claude.use(n).catch(()=>null),new Promise(r=>setTimeout(()=>r(null),ms))]):Promise.resolve(null);
@@ -5561,7 +5627,7 @@ function openBadges(){checkBadges(true);const got=st.badges||{};
 <script>
 if("serviceWorker" in navigator&&location.protocol.startsWith("http")){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").then(r=>{r.addEventListener("updatefound",()=>{const w=r.installing;w&&w.addEventListener("statechange",()=>{if(w.state==="installed"&&navigator.serviceWorker.controller){const b=document.createElement("button");b.className="btn pri";b.textContent="Yeni sürüm hazır, yenile";b.style.cssText="position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:50;box-shadow:0 6px 20px rgba(0,0,0,.25)";b.onclick=()=>UPD.run(b);document.body.appendChild(b)}})})}).catch(()=>{})})}
 /* ===== GÜNCELLEME: yeni sürüm varsa açılışta zorunlu güncelleme ekranı ===== */
-const APP_VER="2026.10.25-1";
+const APP_VER="2026.11.03-1";
 const UPD={
  web:()=>/^https?:$/.test(location.protocol),
  async check(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return null;const j=await r.json();return j&&j.v?{v:String(j.v),notes:Array.isArray(j.notes)?j.notes:[]}:null}catch(e){return null}},
