@@ -1,0 +1,358 @@
+{
+ "color": {
+  "light": {
+   "bg": {
+    "$type": "color",
+    "$value": "#EEF1F7",
+    "$description": "Arka plan"
+   },
+   "card": {
+    "$type": "color",
+    "$value": "#FFFFFF",
+    "$description": "Kart"
+   },
+   "ink": {
+    "$type": "color",
+    "$value": "#1B2A4A",
+    "$description": "Ana yazı"
+   },
+   "muted": {
+    "$type": "color",
+    "$value": "#5B6780",
+    "$description": "İkincil yazı"
+   },
+   "line": {
+    "$type": "color",
+    "$value": "#D8DEEA",
+    "$description": "Çizgi"
+   },
+   "line2": {
+    "$type": "color",
+    "$value": "#858FA8",
+    "$description": "Belirgin kenar"
+   },
+   "hl": {
+    "$type": "color",
+    "$value": "#FFE14D",
+    "$description": "Vurgu (sarı)"
+   },
+   "pri": {
+    "$type": "color",
+    "$value": "#2747C9",
+    "$description": "Ana renk"
+   },
+   "prifg": {
+    "$type": "color",
+    "$value": "#FFFFFF",
+    "$description": "Ana renk üstü yazı"
+   },
+   "ok": {
+    "$type": "color",
+    "$value": "#1E8A6E",
+    "$description": "Doğru"
+   },
+   "okt": {
+    "$type": "color",
+    "$value": "#146B55",
+    "$description": "Doğru yazısı"
+   },
+   "okbg": {
+    "$type": "color",
+    "$value": "#E2F4EE",
+    "$description": "Doğru zemini"
+   },
+   "bad": {
+    "$type": "color",
+    "$value": "#C8392F",
+    "$description": "Yanlış"
+   },
+   "badbg": {
+    "$type": "color",
+    "$value": "#FBE7E5",
+    "$description": "Yanlış zemini"
+   },
+   "soft": {
+    "$type": "color",
+    "$value": "#E4E9F4",
+    "$description": "Yumuşak zemin"
+   }
+  },
+  "dark": {
+   "bg": {
+    "$type": "color",
+    "$value": "#0E1630",
+    "$description": "Arka plan"
+   },
+   "card": {
+    "$type": "color",
+    "$value": "#172244",
+    "$description": "Kart"
+   },
+   "ink": {
+    "$type": "color",
+    "$value": "#E7ECF7",
+    "$description": "Ana yazı"
+   },
+   "muted": {
+    "$type": "color",
+    "$value": "#9AA6C2",
+    "$description": "İkincil yazı"
+   },
+   "line": {
+    "$type": "color",
+    "$value": "#2A3960",
+    "$description": "Çizgi"
+   },
+   "line2": {
+    "$type": "color",
+    "$value": "#6B7AA3",
+    "$description": "Belirgin kenar"
+   },
+   "hl": {
+    "$type": "color",
+    "$value": "#E8C83A",
+    "$description": "Vurgu (sarı)"
+   },
+   "pri": {
+    "$type": "color",
+    "$value": "#7E97FF",
+    "$description": "Ana renk"
+   },
+   "prifg": {
+    "$type": "color",
+    "$value": "#0E1630",
+    "$description": "Ana renk üstü yazı"
+   },
+   "ok": {
+    "$type": "color",
+    "$value": "#4CC9A1",
+    "$description": "Doğru"
+   },
+   "okt": {
+    "$type": "color",
+    "$value": "#4CC9A1",
+    "$description": "Doğru yazısı"
+   },
+   "okbg": {
+    "$type": "color",
+    "$value": "#123A35",
+    "$description": "Doğru zemini"
+   },
+   "bad": {
+    "$type": "color",
+    "$value": "#FF7A6E",
+    "$description": "Yanlış"
+   },
+   "badbg": {
+    "$type": "color",
+    "$value": "#3E1C25",
+    "$description": "Yanlış zemini"
+   },
+   "soft": {
+    "$type": "color",
+    "$value": "#1F2C55",
+    "$description": "Yumuşak zemin"
+   }
+  }
+ },
+ "space": {
+  "4": {
+   "$type": "dimension",
+   "$value": "4px"
+  },
+  "8": {
+   "$type": "dimension",
+   "$value": "8px"
+  },
+  "12": {
+   "$type": "dimension",
+   "$value": "12px"
+  },
+  "16": {
+   "$type": "dimension",
+   "$value": "16px"
+  },
+  "24": {
+   "$type": "dimension",
+   "$value": "24px"
+  },
+  "32": {
+   "$type": "dimension",
+   "$value": "32px"
+  },
+  "48": {
+   "$type": "dimension",
+   "$value": "48px"
+  }
+ },
+ "radius": {
+  "sm": {
+   "$type": "dimension",
+   "$value": "8px"
+  },
+  "md": {
+   "$type": "dimension",
+   "$value": "12px"
+  },
+  "lg": {
+   "$type": "dimension",
+   "$value": "16px"
+  },
+  "sheet": {
+   "$type": "dimension",
+   "$value": "22px"
+  },
+  "pill": {
+   "$type": "dimension",
+   "$value": "999px"
+  }
+ },
+ "font": {
+  "h1": {
+   "$type": "typography",
+   "$value": {
+    "fontFamily": "Bricolage Grotesque",
+    "fontWeight": 800,
+    "fontSize": "30px",
+    "lineHeight": 1.15
+   }
+  },
+  "h2": {
+   "$type": "typography",
+   "$value": {
+    "fontFamily": "Bricolage Grotesque",
+    "fontWeight": 800,
+    "fontSize": "22px",
+    "lineHeight": 1.15
+   }
+  },
+  "h3": {
+   "$type": "typography",
+   "$value": {
+    "fontFamily": "Bricolage Grotesque",
+    "fontWeight": 600,
+    "fontSize": "17px",
+    "lineHeight": 1.2
+   }
+  },
+  "body": {
+   "$type": "typography",
+   "$value": {
+    "fontFamily": "Figtree",
+    "fontWeight": 400,
+    "fontSize": "16px",
+    "lineHeight": 1.55
+   }
+  },
+  "body-strong": {
+   "$type": "typography",
+   "$value": {
+    "fontFamily": "Figtree",
+    "fontWeight": 700,
+    "fontSize": "16px",
+    "lineHeight": 1.55
+   }
+  },
+  "small": {
+   "$type": "typography",
+   "$value": {
+    "fontFamily": "Figtree",
+    "fontWeight": 400,
+    "fontSize": "14px",
+    "lineHeight": 1.5
+   }
+  },
+  "label": {
+   "$type": "typography",
+   "$value": {
+    "fontFamily": "Figtree",
+    "fontWeight": 600,
+    "fontSize": "11px",
+    "lineHeight": 1.1
+   }
+  }
+ },
+ "size": {
+  "touch-target": {
+   "$type": "dimension",
+   "$value": "44px"
+  },
+  "button-height": {
+   "$type": "dimension",
+   "$value": "48px"
+  },
+  "tabbar-height": {
+   "$type": "dimension",
+   "$value": "58px"
+  },
+  "rail-width": {
+   "$type": "dimension",
+   "$value": "92px"
+  },
+  "content-max": {
+   "$type": "dimension",
+   "$value": "1100px"
+  },
+  "reading-max": {
+   "$type": "dimension",
+   "$value": "68ch"
+  }
+ },
+ "breakpoint": {
+  "phone": {
+   "$type": "dimension",
+   "$value": "0px"
+  },
+  "phone-lg": {
+   "$type": "dimension",
+   "$value": "480px"
+  },
+  "tablet-sm": {
+   "$type": "dimension",
+   "$value": "640px"
+  },
+  "tablet": {
+   "$type": "dimension",
+   "$value": "768px"
+  },
+  "desktop": {
+   "$type": "dimension",
+   "$value": "1024px"
+  },
+  "wide": {
+   "$type": "dimension",
+   "$value": "1280px"
+  }
+ },
+ "shadow": {
+  "card": {
+   "$type": "shadow",
+   "$value": [
+    {
+     "color": "#101C3C0D",
+     "offsetX": "0px",
+     "offsetY": "1px",
+     "blur": "2px",
+     "spread": "0px"
+    },
+    {
+     "color": "#101C3C0F",
+     "offsetX": "0px",
+     "offsetY": "6px",
+     "blur": "18px",
+     "spread": "0px"
+    }
+   ]
+  }
+ },
+ "motion": {
+  "fast": {
+   "$type": "duration",
+   "$value": "160ms"
+  },
+  "sheet": {
+   "$type": "duration",
+   "$value": "220ms"
+  }
+ }
+}
