@@ -4180,7 +4180,7 @@ function openAbout(){const back=()=>setTab("book");
 (function(){const _vb=viewBook;viewBook=function(){_vb();const sec=document.createElement("section");sec.className="sec";
  sec.innerHTML=`<h2>Uygulama</h2><div class="list"><button class="item" id="ob"><span style="font-size:1.4rem">💾</span><span class="grow"><span class="t">Yedekle ve geri yükle</span><br><span class="muted small">Son yedek: ${st.lastBackup||"hiç alınmadı"}</span></span><span>›</span></button>
  <button class="item" id="ov2"><span style="font-size:1.4rem">🔊</span><span class="grow"><span class="t">Ses ayarları</span><br><span class="muted small">İngilizce ses ve konuşma hızı</span></span><span>›</span></button>
- <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.11.03-1 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
+ <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.11.15-1 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
  <button class="item" id="oa"><span style="font-size:1.4rem">ℹ️</span><span class="grow"><span class="t">Hakkında, gizlilik ve lisanslar</span><br><span class="muted small">Hata bildirimlerin de burada</span></span><span>›</span></button></div>`;
  app.appendChild(sec);$("ob").onclick=openBackup;$("oup").onclick=e=>UPD.manual(e.currentTarget);$("ov2").onclick=openVoice;$("oa").onclick=openAbout;}})();
 (function(){const _vh=viewHome;viewHome=function(){_vh();const p=document.createElement("p");p.className="small muted";p.style.cssText="text-align:center;margin-top:28px";p.innerHTML='Dil Atölyesi, geliştirici: <b>Okan Asl</b>';app.appendChild(p)}})();
@@ -4676,8 +4676,8 @@ function plHomeCard(){const k=dayKey();if(!st.plan)return`<button class="tile-ca
   <button class="btn alt sm" id="pls2" style="margin-top:10px">Planı aç ›</button></div>`;app.appendChild(d);$("pls2").onclick=()=>openPlanner("month")}catch(e){}}})();
 
 /* ===== YENİLİKLER: her sürümde bir kez gösterilir ===== */
-const WN_VER="2026.11.03-1";
-const WN_NOTES=["🔍 Yeni: Sözlük. Üst çubuktaki 🔍 düğmesiyle 10.000'den fazla kelime ve kalıpta İngilizce ya da Türkçe ara. Okunuşu, örnek cümleyi ve Türkçesini gör, dinle, tek dokunuşla tekrar listene ekle. \"went, found, children\" gibi çekimli hâlleri de tanır.", "🌓 Yeni: Görünüm seçimi. 👤 Hesabım bölümünden Otomatik, Açık ya da Koyu tema seç.", "🛠️ Düzeltildi: Yeni başlayanlarda \"Zayıf noktalarım\" bölümünde uygulamanın donması giderildi; çalışılacak soru yoksa artık bilgi veriliyor.", "👁️ Düzeltildi: Koyu temada sarı vurgulu başlıklar artık rahat okunuyor.", "💾 Daha güvenli kayıt: Cihazın depolama alanı dolarsa ilerlemen sessizce kaybolmaz, seni yedek alman için uyarırız. Hesapla eşitlemede deneme sınavı sonuçların artık birleştirilerek korunuyor.", "🧹 Ana sayfa sadeleşti: CV bölümü uygulamadan ayrıldı; ana sayfa yalnızca İngilizce ve YDS çalışmana odaklanıyor.", "✅ Tüm ilerlemen, puanların, serin ve kelimelerin olduğu gibi korundu."];
+const WN_VER="2026.11.15-1";
+const WN_NOTES=["🎨 Yeni tasarım: Uygulama telefonda daha rahat kullanılsın diye baştan düzenlendi. Düğmeler daha büyük, yazılar daha okunaklı, benzer şeyler bir arada.", "📂 Uzun sayfalar kısaldı: İngilizce, YDS ve Gelişim sayfalarında bölümler başlığın altında kapalı durur; başlığa dokununca açılır. Hangisini açık bıraktığını uygulama hatırlar.", "⚡ \"Bu sayfada\" çubuğu: Uzun sayfaların üstündeki küçük düğmelerle istediğin bölüme tek dokunuşla atla.", "🎯 Odak modu: Soru çözerken alttaki sekmeler gizlenir, ilerleme çubuğu hep üstte görünür, \"Devam\" düğmesi başparmağının altında durur.", "🛟 Yanlışlıkla çıkmaya son: Alıştırmanın ortasında ✕'e basınca uygulama \"çıkmak istiyor musun?\" diye sorar.", "↩️ Telefonun geri tuşu artık uygulamayı kapatmaz; bir önceki ekrana döner.", "❔ Her sayfanın başlığındaki ? düğmesi o sayfanın nasıl kullanıldığını kısaca anlatır.", "✅ Kaydedildiğini görürsün: İlerlemen kaydedilince ekranın altında kısa bir \"✓ Kaydedildi\" yazısı çıkar. Tüm ilerlemen, puanların ve kelimelerin olduğu gibi korundu."];
 const WN_OLD=["🇹🇷 Yeni: Bütün örnek cümlelerin Türkçesi eklendi. 10.500'den fazla cümlenin altında artık ne anlama geldiği yazıyor (kelime kartlarında ve kelime listelerinde).", "📖 Yeni: Kısa hikâyeler. Her seviyede (A1'den C2'ye) 10 hikâye, toplam 60 hikâye. Her hikâyenin sonunda anlama soruları var. İngilizce sekmesinde \"Kısa hikâyeler\"e dokun.", "🎯 Yeni: Zayıf noktalarım. En çok yanlış yaptığın kelimeleri ve konuları tek sayfada gör, sadece onlardan alıştırma yap.", "🎭 Yeni: Diyaloglarda sesli rol yapma. Rolünü seç, \"Sesli söyleyerek\"i işaretle; sıra sana gelince cümleyi kendin söyle.", "🏅 Yeni: Rozetler ve aylık hedef. Ayda kaç gün çalışacağını seç; çalıştıkça 32 rozetin kilidini aç. Gelişim sekmesinde ve ana sayfada.", "🔎 Okurken bilinmeyen bir kelimeye dokununca anlamı artık internet olmadan da çıkıyor.", "🎓 İngilizce kursu: İngilizce kursu. Ders, kelime, diyalog, dinleme ve sınavdan oluşan üniteler; \"Devam et\"e bas, kurs seni sıradaki adıma götürsün. Ünite sınavını geçince sıradaki açılır.", "🏅 Seviye sınavı ve belge: Bir seviyenin tüm ünitelerini bitirince seviye sınavına gir, geçince başarı belgeni al.", "🗣️ Kelimelerin okunuşu eklendi: Her kelimenin yanında Türkçe harflerle nasıl okunduğu (vurgulu hece büyük harfle) ve uluslararası okunuşu yazıyor.", "🎮 Yeni: Kelime oyunları. Doğru mu yanlış mı, harfleri diz, adam asmaca, dinle ve bul, eşleştirme yarışı. Çalıştığın kelimelerle oynarsın, rekorun kaydedilir.", "👅 Türkler için telaffuz: th, w ile v, ship ile sheep gibi zor sesler; dinleyip ayırt etme alıştırması.", "🚫 Türklerin sık yaptığı 51 hata (\"I am agree\" gibi) ve alıştırmaları.", "🎙️ Dinle ve tekrar et: Cümleyi dinle, sesli söyle; doğru söylediğin kelimeler yeşil görünür. Ayrıca Türkçeden İngilizceye yazma alıştırması.", "🔁 Günlük tekrar ve daha akıllı kelime tekrarı: Aynı gün tekrar etmek artık kelimeyi erkenden \"öğrenildi\" saymıyor; bitirdiğin konular aralıklarla tekrar karşına çıkıyor."];
 function showWhatsNew(tries=0){let seen=null;try{seen=localStorage.getItem("da:seenVer")}catch(e){}
  if(seen===WN_VER)return;
@@ -5610,6 +5610,224 @@ function openDict(q0=""){const ov=$("ov");
  draw();if(q0&&res[0])show(res[0]);setTimeout(()=>$("dq").focus(),50)}
 (function(){const b=document.createElement("button");b.className="btn alt sm";b.id="hdDict";b.title="Sözlük";b.setAttribute("aria-label","Sözlük");b.textContent="🔍";$("hdBook").before(b);b.onclick=()=>openDict()})();
 
+/* ===== TASARIM KATMANI (2026.11.15): Nielsen'in 10 kullanılabilirlik ilkesi + Gestalt, mobil öncelikli =====
+   Veri, kayıt anahtarları ve id'ler değişmez. Yalnız görünüm ve gezinme iyileşir. Yeni anahtar: da:ux (açık bölümler). */
+(function(){
+let UX={};try{UX=JSON.parse(localStorage.getItem("da:ux")||"{}")}catch(e){}
+UX.open=UX.open||{};
+const uxSave=()=>{try{localStorage.setItem("da:ux",JSON.stringify(UX))}catch(e){}};
+
+/* ---- 1. Görünüm: tutarlı ölçüler, dokunma alanları, ortak bölge ve yakınlık ---- */
+const css=`
+:root{--r:16px;--tap:44px;--toph:58px;--sh:0 1px 2px rgba(16,28,60,.05),0 6px 18px rgba(16,28,60,.06)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sh:none}}
+:root[data-theme="dark"]{--sh:none}
+body{-webkit-tap-highlight-color:transparent;text-rendering:optimizeLegibility}
+main{padding:14px 16px calc(96px + env(safe-area-inset-bottom,0px))}
+h1{font-size:clamp(1.5rem,5.6vw,1.9rem)}
+h2{font-size:clamp(1.15rem,4.4vw,1.35rem)}
+p{max-width:68ch}
+
+/* Üst çubuk: tek satır, ikon + kısa etiket (sekme çubuğuyla aynı dil) */
+.top{background:color-mix(in srgb,var(--bg) 90%,transparent);-webkit-backdrop-filter:saturate(1.4) blur(12px);backdrop-filter:saturate(1.4) blur(12px)}
+.top .in{gap:4px;padding:6px 10px 6px 16px;min-height:58px}
+.brand{font-size:1.08rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.uxst{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 11px;margin-right:2px;flex:none}
+.uxst .stat{font-size:.88rem;gap:3px}
+.top .hic{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:46px;min-height:46px;padding:3px 4px;border:0;background:none;border-radius:12px;color:var(--ink);font:600 .66rem/1.1 Figtree,system-ui,sans-serif;max-width:64px}
+.top .hic .i{font-size:1.18rem;line-height:1}
+.top .hic .l{max-width:58px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.top .hic:hover,.top .hic:active{background:var(--soft)}
+.top .hic #hdSync{position:absolute;top:1px;right:3px;font-size:.62rem!important;margin:0!important}
+.uxsaved{position:fixed;left:12px;bottom:calc(68px + env(safe-area-inset-bottom,0px));transform:translateY(6px);background:var(--okbg);color:var(--ok);border:1px solid color-mix(in srgb,var(--ok) 35%,transparent);font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:7}
+.uxsaved.on{opacity:1;transform:none}
+body.insess #ttsToast{bottom:calc(74px + env(safe-area-inset-bottom,0px))!important}
+
+/* Alt sekmeler: başparmak bölgesi, seçili sekme hap şeklinde vurgulu (şekil-zemin) */
+.tabs{box-shadow:0 -6px 24px rgba(16,28,60,.07);background:color-mix(in srgb,var(--card) 94%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.tabs button{min-height:58px;padding:6px 0 8px;gap:3px;font-size:.66rem}
+.tabs button .ic{display:grid;place-items:center;width:min(56px,90%);height:30px;border-radius:999px;font-size:1.2rem;transition:background .2s}
+.tabs button[aria-current="page"] .ic{background:color-mix(in srgb,var(--pri) 16%,var(--card))}
+.tabs button[aria-current="page"] .lb{background:none;font-weight:800;color:var(--ink)}
+.tabs button:active .ic{transform:scale(.92)}
+
+/* Kartlar: aynı türden öğe aynı görünür (benzerlik), gruplar kartla çevrili (ortak bölge) */
+.card,.item,.tile-card,.book,.pnode,.dict-r{border-radius:var(--r);box-shadow:var(--sh)}
+.card{padding:16px}
+.item,.tile-card,.book,.pnode,.opt,.btn,.chip,.pick{transition:transform .08s,border-color .15s,background .15s}
+.item:active,.tile-card:active,.book:active,.pnode:active,.opt:active:not(:disabled),.btn:active:not(:disabled),.chip:active,.pick:active{transform:scale(.98)}
+.item{min-height:56px}
+.grid2{grid-template-columns:1fr;gap:10px}
+@media (min-width:640px){.grid2{grid-template-columns:repeat(2,1fr)}}
+.tile-card{display:grid;grid-template-columns:46px 1fr 14px;column-gap:12px;row-gap:2px;align-items:center;min-height:0;padding:12px 14px}
+.tile-card>.ic{grid-column:1;grid-row:1/span 4;width:46px;height:46px;border-radius:13px;background:var(--soft);display:grid;place-items:center;font-size:1.35rem;align-self:center}
+.tile-card>:not(.ic){grid-column:2;min-width:0}
+.tile-card::after{content:"›";grid-column:3;grid-row:1/span 4;color:var(--muted);font-size:1.4rem;line-height:1;align-self:center}
+.tile-card .badge{justify-self:start}
+.chip{min-height:40px;display:inline-flex;align-items:center;gap:4px;padding:6px 14px}
+.chips{gap:8px}
+.btn{min-height:48px}
+.btn.sm{min-height:40px}
+.link{padding:6px 0;display:inline-block}
+.sec{margin-top:28px}
+.badge{font-size:.76rem}
+
+/* Ana sayfa: halka ve selam yan yana, daha az kaydırma */
+.hero{grid-template-columns:auto 1fr!important;gap:16px}
+.ring{width:76px!important;height:76px!important;margin:0!important}
+@media (max-width:420px){.hero h1{font-size:1.45rem}}
+
+/* Alıştırma ekranı: odak modu, ilerleme hep görünür, düğme başparmak altında */
+body.insess .tabs{display:none}
+body.insess main{padding-bottom:calc(28px + env(safe-area-inset-bottom,0px))}
+body.insess .foot{bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+body.insess #hdBook,body.insess #hdMe{display:none}
+.qhead{position:sticky;top:calc(var(--toph) + env(safe-area-inset-top,0px));z-index:4;background:var(--bg);margin:-14px -16px 14px;padding:10px 12px 10px 6px}
+.qhead .x{min-width:var(--tap);min-height:var(--tap);border-radius:12px}
+.qhead .x:hover{background:var(--soft)}
+.qhead .prog{height:10px}
+.qhead .prog>i{background:linear-gradient(90deg,var(--pri),color-mix(in srgb,var(--pri) 70%,var(--ok)))}
+.qhead .small{font-weight:700;color:var(--ink);min-width:3.2em;text-align:right}
+.opt{min-height:54px;align-items:center;border-radius:14px;padding:12px 14px}
+.opt .k{display:grid;place-items:center;min-width:28px;height:28px;border-radius:50%;background:var(--soft);color:var(--ink);font-size:.85rem}
+.opt.ok .k{background:var(--ok);color:#fff}.opt.bad .k{background:var(--bad);color:#fff}
+.fb{border-radius:var(--r);animation:uxin .2s ease-out}
+.foot{z-index:3}
+.foot .btn{box-shadow:0 8px 22px color-mix(in srgb,var(--pri) 30%,transparent)}
+.tile{min-height:44px}
+@keyframes uxin{from{opacity:0;transform:translateY(6px)}}
+
+/* Açılır bölümler: uzun sayfalarda aşamalı gösterim (sade tasarım, hatırlamak yerine tanıma) */
+.uxh{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:10px;width:100%;cursor:pointer;min-height:52px;padding:10px 14px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh)}
+.uxh:focus-visible{outline:3px solid var(--pri);outline-offset:2px}
+.uxh .uxt{flex:1;min-width:0}
+.uxh .uxn{font:700 .76rem Figtree,sans-serif;background:var(--soft);border-radius:999px;padding:3px 9px;color:var(--muted)}
+.uxh .uxv{width:22px;height:22px;display:grid;place-items:center;border-radius:50%;background:var(--soft);transition:transform .2s;font:700 .8rem Figtree,sans-serif}
+.uxsec.open>h2>.uxh{border-bottom-left-radius:6px;border-bottom-right-radius:6px}
+.uxsec.open>h2>.uxh .uxv{transform:rotate(180deg)}
+.uxsec>h2{margin-bottom:0!important}
+.uxsec>.uxb{padding-top:12px}
+.uxsec:not(.open)>.uxb{display:none}
+.uxsec{margin-top:12px}
+.uxsec+.uxsec{margin-top:10px}
+
+/* Sayfa içi kısayol çubuğu */
+.uxjump{position:sticky;top:calc(var(--toph) + env(safe-area-inset-top,0px));z-index:3;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:12px -16px 4px;padding:8px 16px;background:color-mix(in srgb,var(--bg) 92%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.uxjump::-webkit-scrollbar{display:none}
+.uxjump button{flex:none;min-height:36px;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 12px;font-weight:600;font-size:.85rem;white-space:nowrap;color:var(--ink)}
+.uxjump .lb{color:var(--muted);font-size:.8rem;align-self:center;flex:none}
+
+/* Yardım düğmesi */
+.uxhelp{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);color:var(--muted);font:800 .95rem Figtree,sans-serif;vertical-align:middle;margin-left:8px;transform:translateY(-3px)}
+.uxhelp:hover{color:var(--ink);border-color:var(--ink)}
+.uxhelpbox h3{margin:14px 0 4px}
+.uxhelpbox ul{margin:6px 0;padding-left:1.2em}
+.uxhelpbox li{margin:5px 0}
+
+/* Pencereler telefonda alttan açılır (başparmakla ulaşılır) */
+.dlg-in .row{flex-wrap:wrap}
+.dlg-in .row .btn{flex:1 1 140px}
+@media (max-width:640px){
+ .dlg{align-items:flex-end;padding:0}
+ .dlg-in{max-width:none;border-radius:22px 22px 0 0;padding:14px 20px calc(20px + env(safe-area-inset-bottom,0px));max-height:90vh;max-height:90dvh;animation:uxup .22s ease-out}
+ .dlg-in::before{content:"";display:block;width:42px;height:5px;border-radius:9px;background:var(--line);margin:0 auto 14px}
+}
+@keyframes uxup{from{transform:translateY(40px);opacity:.3}}
+@media (prefers-reduced-motion:reduce){.uxsaved{transition:none}}
+`;
+const stl=document.createElement("style");stl.id="uxcss";stl.textContent=css;document.head.appendChild(stl);
+
+/* ---- 2. Üst çubuk ---- */
+const hset=(el,ic,lb)=>{if(!el||el.dataset.uxv===ic+lb)return;el.dataset.uxv=ic+lb;el.classList.remove("btn","alt","sm");el.classList.add("hic");const sync=el.querySelector("#hdSync");el.innerHTML=`<span class="i" aria-hidden="true">${ic}</span><span class="l">${esc(lb)}</span>`;if(sync)el.appendChild(sync);if(!el.getAttribute("aria-label"))el.setAttribute("aria-label",lb)};
+function fixHeader(){
+ const a=$("stStreak"),b=$("stXP");if(a&&b&&!a.parentNode.classList.contains("uxst")){const w=document.createElement("span");w.className="uxst";a.before(w);w.append(a,b)}
+ hset($("hdDict"),"🔍","Sözlük");hset($("hdBook"),"📒","Defter");
+ const me=$("hdMe");if(me){const nm=(typeof myName==="function"&&myName())||"Ben";hset(me,"👤",nm.split(" ")[0])}
+ const top=document.querySelector(".top");if(top)document.documentElement.style.setProperty("--toph",top.offsetHeight+"px");
+}
+const hdr=document.querySelector(".top");if(hdr){const mo=new MutationObserver(()=>{mo.disconnect();fixHeader();mo.observe(hdr,{childList:true,subtree:true,characterData:true})});mo.observe(hdr,{childList:true,subtree:true,characterData:true})}
+window.addEventListener("resize",fixHeader);
+
+/* ---- 3. Kayıt bildirimi (sistem durumunun görünürlüğü) ---- */
+let svT=0;const svEl=document.createElement("div");svEl.className="uxsaved";svEl.setAttribute("aria-hidden","true");svEl.textContent="✓ Kaydedildi";document.body.appendChild(svEl);
+const _save=save;save=function(){const r=_save.apply(this,arguments);try{const n=Date.now();if(!S&&n-svT>30000&&st&&st._at){svT=n;svEl.classList.add("on");setTimeout(()=>svEl.classList.remove("on"),1500)}}catch(e){}return r};
+
+/* ---- 4. Alıştırmadan çıkarken sor (hata önleme, kullanıcı kontrolü) ---- */
+const _bindX=bindX;bindX=function(){_bindX.apply(this,arguments);const x=$("qx");if(!x||x.dataset.ux)return;x.dataset.ux=1;const orig=x.onclick;
+ x.onclick=async e=>{if(S&&S.i>0){const ok=await uiDialog("Alıştırmadan çıkmak istiyor musun?\n\nŞimdiye kadar kazandığın puanlar ve hataların kaydedildi. Çıkarsan bu alıştırmaya sonra baştan başlarsın.",{ok:"Evet, çık",cancel:"Devam et"});if(!ok)return}orig&&orig.call(x,e)}};
+
+/* ---- 5. Yardım (yardım ve belgeler) ---- */
+const HELP={
+ home:["Başla","Bugün ne yapacağını tek bakışta gösterir.",["Halkadaki yüzde, bugünkü puan hedefinin ne kadarını yaptığını gösterir.","En kolay yol: kurs kartındaki <b>Devam et</b> düğmesine bas; uygulama seni sıradaki adıma götürür.","Aylık hedef ve rozetler bu sayfada; çalıştıkça dolar."]],
+ en:["İngilizce","A1'den C2'ye kurs ve tüm İngilizce bölümleri.",["Her gün <b>Devam et</b> düğmesine basman yeterli; kurs sırayı senin yerine takip eder.","Uzun listeler başlıklarının altında kapalı durur. Başlığa dokununca açılır, uygulama hangisini açık bıraktığını hatırlar.","Üstteki küçük düğmelerle (Bu sayfada) istediğin bölüme hemen atlarsın."]],
+ yds:["YDS","Sınav rehberi, soru tipi teknikleri, denemeler ve analiz.",["Önce çalışma planını oluştur; her gün ne yapacağın çıkar.","Soru tiplerinde önce tekniği oku, sonra rehberli çöz, en son süreli pratik yap.","Bölümler kapalı başlar; başlığa dokununca açılır."]],
+ lib:["Kütüphane","Seviyene göre hikâyeler.",["Üstten seviyeni seç.","Okurken bilmediğin kelimeye dokun: anlamı alttan açılır, tek dokunuşla kelimelerine eklersin.","Bölüm sonunda anlama soruları var."]],
+ test:["Testler","Tüm denemeler ve testler.",["Sonuçların Gelişim sekmesinde toplanır.","Süreli denemede süre üstte görünür; istersen yarıda bırakabilirsin."]],
+ stats:["Gelişim","Ne kadar çalıştığın ve nerede zorlandığın.",["Takvimde bir güne dokununca o gün ne yaptığını görürsün.","Zorlandığın alanlar bölümünden doğrudan alıştırmaya geçebilirsin."]],
+ book:["Defter","Hataların, kelimelerin, yedek ve ayarlar.",["Hata defterindeki sorular doğru cevaplandıkça listeden düşer.","Yedekle bölümünden ilerlemeni dosya olarak saklayabilirsin."]]};
+function openHelp(){const h=HELP[tab]||HELP.home;
+ uiDialog("",{ok:"Anladım"});const d=document.querySelector("#dlg .dlg-in");if(!d)return;const p=d.querySelector("p");
+ const box=document.createElement("div");box.className="uxhelpbox";box.innerHTML=`<h2>❔ ${h[0]}: nasıl kullanılır?</h2><p class="muted">${h[1]}</p><ul>${h[2].map(x=>`<li>${x}</li>`).join("")}</ul>
+ <h3>Her yerde geçerli</h3><ul><li>Alttaki sekmelerle bölümler arasında geçersin; seçili olan renkli görünür.</li><li>Alıştırmada ✕ ile çıkarsın; yarıda çıkarken uygulama sorar.</li><li>${window.top===window?"Telefonun <b>geri</b> tuşu bir önceki ekrana döner.":"Sayfanın başındaki <b>‹</b> bağlantısı bir önceki ekrana döner."}</li><li>İlerlemen her cevaptan sonra kendiliğinden kaydedilir; ekranın altında kısa süre <b>✓ Kaydedildi</b> görünür.</li><li>Bilgisayarda: <b>1–4</b> ya da <b>A–D</b> tuşları şık seçer, <b>Enter</b> devam eder.</li></ul>`;
+ if(p)p.replaceWith(box)}
+function addHelp(){const h=app.querySelector("h1");if(!h||h.querySelector(".uxhelp")||!HELP[tab])return;
+ if(app.firstElementChild!==h&&!(app.firstElementChild&&app.firstElementChild.contains(h)))return;
+ const b=document.createElement("button");b.className="uxhelp";b.type="button";b.textContent="?";b.setAttribute("aria-label","Bu sayfa nasıl kullanılır?");b.title="Bu sayfa nasıl kullanılır?";b.onclick=openHelp;h.appendChild(b)}
+
+/* ---- 6. Uzun sayfalarda açılır bölümler + "Bu sayfada" çubuğu ---- */
+function enhanceSecs(){
+ const secs=[...app.querySelectorAll(":scope > section.sec, :scope > div > section.sec")].filter(s=>!s.dataset.ux&&s.firstElementChild&&s.firstElementChild.tagName==="H2"&&s.offsetHeight>0);
+ if(!secs.length)return;
+ const longPage=document.documentElement.scrollHeight>window.innerHeight*2.4;if(!longPage)return;
+ const made=[];
+ secs.forEach(sec=>{sec.dataset.ux=1;const big=sec.offsetHeight>=360;
+  const h=sec.firstElementChild,title=h.textContent.trim(),key=tab+":"+title;
+  const body=document.createElement("div");body.className="uxb";while(h.nextSibling)body.appendChild(h.nextSibling);sec.appendChild(body);
+  const n=body.querySelectorAll("button.item,button.tile-card,button.pnode,button.book,.sent,a.item").length;
+  const bt=document.createElement("button");bt.type="button";bt.className="uxh";const t=document.createElement("span");t.className="uxt";while(h.firstChild)t.appendChild(h.firstChild);
+  bt.append(t);if(n>1){const c=document.createElement("span");c.className="uxn";c.textContent=n;bt.append(c)}const v=document.createElement("span");v.className="uxv";v.textContent="⌄";v.setAttribute("aria-hidden","true");bt.append(v);h.appendChild(bt);
+  sec.classList.add("uxsec");const setO=o=>{sec.classList.toggle("open",o);bt.setAttribute("aria-expanded",o)};setO(key in UX.open?!!UX.open[key]:!big);
+  bt.onclick=()=>{const o=!sec.classList.contains("open");setO(o);UX.open[key]=o;uxSave();if(o)setTimeout(()=>{const y=sec.getBoundingClientRect().top;if(y<0||y>window.innerHeight*.6)scrollToEl(sec)},30)};
+  made.push({sec,title,setO})});
+ if(made.length>=3&&!app.querySelector(".uxjump")){
+  const j=document.createElement("nav");j.className="uxjump";j.setAttribute("aria-label","Bu sayfada");j.innerHTML=`<span class="lb">Bu sayfada:</span>`;
+  made.forEach(m=>{const b=document.createElement("button");b.type="button";b.textContent=m.title.replace(/^\d+\.\s*/,"");b.onclick=()=>{m.setO(true);UX.open[tab+":"+m.title]=true;uxSave();scrollToEl(m.sec)};j.appendChild(b)});
+  const first=made[0].sec;let anchor=first;
+  const crs=app.querySelector(":scope > #crs");if(crs&&crs.compareDocumentPosition(first)&Node.DOCUMENT_POSITION_FOLLOWING)anchor=crs.nextElementSibling||first;
+  anchor.before(j)}
+}
+function scrollToEl(el){const off=(parseInt(getComputedStyle(document.documentElement).getPropertyValue("--toph"))||58)+(app.querySelector(".uxjump")?56:8);window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-off,behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"})}
+
+/* ---- 7. Her ekran çiziminden sonra ---- */
+let raf=0;
+function afterRender(){raf=0;document.body.classList.toggle("insess",!!S);if(!S){addHelp();enhanceSecs()}fixHeader()}
+new MutationObserver(()=>{if(!raf)raf=requestAnimationFrame(afterRender)}).observe(app,{childList:true});
+const _setTab=setTab;setTab=function(){const r=_setTab.apply(this,arguments);afterRender();return r};
+
+/* ---- 8. Klavye kısayolları (esneklik ve verimlilik) ---- */
+document.addEventListener("keydown",e=>{if(!S||e.ctrlKey||e.metaKey||e.altKey)return;const tg=e.target;if(tg&&(tg.tagName==="INPUT"||tg.tagName==="TEXTAREA"||tg.isContentEditable))return;
+ const dl=$("dlg");if(dl&&!dl.classList.contains("hidden"))return;
+ const k=e.key.toLowerCase();const idx="1234".indexOf(k)>=0?"1234".indexOf(k):"abcd".indexOf(k);
+ if(idx>=0&&k.length===1){const os=[...app.querySelectorAll(".opts .opt")].filter(o=>!o.disabled);if(os[idx]){e.preventDefault();os[idx].click()}return}
+ if(k==="enter"){const b=$("nx")||$("ck");if(b&&!b.disabled&&b.offsetParent){e.preventDefault();b.click()}}});
+
+/* ---- 9. Telefonun geri tuşu (kullanıcı kontrolü ve özgürlüğü) — yalnızca kendi penceresinde açılınca ---- */
+if(window.top===window&&history.pushState){
+ try{history.replaceState({da:"base"},"");history.pushState({da:"app"},"")}catch(e){}
+ const back=()=>{
+  const dl=$("dlg");if(dl&&!dl.classList.contains("hidden")){const c=$("dlgC")||$("dlgO");c&&c.click();return true}
+  const ov=$("ov");if(ov&&!ov.classList.contains("hidden")){const c=ov.querySelector("#mx")||ov.querySelector("button.link");if(c){c.click();return true}return true}
+  const pop=document.querySelector(".pop");if(pop&&pop.offsetParent){const c=pop.querySelector("[id$=x],.x,button.link");if(c){c.click();return true}pop.remove();return true}
+  if(S){const x=$("qx");if(x){x.click();return true}}
+  const bl=[...app.querySelectorAll(":scope > button.link, :scope > .row button.link, :scope > div > button.link")].find(b=>/^\s*‹/.test(b.textContent));if(bl){bl.click();return true}
+  if(tab!=="home"){setTab("home");return true}
+  return false};
+ window.addEventListener("popstate",()=>{let h=false;try{h=back()}catch(e){}if(h){try{history.pushState({da:"app"},"")}catch(e){}}else{history.back()}});
+}
+
+fixHeader();
+})();
+
 (async function boot(){st=defState();renderTop();app.innerHTML=`<p class="muted" style="text-align:center;margin-top:40px">Yükleniyor…</p>`;
  try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist().catch(()=>{})}catch(e){}
  const use=(n,ms)=>window.claude&&window.claude.use?Promise.race([window.claude.use(n).catch(()=>null),new Promise(r=>setTimeout(()=>r(null),ms))]):Promise.resolve(null);
@@ -5627,7 +5845,7 @@ function openDict(q0=""){const ov=$("ov");
 <script>
 if("serviceWorker" in navigator&&location.protocol.startsWith("http")){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").then(r=>{r.addEventListener("updatefound",()=>{const w=r.installing;w&&w.addEventListener("statechange",()=>{if(w.state==="installed"&&navigator.serviceWorker.controller){const b=document.createElement("button");b.className="btn pri";b.textContent="Yeni sürüm hazır, yenile";b.style.cssText="position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:50;box-shadow:0 6px 20px rgba(0,0,0,.25)";b.onclick=()=>UPD.run(b);document.body.appendChild(b)}})})}).catch(()=>{})})}
 /* ===== GÜNCELLEME: yeni sürüm varsa açılışta zorunlu güncelleme ekranı ===== */
-const APP_VER="2026.11.03-1";
+const APP_VER="2026.11.15-1";
 const UPD={
  web:()=>/^https?:$/.test(location.protocol),
  async check(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return null;const j=await r.json();return j&&j.v?{v:String(j.v),notes:Array.isArray(j.notes)?j.notes:[]}:null}catch(e){return null}},

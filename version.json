@@ -1,12 +1,13 @@
 {
- "v": "2026.11.03-1",
+ "v": "2026.11.15-1",
  "notes": [
-  "🔍 Yeni: Sözlük. Üst çubuktaki 🔍 düğmesiyle 10.000'den fazla kelime ve kalıpta İngilizce ya da Türkçe ara. Okunuşu, örnek cümleyi ve Türkçesini gör, dinle, tek dokunuşla tekrar listene ekle. \"went, found, children\" gibi çekimli hâlleri de tanır.",
-  "🌓 Yeni: Görünüm seçimi. 👤 Hesabım bölümünden Otomatik, Açık ya da Koyu tema seç.",
-  "🛠️ Düzeltildi: Yeni başlayanlarda \"Zayıf noktalarım\" bölümünde uygulamanın donması giderildi; çalışılacak soru yoksa artık bilgi veriliyor.",
-  "👁️ Düzeltildi: Koyu temada sarı vurgulu başlıklar artık rahat okunuyor.",
-  "💾 Daha güvenli kayıt: Cihazın depolama alanı dolarsa ilerlemen sessizce kaybolmaz, seni yedek alman için uyarırız. Hesapla eşitlemede deneme sınavı sonuçların artık birleştirilerek korunuyor.",
-  "🧹 Ana sayfa sadeleşti: CV bölümü uygulamadan ayrıldı; ana sayfa yalnızca İngilizce ve YDS çalışmana odaklanıyor.",
-  "✅ Tüm ilerlemen, puanların, serin ve kelimelerin olduğu gibi korundu."
+  "🎨 Yeni tasarım: Uygulama telefonda daha rahat kullanılsın diye baştan düzenlendi. Düğmeler daha büyük, yazılar daha okunaklı, benzer şeyler bir arada.",
+  "📂 Uzun sayfalar kısaldı: İngilizce, YDS ve Gelişim sayfalarında bölümler başlığın altında kapalı durur; başlığa dokununca açılır. Hangisini açık bıraktığını uygulama hatırlar.",
+  "⚡ \"Bu sayfada\" çubuğu: Uzun sayfaların üstündeki küçük düğmelerle istediğin bölüme tek dokunuşla atla.",
+  "🎯 Odak modu: Soru çözerken alttaki sekmeler gizlenir, ilerleme çubuğu hep üstte görünür, \"Devam\" düğmesi başparmağının altında durur.",
+  "🛟 Yanlışlıkla çıkmaya son: Alıştırmanın ortasında ✕'e basınca uygulama \"çıkmak istiyor musun?\" diye sorar.",
+  "↩️ Telefonun geri tuşu artık uygulamayı kapatmaz; bir önceki ekrana döner.",
+  "❔ Her sayfanın başlığındaki ? düğmesi o sayfanın nasıl kullanıldığını kısaca anlatır.",
+  "✅ Kaydedildiğini görürsün: İlerlemen kaydedilince ekranın altında kısa bir \"✓ Kaydedildi\" yazısı çıkar. Tüm ilerlemen, puanların ve kelimelerin olduğu gibi korundu."
  ]
 }
