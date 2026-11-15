@@ -1,12 +1,11 @@
 {
- "v": "2026.11.15-3",
+ "v": "2026.11.15-4",
  "notes": [
-  "📱💻 Her ekrana uyum: Uygulama artık telefonda, tablette ve bilgisayarda o ekrana göre kendini düzenliyor. Küçük telefonlarda (320px) bile yatay kaydırma yok.",
-  "🖥️ Bilgisayar ve tablette: Bölüm düğmeleri bilgisayarda solda dikey menü olur. Ana sayfada kurs ve aylık hedef yan yana durur. Kartlar ekran genişse 2–3 sütuna yayılır.",
-  "🔄 Telefonu yan çevirince üst ve alt çubuklar inceliyor, içeriğe daha çok yer kalıyor.",
-  "♿ Herkes için erişilebilir (WCAG 2.2 AA): Ekran okuyucular yeni sayfayı ve cevabın doğru mu yanlış mı olduğunu sesli bildiriyor. İngilizce metinler İngilizce okunuyor. Klavyeyle gezenler için \"İçeriğe geç\" bağlantısı ve belirgin odak çerçevesi var.",
-  "👆 Dokunmatik ekranlarda dokunduktan sonra \"takılı kalan\" vurgular giderildi. Küçük bağlantıların dokunma alanı büyütüldü.",
-  "🖨️ Bir sayfayı yazdırınca menüler gizleniyor, kapalı bölümler de açık basılıyor.",
-  "✅ Tüm ilerlemen, puanların ve kelimelerin olduğu gibi korundu."
+  "✨ Daha modern görünüm: Alt menü ve üst çubukta yeni, sade çizgi simgeler. Kartlar daha yumuşak gölgeli, düğmeler dokununca hafifçe basılıyor.",
+  "🌙 Koyu temada başlıklardaki sarı vurgu artık yazıyı kapatmıyor; her başlık rahat okunuyor.",
+  "📂 Açılan bölümlerin başlığı artık kutu değil başlık gibi duruyor; neyin neyin altında olduğu daha net.",
+  "🔔 \"Kaydedildi\" ve ses uyarıları artık başlıkları ve Devam düğmesini kapatmıyor.",
+  "📅 Bu ayın hedefi kartında yazılar sıkışmıyor; bilgisayarda ana sayfa kartları aynı hizada.",
+  "♿ Ekran okuyucular alt menü düğmelerini simge adı olmadan, doğrudan bölüm adıyla okuyor."
  ]
 }
