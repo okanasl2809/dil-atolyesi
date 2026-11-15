@@ -1,10 +1,9 @@
 {
- "v": "2026.11.15-5",
+ "v": "2026.11.15-6",
  "notes": [
-  "🔤 Yazılar baştan düzenlendi: Uygulamada artık tek, düzenli bir yazı ölçüsü var. Başlıklar, kart başlıkları, açıklamalar ve küçük notlar her sayfada aynı boyda.",
-  "📖 Daha rahat okuma: Satır aralıkları ve paragraf boşlukları göz yormayacak şekilde ayarlandı. İngilizce okuma metinleri biraz daha büyük.",
-  "🔍 Çok küçük yazılar büyütüldü: Alt menü, üst çubuk, etiketler ve grafik yazıları artık daha rahat okunuyor.",
-  "🔢 Puan, sayaç ve yüzdeler değişirken yazılar kaymıyor; rakamlar hep aynı genişlikte.",
-  "🅰️ Kalın yazılar artık gerçek kalın yazı tipiyle gösteriliyor, bulanık görünmüyor."
+  "🔤 Yazı boyutu artık kolay bulunuyor: Defter › Ayarlar'da \"Normal / Büyük / Çok büyük\" seçebilir, örnek yazıda hemen görebilirsin. İlerlemen etkilenmez.",
+  "📊 Gelişim sayfasında önce özet sayıların (seri, puan, çalışılan gün) görünüyor, ayrıntılar altında.",
+  "🎯 YDS sayfasında sayfanın ne işe yaradığını anlatan yazı artık başlığın hemen altında.",
+  "📏 Bilgisayarda uzun açıklama satırları göz yormayacak genişlikte kalıyor."
  ]
 }

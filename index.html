@@ -4180,7 +4180,7 @@ function openAbout(){const back=()=>setTab("book");
 (function(){const _vb=viewBook;viewBook=function(){_vb();const sec=document.createElement("section");sec.className="sec";
  sec.innerHTML=`<h2>Uygulama</h2><div class="list"><button class="item" id="ob"><span style="font-size:1.4rem">💾</span><span class="grow"><span class="t">Yedekle ve geri yükle</span><br><span class="muted small">Son yedek: ${st.lastBackup||"hiç alınmadı"}</span></span><span>›</span></button>
  <button class="item" id="ov2"><span style="font-size:1.4rem">🔊</span><span class="grow"><span class="t">Ses ayarları</span><br><span class="muted small">İngilizce ses ve konuşma hızı</span></span><span>›</span></button>
- <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.11.15-5 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
+ <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.11.15-6 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
  <button class="item" id="oa"><span style="font-size:1.4rem">ℹ️</span><span class="grow"><span class="t">Hakkında, gizlilik ve lisanslar</span><br><span class="muted small">Hata bildirimlerin de burada</span></span><span>›</span></button></div>`;
  app.appendChild(sec);$("ob").onclick=openBackup;$("oup").onclick=e=>UPD.manual(e.currentTarget);$("ov2").onclick=openVoice;$("oa").onclick=openAbout;}})();
 (function(){const _vh=viewHome;viewHome=function(){_vh();const p=document.createElement("p");p.className="small muted";p.style.cssText="text-align:center;margin-top:28px";p.innerHTML='Dil Atölyesi, geliştirici: <b>Okan Asl</b>';app.appendChild(p)}})();
@@ -4676,8 +4676,8 @@ function plHomeCard(){const k=dayKey();if(!st.plan)return`<button class="tile-ca
   <button class="btn alt sm" id="pls2" style="margin-top:10px">Planı aç ›</button></div>`;app.appendChild(d);$("pls2").onclick=()=>openPlanner("month")}catch(e){}}})();
 
 /* ===== YENİLİKLER: her sürümde bir kez gösterilir ===== */
-const WN_VER="2026.11.15-5";
-const WN_NOTES=["🔤 Yazılar baştan düzenlendi: Uygulamada artık tek, düzenli bir yazı ölçüsü var. Başlıklar, kart başlıkları, açıklamalar ve küçük notlar her sayfada aynı boyda.", "📖 Daha rahat okuma: Satır aralıkları ve paragraf boşlukları göz yormayacak şekilde ayarlandı. İngilizce okuma metinleri biraz daha büyük.", "🔍 Çok küçük yazılar büyütüldü: Alt menü, üst çubuk, etiketler ve grafik yazıları artık daha rahat okunuyor.", "🔢 Puan, sayaç ve yüzdeler değişirken yazılar kaymıyor; rakamlar hep aynı genişlikte.", "🅰️ Kalın yazılar artık gerçek kalın yazı tipiyle gösteriliyor, bulanık görünmüyor."];
+const WN_VER="2026.11.15-6";
+const WN_NOTES=["🔤 Yazı boyutu artık kolay bulunuyor: Defter › Ayarlar'da \"Normal / Büyük / Çok büyük\" seçebilir, örnek yazıda hemen görebilirsin. İlerlemen etkilenmez.", "📊 Gelişim sayfasında önce özet sayıların (seri, puan, çalışılan gün) görünüyor, ayrıntılar altında.", "🎯 YDS sayfasında sayfanın ne işe yaradığını anlatan yazı artık başlığın hemen altında.", "📏 Bilgisayarda uzun açıklama satırları göz yormayacak genişlikte kalıyor."];
 const WN_OLD=["🇹🇷 Yeni: Bütün örnek cümlelerin Türkçesi eklendi. 10.500'den fazla cümlenin altında artık ne anlama geldiği yazıyor (kelime kartlarında ve kelime listelerinde).", "📖 Yeni: Kısa hikâyeler. Her seviyede (A1'den C2'ye) 10 hikâye, toplam 60 hikâye. Her hikâyenin sonunda anlama soruları var. İngilizce sekmesinde \"Kısa hikâyeler\"e dokun.", "🎯 Yeni: Zayıf noktalarım. En çok yanlış yaptığın kelimeleri ve konuları tek sayfada gör, sadece onlardan alıştırma yap.", "🎭 Yeni: Diyaloglarda sesli rol yapma. Rolünü seç, \"Sesli söyleyerek\"i işaretle; sıra sana gelince cümleyi kendin söyle.", "🏅 Yeni: Rozetler ve aylık hedef. Ayda kaç gün çalışacağını seç; çalıştıkça 32 rozetin kilidini aç. Gelişim sekmesinde ve ana sayfada.", "🔎 Okurken bilinmeyen bir kelimeye dokununca anlamı artık internet olmadan da çıkıyor.", "🎓 İngilizce kursu: İngilizce kursu. Ders, kelime, diyalog, dinleme ve sınavdan oluşan üniteler; \"Devam et\"e bas, kurs seni sıradaki adıma götürsün. Ünite sınavını geçince sıradaki açılır.", "🏅 Seviye sınavı ve belge: Bir seviyenin tüm ünitelerini bitirince seviye sınavına gir, geçince başarı belgeni al.", "🗣️ Kelimelerin okunuşu eklendi: Her kelimenin yanında Türkçe harflerle nasıl okunduğu (vurgulu hece büyük harfle) ve uluslararası okunuşu yazıyor.", "🎮 Yeni: Kelime oyunları. Doğru mu yanlış mı, harfleri diz, adam asmaca, dinle ve bul, eşleştirme yarışı. Çalıştığın kelimelerle oynarsın, rekorun kaydedilir.", "👅 Türkler için telaffuz: th, w ile v, ship ile sheep gibi zor sesler; dinleyip ayırt etme alıştırması.", "🚫 Türklerin sık yaptığı 51 hata (\"I am agree\" gibi) ve alıştırmaları.", "🎙️ Dinle ve tekrar et: Cümleyi dinle, sesli söyle; doğru söylediğin kelimeler yeşil görünür. Ayrıca Türkçeden İngilizceye yazma alıştırması.", "🔁 Günlük tekrar ve daha akıllı kelime tekrarı: Aynı gün tekrar etmek artık kelimeyi erkenden \"öğrenildi\" saymıyor; bitirdiğin konular aralıklarla tekrar karşına çıkıyor."];
 function showWhatsNew(tries=0){let seen=null;try{seen=localStorage.getItem("da:seenVer")}catch(e){}
  if(seen===WN_VER)return;
@@ -6134,6 +6134,31 @@ body{font-size:var(--fs-md);line-height:var(--lh-body);font-kerning:normal;font-
 const s=document.createElement("style");s.id="ux5";s.textContent=css;document.head.appendChild(s);
 })();
 
+/* ===== TASARIM 6 (2026.11.15-6): içerik planı — önce özet, sonra ayrıntı; yazı boyutu Defter › Ayarlar'da ===== */
+(function(){
+const css=`#app>p.muted,#app>.hero p{max-width:68ch}
+.uxfsset{margin-bottom:12px}.uxfsset .uxseg{margin-top:10px}
+.uxfsset .uxprev{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--soft);line-height:1.5}
+.uxfsset .uxprev b{display:block;font-family:"Bricolage Grotesque",Figtree,sans-serif;font-size:var(--fs-lg);margin-bottom:2px}`;
+const s=document.createElement("style");s.id="ux6";s.textContent=css;document.head.appendChild(s);
+const secBody=t=>{const h=[...app.querySelectorAll("section.sec>h2")].find(x=>x.textContent.replace(/[⌄⌃\d]/g,"").trim()===t);if(!h)return null;const sec=h.parentElement;return sec.querySelector(":scope>.uxb")||{prepend:n=>h.after(n)}};
+function plan(){
+ if(S)return;
+ const t=document.body.dataset.tab||tab;
+ // YDS: açıklama başlığın hemen altında (önce "ne bu sayfa", sonra işler)
+ if(t==="yds"){const h=app.querySelector(":scope>h1");const p=h&&[...app.children].find(e=>e.matches("p.muted"));if(h&&p&&h.nextElementSibling!==p)h.after(p)}
+ // Gelişim: önce özet sayılar, sonra hedef ve ayrıntı (ters piramit)
+ if(t==="stats"){const m=app.querySelector(":scope>#mgc"),g=m&&[...app.children].find(e=>e.classList.contains("grid2"));if(m&&g&&m.nextElementSibling===g)m.before(g)}
+ // Defter › Ayarlar: Yazı boyutu (bulması kolay yer)
+ if(t==="book"&&!app.querySelector(".uxfsset")){const b=secBody("Ayarlar");if(b){const c=document.createElement("div");c.className="card uxfsset";
+  c.innerHTML=`<b>🔤 Yazı boyutu</b><div class="small muted">Tüm sayfalarda yazıları büyütür; düzen bozulmaz. İlerlemen etkilenmez.</div><div class="uxseg" role="group" aria-label="Yazı boyutu">${[["m","Normal"],["l","Büyük"],["xl","Çok büyük"]].map(([k,l])=>`<button type="button" data-fs="${k}" aria-pressed="${UX.fs===k}">${l}</button>`).join("")}</div><div class="uxprev" aria-hidden="true"><b>Örnek başlık</b>Bugün 15 dakika çalış. <i lang="en">The committee postponed the decision.</i></div>`;
+  b.prepend(c);
+  c.querySelectorAll("[data-fs]").forEach(x=>x.onclick=()=>{UX.fs=x.dataset.fs;uxSave();applyFs();c.querySelectorAll("[data-fs]").forEach(y=>y.setAttribute("aria-pressed",y===x));uxSay&&uxSay("Yazı boyutu: "+x.textContent)});}}
+}
+const _ar6=afterRender;afterRender=function(){_ar6();try{plan()}catch(e){}};
+plan();
+})();
+
 fixHeader();
 })();
 
@@ -6154,7 +6179,7 @@ fixHeader();
 <script>
 if("serviceWorker" in navigator&&location.protocol.startsWith("http")){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").then(r=>{r.addEventListener("updatefound",()=>{const w=r.installing;w&&w.addEventListener("statechange",()=>{if(w.state==="installed"&&navigator.serviceWorker.controller){const b=document.createElement("button");b.className="btn pri";b.textContent="Yeni sürüm hazır, yenile";b.style.cssText="position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:50;box-shadow:0 6px 20px rgba(0,0,0,.25)";b.onclick=()=>UPD.run(b);document.body.appendChild(b)}})})}).catch(()=>{})})}
 /* ===== GÜNCELLEME: yeni sürüm varsa açılışta zorunlu güncelleme ekranı ===== */
-const APP_VER="2026.11.15-5";
+const APP_VER="2026.11.15-6";
 const UPD={
  web:()=>/^https?:$/.test(location.protocol),
  async check(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return null;const j=await r.json();return j&&j.v?{v:String(j.v),notes:Array.isArray(j.notes)?j.notes:[]}:null}catch(e){return null}},
