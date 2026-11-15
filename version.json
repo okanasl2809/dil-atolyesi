@@ -1,13 +1,14 @@
 {
- "v": "2026.11.15-1",
+ "v": "2026.11.15-2",
  "notes": [
-  "🎨 Yeni tasarım: Uygulama telefonda daha rahat kullanılsın diye baştan düzenlendi. Düğmeler daha büyük, yazılar daha okunaklı, benzer şeyler bir arada.",
-  "📂 Uzun sayfalar kısaldı: İngilizce, YDS ve Gelişim sayfalarında bölümler başlığın altında kapalı durur; başlığa dokununca açılır. Hangisini açık bıraktığını uygulama hatırlar.",
-  "⚡ \"Bu sayfada\" çubuğu: Uzun sayfaların üstündeki küçük düğmelerle istediğin bölüme tek dokunuşla atla.",
-  "🎯 Odak modu: Soru çözerken alttaki sekmeler gizlenir, ilerleme çubuğu hep üstte görünür, \"Devam\" düğmesi başparmağının altında durur.",
-  "🛟 Yanlışlıkla çıkmaya son: Alıştırmanın ortasında ✕'e basınca uygulama \"çıkmak istiyor musun?\" diye sorar.",
-  "↩️ Telefonun geri tuşu artık uygulamayı kapatmaz; bir önceki ekrana döner.",
-  "❔ Her sayfanın başlığındaki ? düğmesi o sayfanın nasıl kullanıldığını kısaca anlatır.",
-  "✅ Kaydedildiğini görürsün: İlerlemen kaydedilince ekranın altında kısa bir \"✓ Kaydedildi\" yazısı çıkar. Tüm ilerlemen, puanların ve kelimelerin olduğu gibi korundu."
+  "📚 Tasarım, en çok okunan web tasarımı kitapları ve erişilebilirlik standardına (WCAG 2.2) göre bir kez daha elden geçirildi.",
+  "🔠 Yeni: Yazı boyutu. Herhangi bir sayfadaki ? düğmesinden Normal, Büyük ya da Çok büyük seç. Gözü yorulanlar için.",
+  "📏 Yeni: Üst çubuğun altındaki ince çizgi bugünkü hedefine ne kadar yaklaştığını her sayfada gösterir; hedef dolunca yeşile döner.",
+  "🎉 Bir alıştırmayı %80 ve üstü başarıyla bitirince küçük bir kutlama seni bekliyor.",
+  "📳 Cevap verince telefon kısa titreşir (doğruda tek, yanlışta çift). İstersen ? düğmesinden kapatabilirsin.",
+  "✂️ Daha az kalabalık: Sık açtığın sayfalarda baştaki uzun açıklama tek satıra iner; dokununca tamamı açılır.",
+  "👁️ Daha okunaklı: Şık kutularının ve yazı alanlarının kenarları daha belirgin, rakamlar hizalı, okuma metinleri göz yormayan genişlikte.",
+  "📴 İnternet kesilince haber verilir; uygulama çalışmaya devam eder.",
+  "✅ Tüm ilerlemen, puanların ve kelimelerin olduğu gibi korundu."
  ]
 }
