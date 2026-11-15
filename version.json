@@ -1,14 +1,12 @@
 {
- "v": "2026.11.15-2",
+ "v": "2026.11.15-3",
  "notes": [
-  "📚 Tasarım, en çok okunan web tasarımı kitapları ve erişilebilirlik standardına (WCAG 2.2) göre bir kez daha elden geçirildi.",
-  "🔠 Yeni: Yazı boyutu. Herhangi bir sayfadaki ? düğmesinden Normal, Büyük ya da Çok büyük seç. Gözü yorulanlar için.",
-  "📏 Yeni: Üst çubuğun altındaki ince çizgi bugünkü hedefine ne kadar yaklaştığını her sayfada gösterir; hedef dolunca yeşile döner.",
-  "🎉 Bir alıştırmayı %80 ve üstü başarıyla bitirince küçük bir kutlama seni bekliyor.",
-  "📳 Cevap verince telefon kısa titreşir (doğruda tek, yanlışta çift). İstersen ? düğmesinden kapatabilirsin.",
-  "✂️ Daha az kalabalık: Sık açtığın sayfalarda baştaki uzun açıklama tek satıra iner; dokununca tamamı açılır.",
-  "👁️ Daha okunaklı: Şık kutularının ve yazı alanlarının kenarları daha belirgin, rakamlar hizalı, okuma metinleri göz yormayan genişlikte.",
-  "📴 İnternet kesilince haber verilir; uygulama çalışmaya devam eder.",
+  "📱💻 Her ekrana uyum: Uygulama artık telefonda, tablette ve bilgisayarda o ekrana göre kendini düzenliyor. Küçük telefonlarda (320px) bile yatay kaydırma yok.",
+  "🖥️ Bilgisayar ve tablette: Bölüm düğmeleri bilgisayarda solda dikey menü olur. Ana sayfada kurs ve aylık hedef yan yana durur. Kartlar ekran genişse 2–3 sütuna yayılır.",
+  "🔄 Telefonu yan çevirince üst ve alt çubuklar inceliyor, içeriğe daha çok yer kalıyor.",
+  "♿ Herkes için erişilebilir (WCAG 2.2 AA): Ekran okuyucular yeni sayfayı ve cevabın doğru mu yanlış mı olduğunu sesli bildiriyor. İngilizce metinler İngilizce okunuyor. Klavyeyle gezenler için \"İçeriğe geç\" bağlantısı ve belirgin odak çerçevesi var.",
+  "👆 Dokunmatik ekranlarda dokunduktan sonra \"takılı kalan\" vurgular giderildi. Küçük bağlantıların dokunma alanı büyütüldü.",
+  "🖨️ Bir sayfayı yazdırınca menüler gizleniyor, kapalı bölümler de açık basılıyor.",
   "✅ Tüm ilerlemen, puanların ve kelimelerin olduğu gibi korundu."
  ]
 }
