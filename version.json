@@ -1,11 +1,10 @@
 {
- "v": "2026.11.15-4",
+ "v": "2026.11.15-5",
  "notes": [
-  "✨ Daha modern görünüm: Alt menü ve üst çubukta yeni, sade çizgi simgeler. Kartlar daha yumuşak gölgeli, düğmeler dokununca hafifçe basılıyor.",
-  "🌙 Koyu temada başlıklardaki sarı vurgu artık yazıyı kapatmıyor; her başlık rahat okunuyor.",
-  "📂 Açılan bölümlerin başlığı artık kutu değil başlık gibi duruyor; neyin neyin altında olduğu daha net.",
-  "🔔 \"Kaydedildi\" ve ses uyarıları artık başlıkları ve Devam düğmesini kapatmıyor.",
-  "📅 Bu ayın hedefi kartında yazılar sıkışmıyor; bilgisayarda ana sayfa kartları aynı hizada.",
-  "♿ Ekran okuyucular alt menü düğmelerini simge adı olmadan, doğrudan bölüm adıyla okuyor."
+  "🔤 Yazılar baştan düzenlendi: Uygulamada artık tek, düzenli bir yazı ölçüsü var. Başlıklar, kart başlıkları, açıklamalar ve küçük notlar her sayfada aynı boyda.",
+  "📖 Daha rahat okuma: Satır aralıkları ve paragraf boşlukları göz yormayacak şekilde ayarlandı. İngilizce okuma metinleri biraz daha büyük.",
+  "🔍 Çok küçük yazılar büyütüldü: Alt menü, üst çubuk, etiketler ve grafik yazıları artık daha rahat okunuyor.",
+  "🔢 Puan, sayaç ve yüzdeler değişirken yazılar kaymıyor; rakamlar hep aynı genişlikte.",
+  "🅰️ Kalın yazılar artık gerçek kalın yazı tipiyle gösteriliyor, bulanık görünmüyor."
  ]
 }
