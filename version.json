@@ -1,9 +1,13 @@
 {
- "v": "2026.11.15-6",
+ "v": "2026.11.16-1",
  "notes": [
-  "🔤 Yazı boyutu artık kolay bulunuyor: Defter › Ayarlar'da \"Normal / Büyük / Çok büyük\" seçebilir, örnek yazıda hemen görebilirsin. İlerlemen etkilenmez.",
-  "📊 Gelişim sayfasında önce özet sayıların (seri, puan, çalışılan gün) görünüyor, ayrıntılar altında.",
-  "🎯 YDS sayfasında sayfanın ne işe yaradığını anlatan yazı artık başlığın hemen altında.",
-  "📏 Bilgisayarda uzun açıklama satırları göz yormayacak genişlikte kalıyor."
+  "🧭 Daha sade menü: Alt menüde artık 4 bölüm var: Bugün, Öğren, YDS ve Ben. Kütüphane Öğren'in, Testler YDS'nin, Defter Ben'in içinde; üstteki düğmelerle geçebilirsin. Hiçbir bölüm kaybolmadı.",
+  "❄️ Haftada bir gün dinlenebilirsin: o gün çalışmasan da serin bozulmaz.",
+  "🎯 YDS planı yaptıysan ana sayfada sınava kaç gün kaldığı görünüyor.",
+  "👆 Düğmeler parmakla daha kolay basılacak büyüklükte.",
+  "⚡ Uygulama yaklaşık %20 daha hızlı açılıyor; yazı tipleri artık uygulamanın içinde, internetsiz de aynı görünüyor.",
+  "🔒 Ben › Defter › Uygulama'da yeni: Gizlilik ve KVKK, Kullanım koşulları, Görüş ve hata bildir, Bu kişinin kaydını sil.",
+  "👋 Yeni kullananlar için karşılama ekranı ve 1 dakikalık deneme.",
+  "✅ İlerlemen, puanların ve serin aynen duruyor; kaldığın yerden devam et."
  ]
 }
