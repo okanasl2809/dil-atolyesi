@@ -4180,7 +4180,7 @@ function openAbout(){const back=()=>setTab("book");
 (function(){const _vb=viewBook;viewBook=function(){_vb();const sec=document.createElement("section");sec.className="sec";
  sec.innerHTML=`<h2>Uygulama</h2><div class="list"><button class="item" id="ob"><span style="font-size:1.4rem">💾</span><span class="grow"><span class="t">Yedekle ve geri yükle</span><br><span class="muted small">Son yedek: ${st.lastBackup||"hiç alınmadı"}</span></span><span>›</span></button>
  <button class="item" id="ov2"><span style="font-size:1.4rem">🔊</span><span class="grow"><span class="t">Ses ayarları</span><br><span class="muted small">İngilizce ses ve konuşma hızı</span></span><span>›</span></button>
- <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.11.16-1 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
+ <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.11.17-1 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
  <button class="item" id="oa"><span style="font-size:1.4rem">ℹ️</span><span class="grow"><span class="t">Hakkında, gizlilik ve lisanslar</span><br><span class="muted small">Hata bildirimlerin de burada</span></span><span>›</span></button></div>`;
  app.appendChild(sec);$("ob").onclick=openBackup;$("oup").onclick=e=>UPD.manual(e.currentTarget);$("ov2").onclick=openVoice;$("oa").onclick=openAbout;}})();
 (function(){const _vh=viewHome;viewHome=function(){_vh();const p=document.createElement("p");p.className="small muted";p.style.cssText="text-align:center;margin-top:28px";p.innerHTML='Dil Atölyesi, geliştirici: <b>Okan Asl</b>';app.appendChild(p)}})();
@@ -4677,8 +4677,8 @@ function plHomeCard(){const k=dayKey();if(!st.plan)return`<button class="tile-ca
   <button class="btn alt sm" id="pls2" style="margin-top:10px">Planı aç ›</button></div>`;app.appendChild(d);$("pls2").onclick=()=>openPlanner("month")}catch(e){}}})();
 
 /* ===== YENİLİKLER: her sürümde bir kez gösterilir ===== */
-const WN_VER="2026.11.16-1";
-const WN_NOTES=["🧭 Daha sade menü: Alt menüde artık 4 bölüm var: Bugün, Öğren, YDS ve Ben. Kütüphane Öğren'in, Testler YDS'nin, Defter Ben'in içinde; üstteki düğmelerle geçebilirsin. Hiçbir bölüm kaybolmadı.", "❄️ Haftada bir gün dinlenebilirsin: o gün çalışmasan da serin bozulmaz.", "🎯 YDS planı yaptıysan ana sayfada sınava kaç gün kaldığı görünüyor.", "👆 Düğmeler parmakla daha kolay basılacak büyüklükte.", "⚡ Uygulama yaklaşık %20 daha hızlı açılıyor; yazı tipleri artık uygulamanın içinde, internetsiz de aynı görünüyor.", "🔒 Ben › Defter › Uygulama'da yeni: Gizlilik ve KVKK, Kullanım koşulları, Görüş ve hata bildir, Bu kişinin kaydını sil.", "👋 Yeni kullananlar için karşılama ekranı ve 1 dakikalık deneme.", "✅ İlerlemen, puanların ve serin aynen duruyor; kaldığın yerden devam et."];
+const WN_VER="2026.11.17-1";
+const WN_NOTES=["🛤️ Öğrenme yolu: Bugün sayfasında kursun artık bir yol gibi görünüyor. Bitirdiğin üniteler dolu, sıradaki büyük ve parlak; dokununca açılır.", "🔥 Haftalık seri şeridi: Bu hafta hangi günler çalıştığını tek bakışta gör (✓ çalıştın, ❄️ dinlenme günü).", "🎉 Ders sonu kartı: Doğru sayın, kazandığın puan ve süren büyük kartlarla; günün ilk dersinde serin kutlanıyor.", "✅ Cevap verince alttan renkli bir bant çıkıyor (yeşil doğru, kırmızı yanlış) ve Devam düğmesi hep parmağının altında.", "🃏 Yeni kelime kartları artık dönen kart: önce kelimeyi gör, dokununca anlamı ve örnek cümle çıkar.", "🎨 Seviyelerin kendi renkleri var (A1 yeşil … C2 kırmızı). YDS planı yaptıysan ana sayfada takvim yaprağı şeklinde geri sayım kartı.", "✅ İlerlemen, puanların ve serin aynen duruyor."];
 const WN_OLD=["🇹🇷 Yeni: Bütün örnek cümlelerin Türkçesi eklendi. 10.500'den fazla cümlenin altında artık ne anlama geldiği yazıyor (kelime kartlarında ve kelime listelerinde).", "📖 Yeni: Kısa hikâyeler. Her seviyede (A1'den C2'ye) 10 hikâye, toplam 60 hikâye. Her hikâyenin sonunda anlama soruları var. İngilizce sekmesinde \"Kısa hikâyeler\"e dokun.", "🎯 Yeni: Zayıf noktalarım. En çok yanlış yaptığın kelimeleri ve konuları tek sayfada gör, sadece onlardan alıştırma yap.", "🎭 Yeni: Diyaloglarda sesli rol yapma. Rolünü seç, \"Sesli söyleyerek\"i işaretle; sıra sana gelince cümleyi kendin söyle.", "🏅 Yeni: Rozetler ve aylık hedef. Ayda kaç gün çalışacağını seç; çalıştıkça 32 rozetin kilidini aç. Gelişim sekmesinde ve ana sayfada.", "🔎 Okurken bilinmeyen bir kelimeye dokununca anlamı artık internet olmadan da çıkıyor.", "🎓 İngilizce kursu: İngilizce kursu. Ders, kelime, diyalog, dinleme ve sınavdan oluşan üniteler; \"Devam et\"e bas, kurs seni sıradaki adıma götürsün. Ünite sınavını geçince sıradaki açılır.", "🏅 Seviye sınavı ve belge: Bir seviyenin tüm ünitelerini bitirince seviye sınavına gir, geçince başarı belgeni al.", "🗣️ Kelimelerin okunuşu eklendi: Her kelimenin yanında Türkçe harflerle nasıl okunduğu (vurgulu hece büyük harfle) ve uluslararası okunuşu yazıyor.", "🎮 Yeni: Kelime oyunları. Doğru mu yanlış mı, harfleri diz, adam asmaca, dinle ve bul, eşleştirme yarışı. Çalıştığın kelimelerle oynarsın, rekorun kaydedilir.", "👅 Türkler için telaffuz: th, w ile v, ship ile sheep gibi zor sesler; dinleyip ayırt etme alıştırması.", "🚫 Türklerin sık yaptığı 51 hata (\"I am agree\" gibi) ve alıştırmaları.", "🎙️ Dinle ve tekrar et: Cümleyi dinle, sesli söyle; doğru söylediğin kelimeler yeşil görünür. Ayrıca Türkçeden İngilizceye yazma alıştırması.", "🔁 Günlük tekrar ve daha akıllı kelime tekrarı: Aynı gün tekrar etmek artık kelimeyi erkenden \"öğrenildi\" saymıyor; bitirdiğin konular aralıklarla tekrar karşına çıkıyor."];
 function showWhatsNew(tries=0){let seen=null;try{seen=localStorage.getItem("da:seenVer")}catch(e){}
  if(seen===WN_VER)return;
@@ -6318,6 +6318,139 @@ try{HELP.home[0]="Bugün";HELP.home[2]=HELP.home[2].map(x=>x.replace("Aylık hed
 relabel();
 })();
 
+/* ===== TASARIM 8 (2026.11.17-1): rakip ve Material 3 Expressive karşılaştırmasından — öğrenme yolu, haftalık seri şeridi,
+   ders sonu kutlama kartı, alttan çıkan geri bildirim bandı, kelime kartı çevirme, seviye renkleri, YDS geri sayım kartı. Veri değişmez. ===== */
+(function(){
+const SPR="cubic-bezier(.34,1.45,.64,1)";
+const css=`
+:root{--lvA1:#1E8A6E;--lvA2:#0E8299;--lvB1:#2747C9;--lvB2:#6B3FC4;--lvC1:#C2571A;--lvC2:#B8324A}
+:root[data-theme="dark"]{--lvA1:#4CC9A1;--lvA2:#3FC1D9;--lvB1:#7E97FF;--lvB2:#B593FF;--lvC1:#FF9A5C;--lvC2:#FF7A92}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--lvA1:#4CC9A1;--lvA2:#3FC1D9;--lvB1:#7E97FF;--lvB2:#B593FF;--lvC1:#FF9A5C;--lvC2:#FF7A92}}
+@keyframes uxpop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes uxup{0%{transform:translateY(100%)}100%{transform:translateY(0)}}
+@keyframes uxpulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--lvc,var(--pri)) 45%,transparent)}50%{box-shadow:0 0 0 10px transparent}}
+/* Haftalık seri şeridi */
+.uxweek{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px 12px;margin:0 0 14px;box-shadow:var(--sh1)}
+.uxweek .sk{display:flex;flex-direction:column;align-items:center;min-width:52px;font:800 1.35rem/1 "Bricolage Grotesque",sans-serif}
+.uxweek .sk small{font:600 11px/1.2 Figtree,sans-serif;color:var(--muted);margin-top:3px}
+.uxweek .days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;flex:1;max-width:440px}
+.uxweek .d{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--muted)}
+.uxweek .d i{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:14px;background:var(--soft);color:var(--muted)}
+.uxweek .d.on i{background:var(--ok);color:#fff}
+.uxweek .d.rest i{background:color-mix(in srgb,#5AA9E6 25%,var(--card));color:#2B6CA3}
+.uxweek .d.today i{outline:2px solid var(--pri);outline-offset:2px}
+.uxweek .d.fut i{opacity:.45}
+/* Öğrenme yolu */
+.uxpath{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 14px 18px;margin:0 0 14px;box-shadow:var(--sh1)}
+.uxpath .hd{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.uxpath .hd b{flex:1;font-family:"Bricolage Grotesque",sans-serif;font-size:var(--fs-lg,1.125rem)}
+.uxpath .hd .lvb{background:var(--lvc);color:#fff;border-radius:999px;padding:3px 10px;font-weight:800;font-size:12px}
+.uxpath .road{overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:6px;padding-top:6px}
+.uxnode{display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:0;min-height:48px;max-width:180px;cursor:pointer;color:var(--ink)}
+.uxnode .c{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-size:22px;font-weight:800;background:var(--soft);color:var(--muted);box-shadow:inset 0 -5px 0 rgba(0,0,0,.12);transition:transform .2s ${SPR}}
+.uxnode:active .c{transform:scale(.92)}
+.uxnode.done .c{background:var(--lvc);color:#fff}
+.uxnode.cur .c{width:74px;height:74px;font-size:26px;background:var(--lvc);color:#fff;animation:uxpulse 2.2s infinite}
+.uxnode.lock .c{opacity:.55}
+.uxnode .t{font-size:12px;font-weight:600;line-height:1.25;text-align:center;color:var(--muted)}
+.uxnode.cur .t{color:var(--ink);font-weight:700;font-size:13px}
+.uxnode .go{background:var(--lvc);color:#fff;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:800;margin-top:2px}
+.uxpath .more{display:block;margin:10px auto 0;min-height:44px}
+/* YDS geri sayım kartı */
+.uxcdc{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin:0 0 14px;box-shadow:var(--sh1);width:100%;text-align:left;color:var(--ink)}
+.uxcdc .cal{width:56px;border-radius:12px;overflow:hidden;text-align:center;border:1px solid var(--line);flex:none;background:var(--card)}
+.uxcdc .cal span{display:block;background:var(--bad);color:#fff;font-size:11px;font-weight:800;padding:2px 0;letter-spacing:.06em}
+.uxcdc .cal b{display:block;font:800 1.5rem/1.3 "Bricolage Grotesque",sans-serif}
+.uxcdc .big{font:800 1.6rem/1 "Bricolage Grotesque",sans-serif}
+/* Ders sonu kutlama kartı */
+.cel{animation:uxpop .45s ${SPR}}
+.uxstats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px auto 6px;max-width:420px}
+.uxstats div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 6px;text-align:center}
+.uxstats b{display:block;font:800 1.35rem/1.1 "Bricolage Grotesque",sans-serif}
+.uxstats small{color:var(--muted);font-size:12px;font-weight:600}
+.uxstreak{display:flex;align-items:center;justify-content:center;gap:10px;margin:12px auto 4px;max-width:420px;background:color-mix(in srgb,#FF8A00 14%,var(--card));border:1px solid color-mix(in srgb,#FF8A00 40%,var(--line));border-radius:14px;padding:10px 14px;font-weight:700;animation:uxpop .5s .15s both ${SPR}}
+.uxstreak .f{font-size:28px}
+/* Kelime kartı çevirme */
+.uxflip{perspective:1000px;margin:0 0 6px}
+.uxflip .in{position:relative;transition:transform .5s ${SPR};transform-style:preserve-3d;min-height:260px}
+.uxflip.on .in{transform:rotateY(180deg)}
+.uxflip .fa,.uxflip .ba{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:22px 16px;text-align:center;border-radius:18px;background:var(--card);border:1px solid var(--line);box-shadow:var(--sh1)}
+.uxflip .ba{transform:rotateY(180deg);position:relative;inset:auto;min-height:260px}
+.uxflip .w{font:800 2.4rem/1.1 "Bricolage Grotesque",sans-serif}
+.uxflip .hint{color:var(--muted);font-size:var(--fs-sm,.875rem)}
+body.insess #ttsToast{top:calc(var(--toph,56px) + 64px)!important;bottom:auto!important}
+@media (prefers-reduced-motion:reduce){.uxflip .in,.cel,.uxstreak,.uxnode .c{transition:none!important;animation:none!important}}
+/* Seviye renkleri: seviye çipleri */
+#lvs button[data-lv]{border-color:var(--lvc)}
+#lvs button[data-lv][aria-pressed="true"],#lvs button[data-lv].on{background:var(--lvc);color:#fff;border-color:var(--lvc)}
+/* Alttan çıkan geri bildirim bandı (telefon) */
+@media (max-width:767px){
+ body.insess #fb:has(>.fb){position:fixed;left:0;right:0;bottom:0;z-index:30;margin:0;padding:14px 16px calc(14px + env(safe-area-inset-bottom,0px));border-radius:22px 22px 0 0;box-shadow:0 -10px 28px -14px rgba(0,0,0,.35);max-height:62vh;overflow:auto;animation:uxup .32s ${SPR};border-top:3px solid}
+ body.insess #fb:has(>.fb.ok){background:var(--okbg);border-color:var(--ok)}
+ body.insess #fb:has(>.fb.bad){background:var(--badbg);border-color:var(--bad)}
+ body.insess #fb>.fb{background:transparent;border:0;padding:0;margin:0}
+ body.insess #fb>.fb h3{display:flex;align-items:center;gap:8px;font-size:var(--fs-xl,1.25rem)}
+ body.insess #fb>.fb.ok h3{color:var(--okt)}body.insess #fb>.fb.bad h3{color:var(--bad)}
+ body.insess #fb>.fb h3::before{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:16px;flex:none}
+ body.insess #fb>.fb.ok h3::before{content:"✓";background:var(--ok)}body.insess #fb>.fb.bad h3::before{content:"✕";background:var(--bad)}
+ body.insess #fb .foot{position:static!important;display:block!important;background:transparent!important;border:0!important;padding:12px 0 0!important;box-shadow:none!important;margin:0!important}
+ body.insess #app{padding-bottom:var(--fbh,0px)}
+}
+`;
+const s=document.createElement("style");s.id="ux8";s.textContent=css;document.head.appendChild(s);
+const lvc=L=>`var(--lv${L||"A1"})`;
+
+/* geri bildirim bandı yüksekliği → içerik altta kalmasın */
+const fbObs=new MutationObserver(()=>{const f=document.getElementById("fb");const h=f&&f.firstElementChild&&matchMedia("(max-width:767px)").matches?f.getBoundingClientRect().height+12:0;document.body.style.setProperty("--fbh",h+"px");if(h){const n=document.getElementById("nx");if(n)try{n.focus({preventScroll:true})}catch(e){}}});
+new MutationObserver(()=>{const f=document.getElementById("fb");if(f&&!f.dataset.o8){f.dataset.o8=1;fbObs.observe(f,{childList:true,subtree:true})}if(!f)document.body.style.setProperty("--fbh","0px")}).observe(app,{childList:true});
+
+/* dinlenme günleri (streak ile aynı kural) */
+function restSet(){const r=new Set();let i=todayXP()>0?0:-1,rest=null;for(let g=0;g<5000;g++){const x=st.days[dayKey(i)]||0;if(x>0){i--;continue}if((st.days[dayKey(i-1)]||0)>0&&(rest===null||rest-i>=7)){rest=i;r.add(dayKey(i));i--;continue}break}return r}
+function weekHtml(){const now=new Date();const dow=(now.getDay()+6)%7;const rs=restSet();const nm=["Pt","Sa","Ça","Pe","Cu","Ct","Pz"];
+ const days=nm.map((n,k)=>{const off=k-dow;const key=dayKey(off);const on=(st.days[key]||0)>0;const cls=[on?"on":rs.has(key)?"rest":"",off===0?"today":"",off>0?"fut":""].join(" ");
+  return`<div class="d ${cls}"><i aria-hidden="true">${on?"✓":rs.has(key)?"❄️":off>0?"":"·"}</i>${n}</div>`}).join("");
+ const sk=streak();return`<div class="uxweek" role="group" aria-label="Bu hafta: ${sk} gün seri"><div class="sk">🔥${sk}<small>gün seri</small></div><div class="days">${days}</div></div>`}
+function pathHtml(){try{const L=curLv();const list=courseUnits(L);if(!list||!list.length)return"";
+ let idx=list.findIndex(u=>!cuPassed(u.uid));if(idx<0)idx=list.length;const a=Math.max(0,Math.min(idx-2,list.length-6)),b=Math.min(list.length,a+6);
+ const off=[0,1,2,1,0,-1,-2,-1];
+ const nodes=list.slice(a,b).map((u,k)=>{const i=a+k;const done=cuPassed(u.uid),cur=i===idx,open=done||cur||cuOpen(u,list);const cls=done?"done":cur?"cur":open?"":"lock";
+  const ic=done?"✓":open?(i+1):"🔒";const x=off[i%8];
+  return`<button class="uxnode ${cls}" data-u="${esc(u.uid)}" style="transform:translateX(calc(${x} * min(46px,9vw)))" aria-label="Ünite ${i+1}: ${esc(u.g[2])}${done?" (tamamlandı)":cur?" (sıradaki)":open?"":" (kilitli)"}"><span class="c" aria-hidden="true">${ic}</span><span class="t">${cur?"":"Ünite "+(i+1)+" · "}${esc(u.g[2])}</span>${cur?'<span class="go">Başla</span>':""}</button>`}).join("");
+ const fin=idx>=list.length?`<p class="small muted" style="text-align:center;margin:8px 0 0">🎓 ${L} üniteleri bitti; seviye sınavı seni bekliyor.</p>`:"";
+ return`<section class="uxpath" style="--lvc:${lvc(L)}" aria-label="Öğrenme yolu"><div class="hd"><span class="lvb">${L}</span><b>${esc(LVNAME[L]||"")} yolu</b><span class="small muted">${list.filter(u=>cuPassed(u.uid)).length}/${list.length}</span></div><div class="road">${nodes}</div>${fin}<button class="btn alt sm more" type="button" id="uxAll">Tüm üniteler</button></section>`}catch(e){return""}}
+function cdHtml(){const P=st.ydsPlan;if(!P||!P.date)return"";const dt=new Date(P.date+"T09:00");const d=Math.ceil((dt-new Date())/864e5);if(d<0)return"";
+ const ay=["OCA","ŞUB","MAR","NİS","MAY","HAZ","TEM","AĞU","EYL","EKİ","KAS","ARA"][dt.getMonth()];
+ return`<button class="uxcdc" type="button" id="uxCd"><span class="cal" aria-hidden="true"><span>${ay}</span><b>${dt.getDate()}</b></span><span style="flex:1"><span class="small muted">YDS sınavına</span><br><span class="big">${d===0?"Bugün!":d+" gün"}</span>${P.target?`<br><span class="small muted">Hedefin: ${P.target} puan</span>`:""}</span><span aria-hidden="true">›</span></button>`}
+function home8(){if(S||tab!=="home")return;const hero=app.querySelector(":scope>.hero");if(!hero||app.querySelector(".uxweek"))return;
+ const old=app.querySelector(".uxcd");if(old)old.parentElement.remove();
+ hero.insertAdjacentHTML("afterend",weekHtml()+cdHtml());
+ const crs=app.querySelector(":scope>#crs");const ph=pathHtml();if(crs&&ph){crs.insertAdjacentHTML("afterend",ph)}
+ app.querySelectorAll(".uxnode").forEach(b=>b.onclick=()=>{S=null;openCUnit(b.dataset.u)});
+ if($("uxAll"))$("uxAll").onclick=()=>{S=null;openCourse()};if($("uxCd"))$("uxCd").onclick=()=>{S=null;try{ydsToday()}catch(e){setTab("yds")}}}
+function lv8(){app.querySelectorAll("#lvs button").forEach(b=>{const t=b.textContent.trim();if(/^(A1|A2|B1|B2|C1|C2)$/.test(t)){b.dataset.lv=t;b.style.setProperty("--lvc",lvc(t))}})}
+const _ar8=afterRender;afterRender=function(){_ar8();try{home8();lv8()}catch(e){}};
+
+/* günün ilk puanı → seri arttı (kutlamada gösterilir) */
+const _add8=addXP;addXP=function(n){const first=todayXP()===0&&n>0;const r=_add8.apply(this,arguments);if(first)window._uxNewDay=true;return r};
+
+/* ders sonu kutlama kartı */
+const _end8=endSession;endSession=function(){let info=null;try{if(S){const n=S.items.filter(x=>x.type!=="card").length;info={xp:S.xp||0,ok:S.ok||0,n,sec:Math.round((Date.now()-S.t0)/1000),custom:!!S.endScreen}}}catch(e){}
+ const r=_end8.apply(this,arguments);
+ try{const cel=app.querySelector(".cel");if(info&&cel&&!cel.querySelector(".uxstats")){const m=Math.floor(info.sec/60),s=info.sec%60;
+  const box=document.createElement("div");box.innerHTML=`<div class="uxstats"><div><b>${info.ok}/${info.n||0}</b><small>doğru</small></div><div><b>+${info.xp}</b><small>puan</small></div><div><b>${m}:${String(s).padStart(2,"0")}</b><small>süre</small></div></div>`+
+   (window._uxNewDay?`<div class="uxstreak"><span class="f" aria-hidden="true">🔥</span><span>Seri: <b>${streak()} gün</b>${streak()>1?" — bugün de çalıştın!":" — harika bir başlangıç!"}</span></div>`:"");
+  const after=cel.querySelector("h2")||cel.querySelector(".n");after.after(...box.childNodes);if(window._uxNewDay){window._uxNewDay=false;try{if(UX.vib&&navigator.vibrate)navigator.vibrate([20,60,20])}catch(e){}}}}catch(e){}
+ return r};
+
+/* yeni kelime kartı: dokununca dönen kart */
+const _rCard8=rCard;rCard=function(it){const r=_rCard8.apply(this,arguments);try{const v=it.v;const card=app.querySelector(".card");if(!card||card.closest(".uxflip"))return r;
+ const fl=document.createElement("div");fl.className="uxflip";fl.innerHTML=`<div class="in" role="button" tabindex="0" aria-label="Kartı çevir: anlamını gör"><div class="fa"><div class="w" lang="en">${esc(v.w)}</div><span class="hint">👆 Anlamını görmek için dokun</span></div><div class="ba"></div></div>`;
+ const back=fl.querySelector(".ba");while(card.firstChild)back.appendChild(card.firstChild);card.replaceWith(fl);
+ const inner=fl.querySelector(".in");const turn=()=>{if(!fl.classList.contains("on")){fl.classList.add("on");inner.setAttribute("aria-label","Kelime kartı");uxSay&&uxSay(v.tr)}};
+  inner.addEventListener("click",e=>{if(e.target.closest("button"))return;turn()});inner.addEventListener("keydown",e=>{if(e.key===" "||e.key==="Enter"){e.preventDefault();turn()}});
+ const nx=$("nx");if(nx){const go=nx.onclick;nx.onclick=function(){if(!fl.classList.contains("on")){turn();return}return go.apply(this,arguments)}}}catch(e){}return r};
+})();
+
 fixHeader();
 })();
 
@@ -6338,7 +6471,7 @@ fixHeader();
 <script>
 if("serviceWorker" in navigator&&location.protocol.startsWith("http")){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").then(r=>{r.addEventListener("updatefound",()=>{const w=r.installing;w&&w.addEventListener("statechange",()=>{if(w.state==="installed"&&navigator.serviceWorker.controller){const b=document.createElement("button");b.className="btn pri";b.textContent="Yeni sürüm hazır, yenile";b.style.cssText="position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:50;box-shadow:0 6px 20px rgba(0,0,0,.25)";b.onclick=()=>UPD.run(b);document.body.appendChild(b)}})})}).catch(()=>{})})}
 /* ===== GÜNCELLEME: yeni sürüm varsa açılışta zorunlu güncelleme ekranı ===== */
-const APP_VER="2026.11.16-1";
+const APP_VER="2026.11.17-1";
 const UPD={
  web:()=>/^https?:$/.test(location.protocol),
  async check(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return null;const j=await r.json();return j&&j.v?{v:String(j.v),notes:Array.isArray(j.notes)?j.notes:[]}:null}catch(e){return null}},

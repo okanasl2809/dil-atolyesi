@@ -1,13 +1,12 @@
 {
- "v": "2026.11.16-1",
+ "v": "2026.11.17-1",
  "notes": [
-  "🧭 Daha sade menü: Alt menüde artık 4 bölüm var: Bugün, Öğren, YDS ve Ben. Kütüphane Öğren'in, Testler YDS'nin, Defter Ben'in içinde; üstteki düğmelerle geçebilirsin. Hiçbir bölüm kaybolmadı.",
-  "❄️ Haftada bir gün dinlenebilirsin: o gün çalışmasan da serin bozulmaz.",
-  "🎯 YDS planı yaptıysan ana sayfada sınava kaç gün kaldığı görünüyor.",
-  "👆 Düğmeler parmakla daha kolay basılacak büyüklükte.",
-  "⚡ Uygulama yaklaşık %20 daha hızlı açılıyor; yazı tipleri artık uygulamanın içinde, internetsiz de aynı görünüyor.",
-  "🔒 Ben › Defter › Uygulama'da yeni: Gizlilik ve KVKK, Kullanım koşulları, Görüş ve hata bildir, Bu kişinin kaydını sil.",
-  "👋 Yeni kullananlar için karşılama ekranı ve 1 dakikalık deneme.",
-  "✅ İlerlemen, puanların ve serin aynen duruyor; kaldığın yerden devam et."
+  "🛤️ Öğrenme yolu: Bugün sayfasında kursun artık bir yol gibi görünüyor. Bitirdiğin üniteler dolu, sıradaki büyük ve parlak; dokununca açılır.",
+  "🔥 Haftalık seri şeridi: Bu hafta hangi günler çalıştığını tek bakışta gör (✓ çalıştın, ❄️ dinlenme günü).",
+  "🎉 Ders sonu kartı: Doğru sayın, kazandığın puan ve süren büyük kartlarla; günün ilk dersinde serin kutlanıyor.",
+  "✅ Cevap verince alttan renkli bir bant çıkıyor (yeşil doğru, kırmızı yanlış) ve Devam düğmesi hep parmağının altında.",
+  "🃏 Yeni kelime kartları artık dönen kart: önce kelimeyi gör, dokununca anlamı ve örnek cümle çıkar.",
+  "🎨 Seviyelerin kendi renkleri var (A1 yeşil … C2 kırmızı). YDS planı yaptıysan ana sayfada takvim yaprağı şeklinde geri sayım kartı.",
+  "✅ İlerlemen, puanların ve serin aynen duruyor."
  ]
 }
