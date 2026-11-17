@@ -1,12 +1,13 @@
 {
- "v": "2026.11.17-1",
+ "v": "2026.11.17-2",
  "notes": [
-  "🛤️ Öğrenme yolu: Bugün sayfasında kursun artık bir yol gibi görünüyor. Bitirdiğin üniteler dolu, sıradaki büyük ve parlak; dokununca açılır.",
-  "🔥 Haftalık seri şeridi: Bu hafta hangi günler çalıştığını tek bakışta gör (✓ çalıştın, ❄️ dinlenme günü).",
-  "🎉 Ders sonu kartı: Doğru sayın, kazandığın puan ve süren büyük kartlarla; günün ilk dersinde serin kutlanıyor.",
-  "✅ Cevap verince alttan renkli bir bant çıkıyor (yeşil doğru, kırmızı yanlış) ve Devam düğmesi hep parmağının altında.",
-  "🃏 Yeni kelime kartları artık dönen kart: önce kelimeyi gör, dokununca anlamı ve örnek cümle çıkar.",
-  "🎨 Seviyelerin kendi renkleri var (A1 yeşil … C2 kırmızı). YDS planı yaptıysan ana sayfada takvim yaprağı şeklinde geri sayım kartı.",
+  "ℹ️ Yeni Hakkında bölümü (Ben › Hakkında): gizlilik özeti, verilerin, Verilerimi indir, KVKK aydınlatma metni, erişilebilirlik beyanı, lisanslar ve sürüm notları.",
+  "📘 Dersler artık adım adım açılıyor: önce konu anlatımı, 'Anladım' deyince sıradaki bölüm.",
+  "💡 Yanlış cevapta önce bir ipucu ve bir hak daha; sonra açıklama.",
+  "⚡ Öğren sayfasında Hız turu (60 saniye) ve Kolay okuma (dakikada kaç kelime okuduğunu ölçer).",
+  "✍️ Ünitelerde Kendin yaz ve Kendin söyle: yapıyı kendi cümlelerinle kullan.",
+  "📊 Gelişim'de tahmini kelime hazinen; YDS sayfasında sınav günü stratejisi ve süre planı.",
+  "📅 YDS tarihin varsa kelime tekrarları sınavdan önceye denk gelecek şekilde ayarlanıyor.",
   "✅ İlerlemen, puanların ve serin aynen duruyor."
  ]
 }

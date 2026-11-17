@@ -4180,7 +4180,7 @@ function openAbout(){const back=()=>setTab("book");
 (function(){const _vb=viewBook;viewBook=function(){_vb();const sec=document.createElement("section");sec.className="sec";
  sec.innerHTML=`<h2>Uygulama</h2><div class="list"><button class="item" id="ob"><span style="font-size:1.4rem">💾</span><span class="grow"><span class="t">Yedekle ve geri yükle</span><br><span class="muted small">Son yedek: ${st.lastBackup||"hiç alınmadı"}</span></span><span>›</span></button>
  <button class="item" id="ov2"><span style="font-size:1.4rem">🔊</span><span class="grow"><span class="t">Ses ayarları</span><br><span class="muted small">İngilizce ses ve konuşma hızı</span></span><span>›</span></button>
- <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.11.17-1 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
+ <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.11.17-2 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
  <button class="item" id="oa"><span style="font-size:1.4rem">ℹ️</span><span class="grow"><span class="t">Hakkında, gizlilik ve lisanslar</span><br><span class="muted small">Hata bildirimlerin de burada</span></span><span>›</span></button></div>`;
  app.appendChild(sec);$("ob").onclick=openBackup;$("oup").onclick=e=>UPD.manual(e.currentTarget);$("ov2").onclick=openVoice;$("oa").onclick=openAbout;}})();
 (function(){const _vh=viewHome;viewHome=function(){_vh();const p=document.createElement("p");p.className="small muted";p.style.cssText="text-align:center;margin-top:28px";p.innerHTML='Dil Atölyesi, geliştirici: <b>Okan Asl</b>';app.appendChild(p)}})();
@@ -4677,8 +4677,8 @@ function plHomeCard(){const k=dayKey();if(!st.plan)return`<button class="tile-ca
   <button class="btn alt sm" id="pls2" style="margin-top:10px">Planı aç ›</button></div>`;app.appendChild(d);$("pls2").onclick=()=>openPlanner("month")}catch(e){}}})();
 
 /* ===== YENİLİKLER: her sürümde bir kez gösterilir ===== */
-const WN_VER="2026.11.17-1";
-const WN_NOTES=["🛤️ Öğrenme yolu: Bugün sayfasında kursun artık bir yol gibi görünüyor. Bitirdiğin üniteler dolu, sıradaki büyük ve parlak; dokununca açılır.", "🔥 Haftalık seri şeridi: Bu hafta hangi günler çalıştığını tek bakışta gör (✓ çalıştın, ❄️ dinlenme günü).", "🎉 Ders sonu kartı: Doğru sayın, kazandığın puan ve süren büyük kartlarla; günün ilk dersinde serin kutlanıyor.", "✅ Cevap verince alttan renkli bir bant çıkıyor (yeşil doğru, kırmızı yanlış) ve Devam düğmesi hep parmağının altında.", "🃏 Yeni kelime kartları artık dönen kart: önce kelimeyi gör, dokununca anlamı ve örnek cümle çıkar.", "🎨 Seviyelerin kendi renkleri var (A1 yeşil … C2 kırmızı). YDS planı yaptıysan ana sayfada takvim yaprağı şeklinde geri sayım kartı.", "✅ İlerlemen, puanların ve serin aynen duruyor."];
+const WN_VER="2026.11.17-2";
+const WN_NOTES=["ℹ️ Yeni Hakkında bölümü (Ben › Hakkında): gizlilik özeti, verilerin, Verilerimi indir, KVKK aydınlatma metni, erişilebilirlik beyanı, lisanslar ve sürüm notları.", "📘 Dersler artık adım adım açılıyor: önce konu anlatımı, 'Anladım' deyince sıradaki bölüm.", "💡 Yanlış cevapta önce bir ipucu ve bir hak daha; sonra açıklama.", "⚡ Öğren sayfasında Hız turu (60 saniye) ve Kolay okuma (dakikada kaç kelime okuduğunu ölçer).", "✍️ Ünitelerde Kendin yaz ve Kendin söyle: yapıyı kendi cümlelerinle kullan.", "📊 Gelişim'de tahmini kelime hazinen; YDS sayfasında sınav günü stratejisi ve süre planı.", "📅 YDS tarihin varsa kelime tekrarları sınavdan önceye denk gelecek şekilde ayarlanıyor.", "✅ İlerlemen, puanların ve serin aynen duruyor."];
 const WN_OLD=["🇹🇷 Yeni: Bütün örnek cümlelerin Türkçesi eklendi. 10.500'den fazla cümlenin altında artık ne anlama geldiği yazıyor (kelime kartlarında ve kelime listelerinde).", "📖 Yeni: Kısa hikâyeler. Her seviyede (A1'den C2'ye) 10 hikâye, toplam 60 hikâye. Her hikâyenin sonunda anlama soruları var. İngilizce sekmesinde \"Kısa hikâyeler\"e dokun.", "🎯 Yeni: Zayıf noktalarım. En çok yanlış yaptığın kelimeleri ve konuları tek sayfada gör, sadece onlardan alıştırma yap.", "🎭 Yeni: Diyaloglarda sesli rol yapma. Rolünü seç, \"Sesli söyleyerek\"i işaretle; sıra sana gelince cümleyi kendin söyle.", "🏅 Yeni: Rozetler ve aylık hedef. Ayda kaç gün çalışacağını seç; çalıştıkça 32 rozetin kilidini aç. Gelişim sekmesinde ve ana sayfada.", "🔎 Okurken bilinmeyen bir kelimeye dokununca anlamı artık internet olmadan da çıkıyor.", "🎓 İngilizce kursu: İngilizce kursu. Ders, kelime, diyalog, dinleme ve sınavdan oluşan üniteler; \"Devam et\"e bas, kurs seni sıradaki adıma götürsün. Ünite sınavını geçince sıradaki açılır.", "🏅 Seviye sınavı ve belge: Bir seviyenin tüm ünitelerini bitirince seviye sınavına gir, geçince başarı belgeni al.", "🗣️ Kelimelerin okunuşu eklendi: Her kelimenin yanında Türkçe harflerle nasıl okunduğu (vurgulu hece büyük harfle) ve uluslararası okunuşu yazıyor.", "🎮 Yeni: Kelime oyunları. Doğru mu yanlış mı, harfleri diz, adam asmaca, dinle ve bul, eşleştirme yarışı. Çalıştığın kelimelerle oynarsın, rekorun kaydedilir.", "👅 Türkler için telaffuz: th, w ile v, ship ile sheep gibi zor sesler; dinleyip ayırt etme alıştırması.", "🚫 Türklerin sık yaptığı 51 hata (\"I am agree\" gibi) ve alıştırmaları.", "🎙️ Dinle ve tekrar et: Cümleyi dinle, sesli söyle; doğru söylediğin kelimeler yeşil görünür. Ayrıca Türkçeden İngilizceye yazma alıştırması.", "🔁 Günlük tekrar ve daha akıllı kelime tekrarı: Aynı gün tekrar etmek artık kelimeyi erkenden \"öğrenildi\" saymıyor; bitirdiğin konular aralıklarla tekrar karşına çıkıyor."];
 function showWhatsNew(tries=0){let seen=null;try{seen=localStorage.getItem("da:seenVer")}catch(e){}
  if(seen===WN_VER)return;
@@ -6277,7 +6277,7 @@ function addLegal(){const host=[...app.querySelectorAll("section.sec")].find(x=>
  const row=(id,ic,t,d)=>`<button class="item uxlegal" id="${id}" type="button"><span style="font-size:1.4rem" aria-hidden="true">${ic}</span><span class="grow"><span class="t">${t}</span><br><span class="muted small">${d}</span></span><span aria-hidden="true">›</span></button>`;
  list.insertAdjacentHTML("beforeend",row("lgF","✉️","Görüş ve hata bildir","Öneri, hata ya da soru gönder")+row("lgP","🔒","Gizlilik ve KVKK","Hangi bilgiler tutuluyor, nerede duruyor")+row("lgT","📄","Kullanım koşulları","Haklar, içerik ve açık kaynak lisanslar")+(ME.mode!=="cloud"&&ME.name?row("lgD","🗑️","Bu kişinin kaydını sil",`"${esc(ME.name)}" kaydını bu cihazdan kalıcı olarak siler`):""));
  $("lgF").onclick=feedback;$("lgP").onclick=()=>openDoc("priv");$("lgT").onclick=()=>openDoc("terms");if($("lgD"))$("lgD").onclick=delProfile}
-window.uxOpenDoc=openDoc;
+window.uxOpenDoc=openDoc;window.uxFeedback=feedback;window.uxDelProfile=delProfile;
 
 /* ---------- 6) İlk açılış: karşılama + 1 dakikalık deneme, sonra ad ---------- */
 const TRIAL=[["decide","karar vermek",["karar vermek","ertelemek","kazanmak","beklemek"]],["improve","geliştirmek",["geliştirmek","göstermek","kaybetmek","saklamak"]],["although","-e rağmen",["-e rağmen","çünkü","bu yüzden","ayrıca"]]];
@@ -6451,6 +6451,355 @@ const _rCard8=rCard;rCard=function(it){const r=_rCard8.apply(this,arguments);try
  const nx=$("nx");if(nx){const go=nx.onclick;nx.onclick=function(){if(!fl.classList.contains("on")){turn();return}return go.apply(this,arguments)}}}catch(e){}return r};
 })();
 
+/* ===== TASARIM 9 (2026.11.17-2): uzman değerlendirmesi — hata düzeltmeleri, parça parça ders, ipucuyla tekrar dene,
+   akıcılık köşesi, kendin yaz / kendin söyle, Gelişim boş durumu, tahmini kelime hazinesi, YDS stratejisi, sınav tarihine göre tekrar. ===== */
+(function(){
+const css=`
+/* parça parça ders */
+.uxstepbar{display:flex;align-items:center;gap:10px;margin:6px 0 14px}
+.uxstepbar .bar{flex:1;height:6px;border-radius:99px;background:var(--soft);overflow:hidden}.uxstepbar .bar i{display:block;height:100%;background:var(--pri);transition:width .3s}
+.uxstepbar span{font-size:var(--fs-sm,.875rem);color:var(--muted);font-weight:600;white-space:nowrap}
+section.uxhid{display:none!important}
+.uxnext{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 18px}.uxnext .btn{flex:1 1 200px}
+/* ipucu */
+.uxhint{display:flex;gap:10px;align-items:flex-start;background:color-mix(in srgb,var(--hl) 22%,var(--card));border:1px solid color-mix(in srgb,var(--hl) 60%,var(--line));border-radius:14px;padding:12px 14px;margin:0 0 12px;animation:uxpop .3s cubic-bezier(.34,1.45,.64,1)}
+.opt.tried{opacity:.5;text-decoration:line-through}
+@keyframes uxshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.opt.shake{animation:uxshake .3s}
+/* araç kartları */
+.uxtools{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 16px}
+.uxtool{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;min-height:96px;box-shadow:var(--sh1);color:var(--ink)}
+.uxtool .ic{font-size:24px}.uxtool b{font-size:var(--fs-md,1rem)}.uxtool small{color:var(--muted);font-size:13px;line-height:1.35}
+.uxfull{min-height:100%;display:flex;flex-direction:column;gap:12px}
+.uxbig{font:800 3rem/1 "Bricolage Grotesque",sans-serif;text-align:center}
+.uxtimer{height:8px;border-radius:99px;background:var(--soft);overflow:hidden}.uxtimer i{display:block;height:100%;background:var(--ok);transition:width 1s linear}
+.uxprodbox textarea{width:100%;min-height:120px;font:inherit;font-size:var(--fs-md,1rem);padding:12px;border-radius:12px;border:1px solid var(--line2);background:var(--card);color:var(--ink)}
+.uxcheck label{display:flex;gap:10px;align-items:center;min-height:44px}
+.uxmodel{background:var(--soft);border-radius:12px;padding:10px 14px}.uxmodel p{margin:4px 0}
+/* boş durum + kelime hazinesi */
+.uxempty{text-align:center;background:var(--card);border:1px dashed var(--line2);border-radius:18px;padding:22px 16px;margin:6px 0 16px}
+.uxempty .e{font-size:44px}
+.uxvocab{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin:0 0 16px;box-shadow:var(--sh1)}
+.uxvocab .n{font:800 1.8rem/1 "Bricolage Grotesque",sans-serif}
+.uxvocab .bar{height:10px;border-radius:99px;background:var(--soft);overflow:hidden;margin:10px 0 6px}.uxvocab .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--lvA1),var(--lvB1),var(--lvC1))}
+/* YDS strateji */
+.uxstrat{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--bad);border-radius:16px;padding:14px;margin:0 0 16px;box-shadow:var(--sh1)}
+.uxstrat table{width:100%;border-collapse:collapse;margin-top:8px;font-size:var(--fs-sm,.875rem)}.uxstrat td{padding:6px 4px;border-top:1px solid var(--line)}.uxstrat td:last-child{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+body:not(.insess) #app:has(.reader){padding-bottom:110px}
+@media(min-width:1024px){.tabs .in{display:flex!important;flex-direction:column!important;align-items:stretch;gap:6px;padding:16px 8px!important;max-width:none!important;margin:0!important}.tabs .in>button{width:100%;flex:0 0 auto}}
+`;
+const s=document.createElement("style");s.id="ux9";s.textContent=css;document.head.appendChild(s);
+const PH=window.top===window;
+
+/* ---------- 1) Hatalar ---------- */
+// alt düğmelerle geçince "‹ Ünite" geri bağlantısı kalmasın
+document.addEventListener("click",e=>{if(e.target.closest(".uxsub button")){try{CRET=null}catch(_){}}},true);
+// kurs dersindeyken "Öğren" vurgulansın
+function markCourse(){if(S||tab!=="home")return;const bk=$("bk");if(bk&&/kurs|Ünite|İngilizce|dil bilgisi/i.test(bk.textContent)){document.querySelectorAll(".tabs button").forEach(b=>b.setAttribute("aria-current",b.dataset.tab==="en"?"page":"false"))}}
+
+/* ---------- 2) Parça parça ders ---------- */
+function chunkLesson(){if(S||app.dataset.chunk)return;const steps=[...app.querySelectorAll(":scope>section.sec")];
+ const h=steps.map(x=>((x.querySelector(".uxt")||x.querySelector("h2")||{}).textContent||"").trim());
+ if(!/^Konu anlatımı/.test(h[0]||"")&&!(h[1]&&/^Konu anlatımı/.test(h[1])))return;if(steps.length<3)return;app.dataset.chunk="1";
+ const key="chunk:"+((app.querySelector("h1")||{}).textContent||"");let cur=Math.min(steps.length-1,(UX.chunk&&UX.chunk[key])||0);
+ const j=app.querySelector(".uxjump");if(j)j.style.display="none";
+ const bar=document.createElement("div");bar.className="uxstepbar";bar.innerHTML=`<div class="bar"><i></i></div><span></span>`;
+ const nav=document.createElement("div");nav.className="uxnext";steps[0].before(bar);
+ const show=()=>{steps.forEach((x,i)=>{x.classList.toggle("uxhid",i>cur);if(i<=cur&&x.classList.contains("uxsec")){x.classList.add("open");const b=x.querySelector(".uxh");b&&b.setAttribute("aria-expanded","true")}});
+  bar.querySelector("i").style.width=((cur+1)/steps.length*100)+"%";bar.querySelector("span").textContent=`Adım ${cur+1} / ${steps.length}`;
+  UX.chunk=UX.chunk||{};UX.chunk[key]=cur;uxSave();
+  const nxt=steps[cur+1];nav.innerHTML=nxt?`<button class="btn pri" type="button" id="uxNx">Anladım · ${esc((h[cur+1]||"Devam").replace(/\s*\d+\s*⌄?$/,"").replace("⌄",""))} ›</button><button class="btn alt" type="button" id="uxAll2">Hepsini göster</button>`:"";
+  if(nxt){steps[cur].after(nav);$("uxNx").onclick=()=>{cur++;show();scrollToEl(steps[cur])};$("uxAll2").onclick=()=>{cur=steps.length-1;show()}}else nav.remove()};
+ show()}
+
+/* ---------- 3) İpucuyla tekrar dene (dil bilgisi / YDS / okuma; kelime, sınav ve deneme hariç) ---------- */
+const HINT=it=>{if(it.hint)return it.hint;const q=(it.q||"")+" "+(it.p||"");
+ if(/_{2,}|\(\s*\)|…/.test(q))return"Boşluğun hemen önündeki ve sonrasındaki kelimelere bak. Cümlenin zamanı ve öznesi neyi gerektiriyor?";
+ if(it.p&&it.p.length>200)return"Parçada soruyla ilgili cümleyi bul ve o cümleyi bir daha oku. Şıktaki kelimeler parçada aynen geçmeyebilir.";
+ return"Soruyu bir daha oku: zaman, özne-fiil uyumu ve bağlaçların anlamı ipucu verir."};
+const _ans9=answerMc;answerMc=function(it,oi,el){
+ try{const ok=oi===0;const exam=S&&(S.timer||S.silent||S.adaptive||/sınav|deneme|test|seviye/i.test(S.title||""));
+  if(!ok&&S&&!exam&&!it.vid&&!it._tried&&it.o&&it.o.length>=3&&!it.listen){it._tried=true;el.disabled=true;el.classList.add("tried","shake");
+   const box=document.createElement("div");box.className="uxhint";box.setAttribute("role","status");box.innerHTML=`<span aria-hidden="true">💡</span><span><b>Bir daha dene.</b> ${esc(HINT(it))}</span>`;
+   const opts=app.querySelector(".opts");opts&&opts.before(box);try{if(UX.vib&&navigator.vibrate)navigator.vibrate(30)}catch(e){};uxSay&&uxSay("Yanlış. Bir daha dene.");return}}catch(e){}
+ return _ans9.apply(this,arguments)};
+
+/* ---------- 4) Sınav tarihine göre tekrar aralığı (YDS planı varsa) ---------- */
+const _vu9=vUpdate;vUpdate=function(sess){const r=_vu9.apply(this,arguments);try{const P=st.ydsPlan;if(P&&P.date&&sess&&sess.vres){const left=Math.ceil((new Date(P.date+"T09:00")-new Date())/864e5);
+ if(left>1){const cap=Math.max(1,Math.round(left*0.3));const lim=dayKey(cap);Object.keys(sess.vres).forEach(id=>{const e=vb()[id];if(e&&e.d>lim)e.d=lim});save()}}}catch(e){}return r};
+
+/* ---------- 5) Akıcılık köşesi ---------- */
+UX.flu=UX.flu||{};
+function fluPool(){const known=Object.entries(vb()).filter(([id,e])=>e.b>=2).map(([id])=>VALL.find(v=>v.id===id)).filter(Boolean);
+ return known.length>=12?known:VALL.filter(v=>(v.lv||"A1")===(curLv()||"A1")).slice(0,400)}
+function speedRound(){const pool=fluPool();if(pool.length<4){uiAlert("Önce birkaç kelime öğren, sonra hız turu açılır.");return}
+ const T=60;let ok=0,n=0,left=T,timer=null;const back=()=>{clearInterval(timer);S=null;setTab("en")};
+ const q=()=>{const v=pool[Math.floor(Math.random()*pool.length)];const wr=[];while(wr.length<3){const x=pool[Math.floor(Math.random()*pool.length)];if(x.tr!==v.tr&&!wr.includes(x.tr))wr.push(x.tr)}
+  const opts=[v.tr,...wr].sort(()=>Math.random()-.5);
+  $("uxq").innerHTML=`<p class="q" style="text-align:center;font-size:1.8rem" lang="en">${esc(v.w)}</p><div class="opts">${opts.map((o,k)=>`<button class="opt" data-c="${o===v.tr?1:0}"><span class="k">${"ABCD"[k]}</span><span>${esc(o)}</span></button>`).join("")}</div>`;
+  $("uxq").querySelectorAll(".opt").forEach(b=>b.onclick=()=>{n++;if(b.dataset.c==="1"){ok++;addXP(1)}else{try{if(UX.vib&&navigator.vibrate)navigator.vibrate(25)}catch(e){}}$("uxsc").textContent=ok;q()})};
+ const end=()=>{clearInterval(timer);const best=Math.max(UX.flu.best||0,ok);const nb=ok>(UX.flu.best||0);UX.flu.best=best;UX.flu.last=ok;uxSave();save();
+  app.innerHTML=`<div class="cel"><div class="n">${ok}</div><h2 style="margin-top:8px">${nb?"Yeni rekor! 🎉":"doğru / dakika"}</h2><p class="muted">${n} denemede ${ok} doğru · En iyin: ${best}</p>
+  <p class="small muted" style="max-width:420px;margin:8px auto">Akıcılık, bildiğin kelimeleri düşünmeden, hızla tanımaktır. Her gün bir tur, sayın yükseldikçe okuman da hızlanır.</p>
+  <div class="stack" style="max-width:420px;margin:16px auto 0"><button class="btn pri wide" id="ag">Bir tur daha</button><button class="btn alt wide" id="bk2">Bitti</button></div></div>`;$("ag").onclick=speedRound;$("bk2").onclick=back};
+ S=null;app.innerHTML=`<div class="qhead"><button class="x" id="qx2" aria-label="Çık">✕</button><div class="uxtimer" style="flex:1"><i id="uxt" style="width:100%"></i></div><span class="small muted"><b id="uxsc">0</b> doğru</span></div>
+  <p class="small muted" style="text-align:center;margin:10px 0 0">⚡ 60 saniye: Bildiğin kelimelerin anlamını hızla seç</p><div id="uxq"></div>`;
+ $("qx2").onclick=back;q();timer=setInterval(()=>{if(!$("uxt")){clearInterval(timer);return}left--;$("uxt").style.width=(left/T*100)+"%";if(left<=0)end()},1000);window.scrollTo(0,0)}
+function easyRead(){const L=curLv();const li=Math.max(0,LEVELS.indexOf(L)-1);const lv=LEVELS[li];
+ const bs=BOOKS.filter(b=>b.lv===lv&&b.ch&&b.ch.length);const pool=bs.flatMap(b=>b.ch.map((c,ci)=>({b,c,ci})));if(!pool.length){uiAlert("Bu seviye için kolay metin bulunamadı.");return}
+ const pick=pool[(UX.flu.ri||0)%pool.length];UX.flu.ri=(UX.flu.ri||0)+1;uxSave();
+ const words=(pick.c.x||"").split(/\s+/).filter(Boolean).length;const t0=Date.now();
+ S=null;app.innerHTML=`<button class="link" id="bk">‹ Öğren</button><p class="small muted" style="margin-top:14px">📖 Kolay okuma · ${lv} · ${words} kelime</p><h1>${esc(pick.c.t)}</h1>
+ <p class="muted">Bir seviye aşağıdan, sözlüğe bakmadan, rahat bir hızla oku. Anlamadığın bir-iki kelimeyi geç. Bitince düğmeye bas; hızını ölçelim.</p>
+ <div class="card reader" lang="en" style="white-space:pre-line">${esc(pick.c.x)}</div>
+ <div class="foot"><button class="btn pri wide" id="uxdone">Bitirdim</button></div>`;
+ $("bk").onclick=()=>setTab("en");
+ $("uxdone").onclick=()=>{const min=Math.max(.2,(Date.now()-t0)/60000);const wpm=Math.round(words/min);if(wpm>450){uiAlert("Bu çok hızlı oldu; metni gerçekten okuyabildin mi? Bu ölçüm kaydedilmedi. Rahat bir hızla baştan sona oku, sonra Bitirdim'e bas.");return}UX.flu.wpm=(UX.flu.wpm||[]).concat([wpm]).slice(-20);uxSave();addXP(5);
+  const hist=UX.flu.wpm;const prev=hist.length>1?hist[hist.length-2]:null;
+  app.innerHTML=`<div class="cel"><div class="n">${wpm}</div><h2 style="margin-top:8px">kelime / dakika</h2>
+  <p class="muted">${prev?`Önceki: ${prev} · ${wpm>=prev?"▲ daha hızlı":"▼ biraz yavaş, sorun değil"}`:"İlk ölçümün. Her hafta bir kez dene."}</p>
+  <p class="small muted" style="max-width:420px;margin:8px auto">Ana dilini okuyan bir yetişkin dakikada yaklaşık 200–300 kelime okur. YDS'deki 30'dan fazla okuma sorusu için hızın önemli; kolay metinle hızlanmak en güvenli yol.</p>
+  <div class="stack" style="max-width:420px;margin:16px auto 0"><button class="btn pri wide" id="ag">Başka bir metin</button><button class="btn alt wide" id="bk2">Bitti</button></div></div>`;$("ag").onclick=easyRead;$("bk2").onclick=()=>setTab("en")};window.scrollTo(0,0)}
+function toolsCard(){const b=UX.flu.best,w=(UX.flu.wpm||[]).slice(-1)[0];
+ return`<div class="uxtools" aria-label="Akıcılık ve üretim"><button class="uxtool" type="button" id="uxSR"><span class="ic">⚡</span><b>Hız turu</b><small>60 saniyede bildiğin kelimeler${b?` · rekor ${b}`:""}</small></button>
+ <button class="uxtool" type="button" id="uxER"><span class="ic">📖</span><b>Kolay okuma</b><small>Bir alt seviyeden, hızını ölç${w?` · son ${w} k/dk`:""}</small></button></div>`}
+
+/* ---------- 6) Kendin yaz / kendin söyle (ünite sayfası) ---------- */
+function prodTask(u,mode){const L=LESSON[u.g[1]]||{eg:[]};const topic=u.g[2];const eg=(L.eg||[]).slice(0,3);st.prod=st.prod||{};const back=()=>{S=null;openCUnit(u.uid)};
+ const model=`<div class="uxmodel"><b class="small muted">Örnek cümleler</b>${eg.map(e=>`<p lang="en">${esc(e[0])} <span class="muted small">— ${esc(e[1])}</span></p>`).join("")}</div>`;
+ const checks=`<div class="uxcheck card"><b>Kendini kontrol et</b><label><input type="checkbox"> "${esc(topic)}" yapısını kullandım</label><label><input type="checkbox"> Özne ve fiil uyumlu</label><label><input type="checkbox"> Cümleler büyük harfle başlıyor, noktayla bitiyor</label></div>`;
+ if(mode==="w"){S=null;app.innerHTML=`<button class="link" id="bk">‹ Ünite</button><p class="small muted" style="margin-top:14px">✍️ Kendin yaz · ${esc(u.L)} · Ünite ${u.i+1}</p><h1>2 cümle yaz</h1>
+  <p class="muted">Bu ünitenin konusu <b>${esc(topic)}</b>. Bu yapıyı kullanarak kendin, ailen ya da günün hakkında İngilizce 2 cümle yaz. Yanlış yapmaktan korkma: kendi cümleni kurmak, şık seçmekten çok daha kalıcı öğretir.</p>
+  <div class="uxprodbox"><textarea id="uxta" lang="en" placeholder="Örn: ${esc((eg[0]||["I am a student."])[0])}">${esc((st.prod[u.uid]||{}).w||"")}</textarea></div>
+  <button class="btn pri wide" id="uxck" style="margin-top:12px">Bitti, karşılaştır</button><div id="uxres"></div>`;
+  $("bk").onclick=back;$("uxck").onclick=()=>{const t=$("uxta").value.trim();if(t.split(/[.!?]+/).filter(x=>x.trim().length>2).length<1){uiAlert("En az bir cümle yaz.");return}
+   const first=!st.prod[u.uid];st.prod[u.uid]={w:t,d:dayKey()};if(first)addXP(10);save();
+   $("uxres").innerHTML=`<div class="stack" style="margin-top:14px">${model}${checks}<p class="small muted">Yazdığın cümleler bu cihazda, ünitenin içinde saklanır.</p><button class="btn alt wide" id="uxb2">Üniteye dön</button></div>`;$("uxb2").onclick=back;$("uxres").scrollIntoView({behavior:"smooth"})};return}
+ // söyle
+ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;let rec=null,left=30,tm=null;
+ S=null;app.innerHTML=`<button class="link" id="bk">‹ Ünite</button><p class="small muted" style="margin-top:14px">🎙️ Kendin söyle · ${esc(u.L)} · Ünite ${u.i+1}</p><h1>30 saniye konuş</h1>
+ <p class="muted">"${esc(topic)}" yapısıyla kendinden bahset. Takılırsan baştan başla; amaç akıcı konuşmak, mükemmel olmak değil.</p>
+ <div class="uxtimer"><i id="uxt" style="width:100%"></i></div><div class="uxbig" id="uxsec" style="margin:12px 0">30</div>
+ <button class="btn pri wide" id="uxgo">▶ Başla</button><div id="uxtr" class="card" style="margin-top:12px;min-height:60px" lang="en" aria-live="polite"><span class="muted small">${SR?"Konuştukların burada yazıya dökülür.":"Bu cihazda konuşma tanıma yok; yine de sesli konuş, sonra örneklerle karşılaştır."}</span></div><div id="uxres"></div>`;
+ $("bk").onclick=()=>{try{rec&&rec.stop()}catch(e){}clearInterval(tm);back()};
+ const fin=()=>{clearInterval(tm);try{rec&&rec.stop()}catch(e){}const said=($("uxtr").dataset.t||"").trim();const first=!(st.prod[u.uid]||{}).s;st.prod[u.uid]=Object.assign(st.prod[u.uid]||{},{s:said||"(sesli)",sd:dayKey()});if(first)addXP(10);save();
+  $("uxgo").textContent="Tekrar dene";$("uxgo").disabled=false;$("uxres").innerHTML=`<div class="stack" style="margin-top:14px">${said?`<p class="small"><b>${said.split(/\s+/).length}</b> kelime söyledin.</p>`:""}${model}<button class="btn alt sm" id="uxpl">🔊 Örnekleri dinle</button>${checks}<button class="btn alt wide" id="uxb2">Üniteye dön</button></div>`;
+  $("uxpl").onclick=()=>{try{say(eg.map(e=>e[0]).join(" "))}catch(e){}};$("uxb2").onclick=back};
+ $("uxgo").onclick=()=>{left=30;$("uxgo").disabled=true;$("uxres").innerHTML="";$("uxtr").dataset.t="";
+  if(SR){try{rec=new SR();rec.lang="en-US";rec.continuous=true;rec.interimResults=true;rec.onresult=e=>{let t="";for(let i=0;i<e.results.length;i++)t+=e.results[i][0].transcript+" ";$("uxtr").dataset.t=t;$("uxtr").textContent=t};rec.start()}catch(e){}}
+  tm=setInterval(()=>{if(!$("uxsec")){clearInterval(tm);try{rec&&rec.stop()}catch(e){}return}left--;$("uxsec").textContent=left;$("uxt").style.width=(left/30*100)+"%";if(left<=0)fin()},1000)};window.scrollTo(0,0)}
+function unitProd(){if(S)return;const bk=$("bk");if(!bk||!/kursu/.test(bk.textContent)||app.querySelector(".uxprod"))return;
+ let u=null;try{const t=(app.querySelector("h1")||{}).textContent||"";const m=(app.textContent.match(/(A1|A2|B1|B2|C1|C2) · Ünite (\d+)/)||[]);if(m[1])u=courseUnits(m[1])[+m[2]-1]}catch(e){}if(!u)return;
+ const p=st.prod&&st.prod[u.uid]||{};
+ const c=document.createElement("section");c.className="uxprod";c.innerHTML=`<h2 style="margin:18px 0 8px">Kendin üret <span class="small muted">· isteğe bağlı</span></h2><div class="uxtools">
+  <button class="uxtool" type="button" id="uxPW"><span class="ic">✍️</span><b>Kendin yaz${p.w?" ✓":""}</b><small>Bu yapıyla 2 cümle yaz, örnekle karşılaştır</small></button>
+  <button class="uxtool" type="button" id="uxPS"><span class="ic">🎙️</span><b>Kendin söyle${p.s?" ✓":""}</b><small>30 saniye konuş, yazıya dökülsün</small></button></div>`;
+ const list=app.querySelector(".list")||app.lastElementChild;list.after(c);$("uxPW").onclick=()=>prodTask(u,"w");$("uxPS").onclick=()=>prodTask(u,"s")}
+
+/* ---------- 7) Gelişim: boş durum + tahmini kelime hazinesi ---------- */
+const BASE={A1:500,A2:1000,B1:2000,B2:3500,C1:5000,C2:7000};
+function vocabEst(){let lv=null;try{const c=(st.course&&st.course.cert)||{};LEVELS.forEach(l=>{if(c[l])lv=l})}catch(e){}const base=lv?BASE[LEVELS[Math.min(5,LEVELS.indexOf(lv)+1)]]||BASE[lv]:(st.level&&BASE[st.level]?Math.round(BASE[st.level]*.6):0);
+ const learned=Object.values(vb()).filter(e=>e.b>=2).length;return{n:base?Math.round((base+learned)/50)*50:learned,learned,base,src:lv?lv+" seviye belgen":st.level?"seviye testi sonucun":""}}
+function stats9(){if(S||tab!=="stats")return;const g=[...app.children].find(e=>e.classList.contains("grid2"));if(!g||app.querySelector(".uxvocab,.uxempty"))return;
+ if(totalXP()===0){const e=document.createElement("div");e.className="uxempty";e.innerHTML=`<div class="e" aria-hidden="true">🌱</div><h2>Gelişimin burada büyüyecek</h2><p class="muted" style="max-width:420px;margin:6px auto 14px">İlk dersini bitirdiğinde serin, puanın, öğrendiğin kelimeler ve en çok zorlandığın konular burada görünür.</p><button class="btn pri" type="button" id="uxst">İlk derse başla</button>`;
+  g.style.display="none";g.before(e);$("uxst").onclick=()=>{S=null;setTab("home");try{cuContinue()}catch(_){}};return}
+ const v=vocabEst();if(!v.base&&v.learned<30){const c=document.createElement("div");c.className="uxvocab";c.innerHTML=`<b>Kaç kelime biliyorsun?</b><p class="small muted" style="margin:6px 0 10px">Seviye testini çöz ya da birkaç ünite bitir; tahmini kelime hazineni burada gösterelim.</p><button class="btn alt sm" type="button" id="uxpt">Seviye testine git</button>`;g.after(c);$("uxpt").onclick=()=>{S=null;setTab("test")};return}const pc=Math.min(100,v.n/9000*100);const c=document.createElement("div");c.className="uxvocab";
+ c.innerHTML=`<div class="row" style="align-items:baseline;gap:8px"><span class="n">≈ ${v.n.toLocaleString("tr")}</span><span class="muted">kelime biliyorsun (tahmini)</span></div>
+ <div class="bar" role="img" aria-label="9.000 kelime hedefinin yüzde ${Math.round(pc)}'si"><i style="width:${pc}%"></i></div>
+ <p class="small muted" style="margin:0">Araştırmalara göre İngilizce bir gazete ya da romanı rahat anlamak için yaklaşık 8.000–9.000 kelime gerekir. Tahmin ${v.src?v.src+" ve ":""}uygulamada öğrendiğin ${v.learned} kelimeye dayanır.</p>`;g.after(c)}
+
+/* ---------- 8) YDS stratejisi ---------- */
+function yds9(){if(S||tab!=="yds"||!app.querySelector(":scope>.uxsub")||app.querySelector(":scope>#bk,.uxstrat"))return;const h=app.querySelector(":scope>h1");if(!h)return;const p=h.nextElementSibling&&h.nextElementSibling.matches("p")?h.nextElementSibling:h;
+ const c=document.createElement("details");c.className="uxstrat";c.innerHTML=`<summary style="cursor:pointer;min-height:44px;display:flex;align-items:center;gap:8px"><b>🎯 Sınav günü stratejisi</b><span class="small muted">· 80 soru · 180 dakika</span></summary>
+ <p style="margin:8px 0 4px"><b>Yanlış doğruyu götürmez: hiçbir soruyu boş bırakma.</b> Her soru 1,25 puan. Emin olmadığında en az iki şıkkı ele, sonra işaretle.</p>
+ <table><tbody><tr><td>Kelime + dil bilgisi (16 soru)</td><td>~15 dk</td></tr><tr><td>Cloze test (10 soru)</td><td>~18 dk</td></tr><tr><td>Cümle tamamlama</td><td>~15 dk</td></tr><tr><td>Çeviri</td><td>~28 dk</td></tr><tr><td>Okuma ve paragraf soruları</td><td>~80 dk</td></tr><tr><td>Boş kalanları işaretleme ve kontrol</td><td>~10 dk</td></tr></tbody></table>
+ <p class="small muted" style="margin:8px 0 0">Okuma en çok soruyu taşır (30'dan fazla); oraya en az 80 dakika bırak. Denemeleri bu sürelerle çöz.</p>`;p.after(c)}
+
+/* ---------- bağla ---------- */
+function en9(){if(S||tab!=="en"||!$("lvs")||app.querySelector(".uxtools"))return;const sub=app.querySelector(":scope>.uxsub");const h=app.querySelector(":scope>h1");const anchor=(h&&h.nextElementSibling&&h.nextElementSibling.matches("p"))?h.nextElementSibling:(h||sub);if(!anchor)return;
+ anchor.insertAdjacentHTML("afterend",toolsCard());$("uxSR").onclick=speedRound;$("uxER").onclick=easyRead}
+const _ar9=afterRender;afterRender=function(){_ar9();try{markCourse();chunkLesson();unitProd();stats9();yds9();en9()}catch(e){}};
+window.uxSpeedRound=speedRound;window.uxEasyRead=easyRead;
+})();
+
+/* ===== TASARIM 9b: Hakkında, gizlilik ve KVKK — ayrı, katmanlı bölüm (Ben › Hakkında) ===== */
+(function(){
+const CL=window.top!==window;const UPDATED="17 Kasım 2026";const GH="https://okanasl2809.github.io/dil-atolyesi/";
+const css=`
+.uxab-hero{position:relative;overflow:hidden;border-radius:24px;padding:22px 18px;margin:0 0 18px;background:linear-gradient(135deg,color-mix(in srgb,var(--pri) 92%,#000) 0%,color-mix(in srgb,var(--pri) 70%,var(--lvB2)) 100%);color:#fff;box-shadow:var(--sh1)}
+.uxab-hero::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.09)}
+.uxab-hero .lg{width:56px;height:56px;border-radius:16px;background:rgba(255,255,255,.16);display:grid;place-items:center;font:800 1.5rem/1 "Bricolage Grotesque",sans-serif;margin-bottom:12px}
+.uxab-hero h1{color:#fff;margin:0 0 4px}.uxab-hero p{color:rgba(255,255,255,.88);margin:0}
+.uxab-hero .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;position:relative;z-index:1}
+.uxab-hero .pill{background:rgba(255,255,255,.16);border-radius:99px;padding:6px 12px;font-size:13px;font-weight:600;color:#fff;border:0;min-height:36px}
+.uxab-hero button.pill{cursor:pointer;min-height:44px}
+.uxab h2.t{font-size:var(--fs-lg,1.125rem);margin:24px 0 10px}
+.uxglance{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;list-style:none;padding:0;margin:0}
+.uxglance li{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:6px;box-shadow:var(--sh1)}
+.uxglance .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:20px;background:color-mix(in srgb,var(--ok) 16%,var(--card))}
+.uxglance b{font-size:var(--fs-md,1rem);line-height:1.3}.uxglance span.d{font-size:13px;color:var(--muted);line-height:1.4}
+@media(min-width:768px){.uxglance{grid-template-columns:repeat(4,1fr)}}
+.uxdata{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--sh1)}
+.uxdata .who{display:flex;align-items:center;gap:12px;margin-bottom:12px}.uxdata .av{width:44px;height:44px;border-radius:50%;background:var(--pri);color:var(--prifg);display:grid;place-items:center;font-weight:800;font-size:1.1rem}
+.uxkv{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 0 14px}
+.uxkv div{background:var(--soft);border-radius:12px;padding:10px 12px}.uxkv dt{font-size:12px;color:var(--muted);font-weight:600}.uxkv dd{margin:2px 0 0;font-weight:800;font-size:1.05rem;font-variant-numeric:tabular-nums}
+@media(min-width:768px){.uxkv{grid-template-columns:repeat(4,1fr)}}
+.uxdata .acts{display:grid;grid-template-columns:1fr 1fr;gap:8px}.uxdata .acts .btn{width:100%}
+@media(max-width:420px){.uxdata .acts{grid-template-columns:1fr}}
+.uxdata .danger{grid-column:1/-1;background:transparent;color:var(--bad);border:1px solid color-mix(in srgb,var(--bad) 45%,var(--line))}
+.uxdocs .item .tg{font-size:11px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--pri);background:color-mix(in srgb,var(--pri) 12%,var(--card));border-radius:99px;padding:2px 8px;margin-left:6px;vertical-align:middle}
+.uxabfoot{text-align:center;color:var(--muted);font-size:13px;margin:28px 0 8px;line-height:1.6}
+/* belge sayfası */
+.uxdocp .meta{display:flex;flex-wrap:wrap;gap:6px 14px;color:var(--muted);font-size:13px;margin:4px 0 14px}
+.uxsum{background:color-mix(in srgb,var(--ok) 10%,var(--card));border:1px solid color-mix(in srgb,var(--ok) 35%,var(--line));border-radius:16px;padding:14px 16px;margin:0 0 14px}
+.uxsum b{display:block;margin-bottom:6px}.uxsum ul{margin:0;padding-left:20px}.uxsum li{margin:4px 0;line-height:1.5}
+.uxtoc{display:flex;gap:6px;overflow-x:auto;padding:2px 0 10px;margin:0 0 6px;scrollbar-width:none}.uxtoc::-webkit-scrollbar{display:none}
+.uxtoc button{flex:0 0 auto;min-height:40px;padding:0 14px;border-radius:99px;border:1px solid var(--line2);background:var(--card);color:var(--ink);font-weight:600;font-size:13px}
+.uxdocp section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:4px 16px 12px;margin:0 0 10px}
+.uxdocp section h2{font-size:var(--fs-lg,1.125rem)!important;margin:14px 0 6px;display:flex;gap:10px;align-items:baseline}
+.uxdocp section h2 .n{color:var(--pri);font-variant-numeric:tabular-nums;font-size:.9em}
+.uxdocp p,.uxdocp li{line-height:1.65}.uxdocp ul{padding-left:20px}
+.uxdocp table{width:100%;border-collapse:collapse;font-size:var(--fs-sm,.875rem)}.uxdocp td,.uxdocp th{border-top:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
+.uxnote{font-size:13px;color:var(--muted);background:var(--soft);border-radius:12px;padding:10px 12px;margin:10px 0}
+.uxlog{border-left:3px solid var(--line2);padding-left:14px;margin:0 0 14px}.uxlog b{font-variant-numeric:tabular-nums}
+.uxlegal{display:none!important}
+`;
+const feedback=(...a)=>window.uxFeedback(...a),delProfile=(...a)=>window.uxDelProfile(...a);
+const s=document.createElement("style");s.id="ux9b";s.textContent=css;document.head.appendChild(s);
+
+const ver=()=>{try{return typeof APP_VER!=="undefined"?APP_VER:(typeof WN_VER!=="undefined"?WN_VER:"")}catch(e){return""}};
+
+/* ---- Belgeler ---- */
+const RIGHTS=`<ul><li>Kişisel verilerinin işlenip işlenmediğini öğrenme,</li><li>İşlenmişse buna ilişkin bilgi isteme,</li><li>İşlenme amacını ve amacına uygun kullanılıp kullanılmadığını öğrenme,</li><li>Yurt içinde veya yurt dışında aktarıldığı üçüncü kişileri bilme,</li><li>Eksik veya yanlış işlenmişse düzeltilmesini isteme,</li><li>KVKK m.7'deki şartlar çerçevesinde silinmesini veya yok edilmesini isteme,</li><li>Düzeltme ve silme işlemlerinin, verilerin aktarıldığı üçüncü kişilere bildirilmesini isteme,</li><li>Yalnızca otomatik sistemlerle analiz edilmesi sonucu aleyhine bir sonuç çıkmasına itiraz etme,</li><li>Kanuna aykırı işleme nedeniyle zarara uğrarsan zararın giderilmesini talep etme.</li></ul>`;
+const DATA_TABLE=`<table><thead><tr><th>Veri</th><th>Örnek</th><th>Neden</th></tr></thead><tbody>
+<tr><td>Ad / takma ad</td><td>"Ayşe"</td><td>Aynı cihazı kullanan kişileri ayırmak</td></tr>
+<tr><td>Öğrenme kayıtları</td><td>Puan, seri, biten dersler, sınav sonuçları</td><td>Kaldığın yerden devam etmek, gelişimini göstermek</td></tr>
+<tr><td>Kelime ve hata defteri</td><td>Öğrendiğin kelimeler, yanlış yaptığın sorular</td><td>Doğru zamanda tekrar ettirmek</td></tr>
+<tr><td>Yazdığın cümleler</td><td>"Kendin yaz" alıştırmaları</td><td>Sonradan bakabilmen için</td></tr>
+<tr><td>Hedefler ve ayarlar</td><td>YDS tarihi, hedef puan, yazı boyutu, ses</td><td>Planı ve görünümü sana göre ayarlamak</td></tr></tbody></table>`;
+const mkDocs=()=>{const local=!CL||ME.mode!=="cloud";return{
+ kvkk:{ic:"⚖️",t:"KVKK Aydınlatma Metni",tag:"Yasal",d:"6698 sayılı Kanun'un 10. maddesine göre bilgilendirme",min:4,
+  sum:["Veri sorumlusu: Okan Asl.","Verilerin "+(local?"yalnızca kendi cihazında":"Claude hesabına bağlı uygulama deposunda")+" işlenir; uygulama bunları bize göndermez.","Amaç yalnızca öğrenme hizmetini sunmak. Reklam, profil çıkarma, satış yok.","Bu metin bir onay metni değildir; seni yalnızca bilgilendirir."],
+  secs:[["Veri sorumlusu",`<p>6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") kapsamında veri sorumlusu, Dil Atölyesi'nin geliştiricisi <b>Okan Asl</b>'dır.</p>`],
+   ["Hangi kişisel veriler işlenir?",DATA_TABLE+`<p class="small muted">Konuşma alıştırmalarında mikrofonla söylediklerin yalnızca o an yazıya dökülür; ses kaydı tutulmaz. Kimlik numarası, telefon, konum, rehber gibi bilgiler <b>istenmez ve işlenmez</b>.</p>`],
+   ["Hangi amaçlarla işlenir?",`<ul><li>Öğrenme hizmetini sunmak ve ilerlemeni kaydetmek,</li><li>Kelimeleri ve hatalarını doğru zamanda tekrar ettirmek,</li><li>Seviyene ve sınav tarihine göre plan çıkarmak,</li><li>İstersen yedek dosyası oluşturmak.</li></ul><p>Verilerin bu amaçlar dışında kullanılmaz; reklam, pazarlama ya da profil çıkarma amacıyla işlenmez.</p>`],
+   ["Hukuki sebep ve toplama yöntemi",`<p>Verilerin, uygulamayı kullanmayı seçmenle kurulan hizmet ilişkisinin yerine getirilmesi için gerekli olması hukuki sebebine (KVKK m.5/2-c) dayanılarak işlenir. Veriler, uygulamaya senin girdiğin bilgilerden ve kullanımın sırasında ${local?"cihazında":"uygulama deposunda"} otomatik olarak oluşur.</p>`],
+   ["Kimlere aktarılır?",local?`<p><b>Hiç kimseye.</b> Telefon sürümünde verilerin cihazından çıkmaz; yurt içine ya da yurt dışına aktarılmaz. Yedek dosyası oluşturursan o dosya senin elindedir ve onu kiminle paylaşacağına sen karar verirsin.</p>`
+     :`<p>Uygulamayı Claude içinde açtığında ilerlemen, Claude hizmetinin sağladığı uygulama deposunda saklanır. "Claude ile konuş", "Yazma koçu" gibi yapay zekâ özelliklerini kullandığında yazdığın metin, yanıt üretilmesi için Claude'un sağlayıcısı Anthropic'e (ABD) iletilir. Bu aktarım senin o özelliği kullanmanla olur; Anthropic'in kendi gizlilik koşulları geçerlidir. Bu özellikleri kullanmazsan metin gönderilmez. Telefon sürümünde bu aktarım yoktur.</p>`],
+   ["Ne kadar süre saklanır?",`<p>Sen silene kadar. Kaydını istediğin an <b>Hakkında › Verilerin › Kaydımı sil</b> ile kalıcı olarak silebilirsin. Uygulamayı kaldırmak ya da tarayıcı verisini temizlemek de verileri siler.</p>`],
+   ["KVKK m.11 kapsamındaki hakların",RIGHTS+`<p>Verilerin ${local?"yalnızca kendi cihazında durduğu":"uygulama deposunda durduğu"} için bu hakların çoğunu doğrudan uygulamadan kullanabilirsin: <b>Verilerimi indir</b> ile hepsini görebilir, <b>Kaydımı sil</b> ile silebilirsin.</p>`],
+   ["Başvuru",`<p>Haklarınla ilgili taleplerini <b>Hakkında › Bize yaz</b> bölümünden iletebilirsin. Talebin en geç 30 gün içinde ve ücretsiz olarak yanıtlanır (Veri Sorumlusuna Başvuru Usul ve Esasları Hakkında Tebliğ). Yanıttan memnun kalmazsan Kişisel Verileri Koruma Kurulu'na şikâyette bulunma hakkın vardır (KVKK m.14).</p>`]]},
+ priv:{ic:"🔒",t:"Gizlilik Politikası",tag:"Gizlilik",d:"Ne tutuluyor, nerede duruyor, nasıl silinir",min:3,
+  sum:["Hesap açman gerekmez; e-posta ya da telefon istenmez.","Reklam, izleme ya da analiz aracı yoktur.",local?"İlerlemen yalnızca bu cihazda saklanır.":"İlerlemen Claude hesabına bağlı depoda saklanır.","İstediğin an indirebilir ya da tamamen silebilirsin."],
+  secs:[["Topladığımız bilgiler",DATA_TABLE],
+   ["Nerede saklanır?",local?`<p>Yalnızca bu cihazda, uygulamanın kendi deposunda. Uygulama bu bilgileri hiçbir sunucuya göndermez. Günlük yedek dosyası telefonunun İndirilenler klasörüne kaydedilir; o dosya da yalnızca sende kalır.</p>`:`<p>Claude içinde kullanıyorsan ilerlemen Claude'un uygulama deposunda saklanır. Yapay zekâ özelliklerinde yazdığın metin yanıt için Anthropic'e iletilir.</p>`],
+   ["Kullanmadıklarımız",`<ul><li>Reklam ve reklam kimliği</li><li>Analiz, izleme, çerez</li><li>Konum, rehber, fotoğraflar</li><li>Üçüncü taraf giriş (Google, Facebook)</li></ul><p>Yazı tipleri ve tüm ders içeriği uygulamanın içindedir; açılırken dışarıdan bir şey yüklenmez.</p>`],
+   ["İzinler",`<p><b>Mikrofon:</b> yalnızca konuşma alıştırmasında, sen düğmeye bastığında ve izin verirsen açılır. Ses kaydı saklanmaz. Konuşmanın yazıya dökülmesi cihazının ya da tarayıcının kendi hizmetiyle yapılır.</p><p><b>Sesli okuma:</b> cihazının kendi ses motoru kullanılır.</p>`],
+   ["Çocuklar",`<p>Uygulama 13 yaş ve üzeri öğrenciler için hazırlandı. 18 yaşından küçüksen uygulamayı bir velinle birlikte kullanmanı öneririz. Çocuklardan bilerek kişisel bilgi istenmez.</p>`],
+   ["Güvenlik",`<p>Veriler cihazından çıkmadığı için bir sunucu sızıntısı riski yoktur. Telefonuna erişebilen biri uygulamayı da açabilir; ekran kilidi kullanmanı öneririz. Yedek dosyanı güvendiğin bir yerde sakla.</p>`],
+   ["Haklarını kullanma",`<ul><li><b>Görmek / taşımak:</b> Verilerimi indir</li><li><b>Düzeltmek:</b> adını ve ayarlarını uygulamadan değiştirebilirsin</li><li><b>Silmek:</b> Kaydımı sil</li></ul><p>Ayrıntı için KVKK Aydınlatma Metni'ne bak.</p>`],
+   ["Değişiklikler",`<p>Bu politika değişirse yeni sürüm notlarında belirtilir ve buradaki tarih güncellenir.</p>`]]},
+ terms:{ic:"📄",t:"Kullanım Koşulları",tag:"Yasal",d:"Haklar, sorumluluklar ve içerik",min:2,
+  sum:["Ücretsiz ve kişisel öğrenme için.","ÖSYM ile bağlantımız yoktur; resmî soru içermez.","Puan tahminleri yol göstericidir, garanti değildir."],
+  secs:[["Kullanım",`<p>Dil Atölyesi'ni ücretsiz olarak, kişisel öğrenme amacıyla kullanabilirsin. Uygulamayı kötüye kullanmamayı (ör. içeriği toplu kopyalayıp satmak) kabul edersin.</p>`],
+   ["Sınavlarla ilişki",`<p><b>Dil Atölyesi; ÖSYM, YDS, e-YDS veya YÖKDİL ile resmî bir bağlantıya sahip değildir.</b> Sorular özgündür, ÖSYM sınavlarından alıntı soru içermez. Sınav bilgileri kamuya açık kaynaklara dayanır; güncel ve bağlayıcı bilgi için ÖSYM duyurularına bak.</p>`],
+   ["Garanti ve sorumluluk",`<p>Uygulama "olduğu gibi" sunulur. Hata olmaması için özen gösterilir, ama içerikte yanlış olabilir; gördüğünde bildirmen bize yardımcı olur. Sınav sonucu için kesin söz verilmez; tahmini puan yalnızca yol göstericidir.</p>`],
+   ["Fikrî haklar",`<p>© 2026 Okan Asl. Uygulamanın tasarımı, özgün metinleri ve kodu izinsiz kopyalanamaz ve dağıtılamaz. Üçüncü taraf kaynaklar kendi lisanslarına tabidir (bkz. Açık kaynak lisanslar).</p>`],
+   ["Değişiklikler",`<p>Koşullar güncellenirse sürüm notlarında belirtilir.</p>`]]},
+ ai:{ic:"✨",t:"Yapay zekâ kullanımı",tag:"Şeffaflık",d:"İçerik nasıl hazırlandı, nelere dikkat etmeli",min:2,
+  sum:["Derslerin, soruların ve hikâyelerin bir kısmı yapay zekâ yardımıyla yazılıp elle gözden geçirildi.","Telefon sürümünde canlı yapay zekâ yoktur.","Hata görürsen soruların altındaki ⚑ ile bildir."],
+  secs:[["İçerik nasıl hazırlandı?",`<p>Dil bilgisi dersleri, alıştırmalar, YDS soruları, diyaloglar ve kitaplar Dil Atölyesi için özgün olarak hazırlandı. Bu sürecin bir kısmında yapay zekâdan (Claude) yardım alındı; metinler sonra kontrol edildi ve düzeltildi.</p>`],
+   ["Canlı yapay zekâ özellikleri",CL?`<p>Claude içinde açtığında "Claude ile konuş", "Yazma koçu" ve "yeni sorular" gibi özellikler anlık yanıt üretir. Bu yanıtlar hata içerebilir; önemli konularda bir öğretmene ya da güvenilir bir kaynağa danış.</p>`:`<p>Telefon sürümünde canlı yapay zekâ özelliği yoktur; tüm içerik uygulamanın içindedir ve internet olmadan da çalışır.</p>`],
+   ["Hata bildirimi",`<p>Bir soruda yanlış ya da belirsiz bir şey görürsen sorunun altındaki <b>⚑ Hata bildir</b>'e dokun. Bildirimlerin bu sayfanın altında listelenir.</p>`]]},
+ a11y:{ic:"♿",t:"Erişilebilirlik Beyanı",tag:"Erişim",d:"Herkesin kullanabilmesi için yaptıklarımız",min:2,
+  sum:["Hedef: WCAG 2.2 AA düzeyi.","Yazı boyutu, koyu tema ve klavye ile kullanım desteklenir.","Bilinen sınırlar aşağıda; sorun yaşarsan bize yaz."],
+  secs:[["Taahhüdümüz",`<p>Dil Atölyesi'nin görme, işitme, hareket ya da öğrenme farklılığı olan herkes tarafından kullanılabilmesini istiyoruz. Hedefimiz W3C'nin Web İçeriği Erişilebilirlik Yönergeleri (WCAG) 2.2'nin AA düzeyidir.</p>`],
+   ["Neler yapıldı?",`<ul><li>Dokunma hedefleri en az 44 piksel</li><li>Yazı boyutu ayarı (Defter › Ayarlar) ve koyu tema</li><li>Renk tek başına anlam taşımaz: doğru ✓, yanlış ✕ işaretiyle de gösterilir</li><li>Ekran okuyucular için başlıklar, etiketler ve durum duyuruları</li><li>Klavyeyle kullanım: 1–4 ya da A–D ile şık seçme</li><li>Hareketi azalt ayarı açıksa animasyonlar kısılır</li></ul>`],
+   ["Bilinen sınırlar",`<ul><li>Sesli okuma cihazın makine sesini kullanır; bazı kelimelerin söylenişi doğal olmayabilir.</li><li>Gelişim sayfasındaki çalışma takviminin kareleri küçüktür; aynı bilgi yazıyla da verilir.</li><li>Konuşma tanıma her cihazda ya da tarayıcıda çalışmayabilir.</li></ul>`],
+   ["Test edildiği ortamlar",`<p>Android ve iPhone telefon tarayıcıları, masaüstü Chrome; 320 pikselden geniş ekranlar; açık ve koyu tema.</p>`],
+   ["Geri bildirim",`<p>Erişimle ilgili bir engelle karşılaşırsan <b>Bize yaz</b> bölümünden bildir. Bu beyan ${UPDATED} tarihinde hazırlandı.</p>`]]},
+ lic:{ic:"🧾",t:"Kaynaklar ve açık kaynak lisanslar",tag:"Lisans",d:"Kelime listeleri, sözlükler, yazı tipleri",min:2,
+  sum:["Kelime seviyeleri CEFR-J ve Octanove listelerine dayanır.","Okunuşlar CMU sözlüğünden, konu grupları WordNet'ten.","Yazı tipleri: Figtree ve Bricolage Grotesque (OFL)."],
+  secs:[["Kelime listeleri",`<p>A1–B2 kelime seviyeleri: CEFR-J Wordlist v1.5, Tono Laboratuvarı, Tokyo Yabancı Diller Üniversitesi.</p><p>C1–C2 kelime seviyeleri: Octanove Vocabulary Profile C1/C2 v1.0, Creative Commons Atıf-AynıLisanslaPaylaş 4.0 (CC BY-SA 4.0). Bu listeye dayanan Türkçe anlamlar da aynı lisansla paylaşılır.</p><p>Konu ve fiil grupları: Princeton Üniversitesi WordNet 3.0 (WordNet lisansı).</p>`],
+   ["Okunuşlar",`<p>Carnegie Mellon Üniversitesi CMU Pronouncing Dictionary (BSD tarzı lisans). Türkçe harflerle okunuş bundan otomatik üretildi; yaklaşık bir yardımdır.</p>`],
+   ["Yazı tipleri",`<ul><li>Figtree: SIL Open Font License 1.1</li><li>Bricolage Grotesque: SIL Open Font License 1.1</li></ul>`],
+   ["Özgün içerik",`<p>Dersler, sorular, denemeler, diyaloglar, kitaplar ve Türkçe çeviriler Dil Atölyesi için özgün olarak hazırlanmıştır.</p><p>İçerik: 8.657 CEFR kelimesi, 1.082 YDS kelime ve kalıbı, 80 dil bilgisi konusu, 47 konuşma ünitesi, 6 kitap, 2 tam YDS denemesi ve uyarlanabilir seviye testi.</p>`]]},
+ log:{ic:"🗒️",t:"Sürüm notları",tag:"Yenilikler",d:"Her güncellemede neler değişti",min:2,sum:null,secs:null}}};
+const CHANGELOG=[
+ ["2026.11.17-2","17 Kasım 2026",["Hakkında bölümü yenilendi: gizlilik özeti, verilerin, KVKK aydınlatma metni ve erişilebilirlik beyanı","Dersler adım adım açılıyor","Yanlışta önce ipucu, sonra bir hak daha","Hız turu ve kolay okuma (dakikada kelime)","Ünitelerde Kendin yaz ve Kendin söyle","Tahmini kelime hazinen ve YDS sınav günü stratejisi","Kelime tekrarları sınav tarihine göre ayarlanıyor"]],
+ ["2026.11.17-1","17 Kasım 2026",["Öğrenme yolu ve hafta şeridi","Ana sayfada sınav geri sayımı","Kelime kartları dokununca dönüyor","Oturum sonunda doğru, puan ve süre özeti"]],
+ ["2026.11.16-1","16 Kasım 2026",["Sekmeler 4'e indi: Bugün, Öğren, YDS, Ben","Haftada bir dinlenme günü seriyi bozmuyor","İlk açılışta 1 dakikalık deneme","Gizlilik, koşullar ve kaydı silme","Daha büyük dokunma alanları"]],
+ ["2026.11.15","15 Kasım 2026",["Yeni yazı tipleri ve yazı ölçeği","Yazı boyutu ayarı","Sayfa düzeni ve renkler yenilendi","Daha hızlı açılış"]],
+ ["2026.11.03-1","3 Kasım 2026",["Güncellemeler açılışta otomatik geliyor","Günlük otomatik yedek"]],
+ ["Önceki","Ekim 2026",["Kurs yolu ve ünite sınavları","YDS denemeleri ve seviye testi","Kütüphane, kitaplar ve sözlük"]]];
+
+/* ---- yardımcılar ---- */
+async function dlFile(fn,txt){let dlc=null;try{dlc=window.claude&&window.claude.use?await window.claude.use("downloads"):null}catch(e){}
+ if(dlc){try{await dlc.save({filename:fn,data:txt});return true}catch(e){if(e&&e.code==="declined")return false}}
+ try{const b=new Blob([txt],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=fn;document.body.appendChild(a);a.click();a.remove();return true}catch(e){}
+ try{await navigator.clipboard.writeText(txt);uiAlert("İndirme engellendi; verilerin panoya kopyalandı.");return true}catch(e){uiAlert("İndirme bu ortamda engellendi. Defter › Yedekle bölümündeki yedek kodunu kullan.");return false}}
+function stats(){const days=Object.keys(st.days||{}).filter(d=>st.days[d]>0).sort();let kb=0;try{kb=(localStorage.getItem(stKey())||JSON.stringify(st)).length/1024}catch(e){kb=JSON.stringify(st).length/1024}
+ return{kb:kb<10?kb.toFixed(1):Math.round(kb),words:Object.keys(vb()).length,lessons:Object.keys(st.gram||{}).length,days:days.length,since:days[0]||null}}
+const fmtD=d=>{if(!d)return"—";try{return new Date(d+"T12:00").toLocaleDateString("tr",{day:"numeric",month:"long",year:"numeric"})}catch(e){return d}};
+function subTop(){const n=document.createElement("nav");n.className="uxsub";n.setAttribute("aria-label","Alt bölümler");
+ n.innerHTML=[["stats","Gelişim"],["book","Defter"],["about","Hakkında"]].map(([k,l])=>`<button type="button" data-k="${k}" aria-current="${k==="about"?"page":"false"}">${l}</button>`).join("");
+ n.querySelectorAll("button").forEach(b=>b.onclick=e=>{e.stopPropagation();if(b.dataset.k==="about")return;S=null;delete app.dataset.view;setTab(b.dataset.k)});return n}
+async function share(){const d={title:"Dil Atölyesi",text:"A1'den C2'ye İngilizce ve YDS hazırlığı, ücretsiz ve reklamsız:",url:GH};
+ try{if(navigator.share){await navigator.share(d);return}}catch(e){if(e&&e.name==="AbortError")return}
+ try{await navigator.clipboard.writeText(d.text+" "+GH);uiAlert("Bağlantı kopyalandı.")}catch(e){uiAlert(GH)}}
+
+/* ---- Hakkında ana sayfa ---- */
+function openAbout9(){const DOCS9=mkDocs();S=null;app.dataset.view="about";const v=stats();const nm=ME.name||st.name||"";const loc=!CL||ME.mode!=="cloud";
+ const glance=[["📱",loc?"Verilerin cihazında":"Hesabına bağlı",loc?"İlerlemen bu cihazdan çıkmaz, sunucuya gönderilmez.":"İlerlemen Claude hesabındaki uygulama deposunda durur."],["🚫","Reklam ve izleme yok","Analiz, çerez ya da reklam kimliği kullanılmaz."],["🤝","Kimseyle paylaşılmaz","Verilerin satılmaz, başka biriyle paylaşılmaz."],["🗑️","İstediğin an sil","Tek dokunuşla indir ya da kalıcı olarak sil."]];
+ app.innerHTML=`<div class="uxab">
+ <div class="uxab-hero"><div class="lg" aria-hidden="true">Dİ</div><h1>Dil Atölyesi</h1><p>A1'den C2'ye İngilizce ve YDS hazırlığı. Ücretsiz, reklamsız, sana ait.</p>
+  <div class="meta"><span class="pill">Sürüm ${esc(ver())}</span>${typeof UPD!=="undefined"&&!CL?`<button class="pill" type="button" id="abUp">🔄 Güncellemeleri denetle</button>`:""}<button class="pill" type="button" id="abSh">↗ Paylaş</button></div></div>
+ <h2 class="t">Gizlilik bir bakışta</h2><ul class="uxglance">${glance.map(g=>`<li><span class="ic" aria-hidden="true">${g[0]}</span><b>${g[1]}</b><span class="d">${g[2]}</span></li>`).join("")}</ul>
+ <h2 class="t">Verilerin</h2><div class="uxdata"><div class="who"><span class="av" aria-hidden="true">${esc((nm||"?").slice(0,1).toLocaleUpperCase("tr"))}</span><div><b>${esc(nm||"Adsız kayıt")}</b><div class="small muted">${loc?"Bu cihazda saklanıyor":"Claude hesabında saklanıyor"}${v.since?" · "+fmtD(v.since)+"'den beri":""}</div></div></div>
+  <dl class="uxkv"><div><dt>Kayıt boyutu</dt><dd>${v.kb} KB</dd></div><div><dt>Kelime kaydı</dt><dd>${v.words.toLocaleString("tr")}</dd></div><div><dt>Çalışılan gün</dt><dd>${v.days}</dd></div><div><dt>Son yedek</dt><dd style="font-size:.9rem">${st.lastBackup?fmtD(st.lastBackup):"Hiç"}</dd></div></dl>
+  <div class="acts"><button class="btn pri" type="button" id="abDl">⬇ Verilerimi indir</button><button class="btn alt" type="button" id="abBk">💾 Yedekle / yükle</button>${loc&&ME.mode!=="cloud"&&ME.name?`<button class="btn danger" type="button" id="abDel">Kaydımı kalıcı olarak sil</button>`:""}</div>
+  <p class="small muted" style="margin:10px 0 0">"Verilerimi indir", hakkında tutulan her şeyi okunabilir bir dosya olarak verir (KVKK m.11, veri taşınabilirliği).</p></div>
+ <h2 class="t">Belgeler</h2><div class="list uxdocs">${Object.entries(DOCS9).map(([k,d])=>`<button class="item" type="button" data-doc="${k}"><span style="font-size:1.4rem" aria-hidden="true">${d.ic}</span><span class="grow"><span class="t">${d.t}</span><span class="tg">${d.tag}</span><br><span class="muted small">${d.d}</span></span><span aria-hidden="true">›</span></button>`).join("")}</div>
+ <h2 class="t">Bize yaz</h2><div class="list"><button class="item" type="button" id="abFb"><span style="font-size:1.4rem" aria-hidden="true">💬</span><span class="grow"><span class="t">Görüş, öneri ya da soru</span><br><span class="muted small">Mesajın paylaşma ekranıyla gönderilir</span></span><span aria-hidden="true">›</span></button>
+  <button class="item" type="button" id="abKv"><span style="font-size:1.4rem" aria-hidden="true">⚖️</span><span class="grow"><span class="t">KVKK başvurusu</span><br><span class="muted small">Verilerinle ilgili bir talep ilet</span></span><span aria-hidden="true">›</span></button></div>
+ <h2 class="t">Hata bildirimlerin</h2>${(st.reports||[]).length?`<div class="card small">${st.reports.slice().reverse().slice(0,20).map(r=>`<div class="sent" style="align-items:flex-start"><span class="badge">${esc(r.kind)}</span><div class="grow"><div class="muted">${esc(r.at)}</div>${r.note?`<div>${esc(r.note)}</div>`:""}<div class="muted" style="white-space:pre-line">${esc((r.ctx||"").slice(0,160))}</div></div></div>`).join("")}</div><button class="btn alt wide" id="abCr" style="margin-top:10px">Bildirimleri kopyala</button>`:`<p class="muted small" style="margin-top:0">Henüz hata bildirmedin. Soruların altındaki "⚑ Hata bildir" ile bildirebilirsin.</p>`}
+ <p class="uxabfoot">© 2026 Okan Asl · Türkiye'de geliştirildi<br>Dil Atölyesi; ÖSYM, YDS, e-YDS veya YÖKDİL ile bağlantılı değildir.<br>Son güncelleme: ${UPDATED}</p></div>`;
+ app.prepend(subTop());
+ document.querySelectorAll(".tabs button").forEach(b=>b.setAttribute("aria-current",b.dataset.tab==="stats"?"page":"false"));
+ if($("abUp"))$("abUp").onclick=e=>{try{UPD.manual(e.currentTarget)}catch(_){}};$("abSh").onclick=share;
+ $("abDl").onclick=async()=>{const ok=await dlFile("dil-atolyesi-verilerim-"+dayKey()+".json",backupJSON());if(ok){st.lastBackup=dayKey();save();$("abDl").textContent="İndirildi ✓"}};
+ $("abBk").onclick=()=>{delete app.dataset.view;openBackup()};if($("abDel"))$("abDel").onclick=delProfile;
+ app.querySelectorAll("[data-doc]").forEach(b=>b.onclick=()=>openDoc9(b.dataset.doc));
+ $("abFb").onclick=feedback;$("abKv").onclick=kvkkReq;
+ if($("abCr"))$("abCr").onclick=async()=>{const t=st.reports.map(r=>`[${r.at}] ${r.kind}: ${r.note}\n${r.ctx}`).join("\n\n---\n\n");try{await navigator.clipboard.writeText(t);$("abCr").textContent="Kopyalandı ✓"}catch(e){uiAlert(t)}};
+ window.scrollTo(0,0);try{uxSay("Hakkında sayfası açıldı")}catch(e){}}
+async function kvkkReq(){const t=await uiDialog("KVKK kapsamındaki talebini yaz (ör. hangi verilerimin işlendiğini öğrenmek, düzeltme ya da silme). Yanıt verebilmemiz için bir iletişim yolu da ekle.",{input:true,ok:"Hazırla",cancel:"Vazgeç",ph:"Talebim: …"});if(!t)return;
+ const body=`KVKK m.11 başvurusu — Dil Atölyesi\n\n${t}\n\nTarih: ${new Date().toLocaleDateString("tr")}\nSürüm: ${ver()}`;
+ try{if(navigator.share){await navigator.share({title:"KVKK başvurusu",text:body});return}}catch(e){if(e&&e.name==="AbortError")return}
+ try{await navigator.clipboard.writeText(body);uiAlert("Başvuru metnin kopyalandı. Geliştiriciye iletmek için bir mesaja yapıştır.")}catch(e){uiAlert(body)}}
+
+/* ---- Belge sayfası ---- */
+function openDoc9(k){const d=mkDocs()[k];if(!d)return;S=null;app.dataset.view="about";
+ let body="";
+ if(k==="log")body=CHANGELOG.map(([v,dt,xs])=>`<div class="uxlog"><b>${esc(v)}</b> <span class="muted small">· ${dt}</span><ul>${xs.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`).join("");
+ else body=(d.sum?`<div class="uxsum" role="note"><b>Kısaca</b><ul>${d.sum.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:"")
+  +(d.secs.length>3?`<nav class="uxtoc" aria-label="İçindekiler">${d.secs.map((x,i)=>`<button type="button" data-j="${i}">${i+1}. ${esc(x[0])}</button>`).join("")}</nav>`:"")
+  +d.secs.map((x,i)=>`<section id="uxd${i}"><h2><span class="n">${i+1}.</span><span>${esc(x[0])}</span></h2>${x[1]}</section>`).join("");
+ app.innerHTML=`<div class="uxdocp"><button class="link" id="bk">‹ Hakkında</button><h1 style="margin-top:14px">${d.ic} ${esc(d.t)}</h1>
+ <div class="meta"><span>Son güncelleme: ${UPDATED}</span><span>Yaklaşık ${d.min} dakikalık okuma</span><span>Sürüm ${esc(ver())}</span></div>${body}
+ <div class="uxnote">Bu metinle ilgili bir sorun ya da soru mu var? <button class="link" id="abQ" type="button" style="display:inline;min-height:0;padding:0">Bize yaz</button></div>
+ <div class="row" style="margin-top:14px;justify-content:space-between;gap:8px"><button class="btn alt" id="bk2" type="button">‹ Hakkında</button><button class="btn alt" id="abPr" type="button">🖨 Yazdır</button></div></div>`;
+ $("bk").onclick=$("bk2").onclick=openAbout9;$("abQ").onclick=feedback;$("abPr").onclick=()=>{try{window.print()}catch(e){}};
+ app.querySelectorAll(".uxtoc button").forEach(b=>b.onclick=()=>scrollToEl($("uxd"+b.dataset.j)));window.scrollTo(0,0)}
+
+/* ---- bağla ---- */
+openAbout=openAbout9;window.uxOpenAbout=openAbout9;window.uxOpenDoc=k=>openDoc9({priv:"priv",terms:"terms"}[k]||k);
+document.addEventListener("click",e=>{const b=e.target.closest(".uxsub button[data-k]");if(!b)return;if(b.dataset.k==="about"){e.stopPropagation();e.preventDefault();openAbout9()}},true);
+const _st9=setTab;setTab=function(){delete app.dataset.view;return _st9.apply(this,arguments)};
+function bookRow(){if(S)return;if(app.dataset.view==="about")document.querySelectorAll(".tabs button").forEach(b=>b.setAttribute("aria-current",b.dataset.tab==="stats"?"page":"false"));const sn=app.querySelector(":scope>.uxsub");if(sn&&(tab==="stats"||tab==="book")&&!sn.querySelector('[data-k="about"]')){const av=app.dataset.view==="about";sn.querySelectorAll("button").forEach(x=>{if(av)x.setAttribute("aria-current","false");x.onclick=()=>{S=null;delete app.dataset.view;setTab(x.dataset.k)}});sn.insertAdjacentHTML("beforeend",`<button type="button" data-k="about" aria-current="${av?"page":"false"}">Hakkında</button>`)}if(tab!=="book")return;const oa=$("oa");if(oa&&!oa.dataset.ux9){oa.dataset.ux9=1;const t=oa.querySelector(".t"),m=oa.querySelector(".muted");if(t)t.textContent="Hakkında, gizlilik ve KVKK";if(m)m.textContent="Verilerin, belgeler, lisanslar ve sürüm notları";oa.onclick=openAbout9}}
+const _ar9b=afterRender;afterRender=function(){_ar9b();try{bookRow()}catch(e){}};
+})();
+
 fixHeader();
 })();
 
@@ -6471,7 +6820,7 @@ fixHeader();
 <script>
 if("serviceWorker" in navigator&&location.protocol.startsWith("http")){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").then(r=>{r.addEventListener("updatefound",()=>{const w=r.installing;w&&w.addEventListener("statechange",()=>{if(w.state==="installed"&&navigator.serviceWorker.controller){const b=document.createElement("button");b.className="btn pri";b.textContent="Yeni sürüm hazır, yenile";b.style.cssText="position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:50;box-shadow:0 6px 20px rgba(0,0,0,.25)";b.onclick=()=>UPD.run(b);document.body.appendChild(b)}})})}).catch(()=>{})})}
 /* ===== GÜNCELLEME: yeni sürüm varsa açılışta zorunlu güncelleme ekranı ===== */
-const APP_VER="2026.11.17-1";
+const APP_VER="2026.11.17-2";
 const UPD={
  web:()=>/^https?:$/.test(location.protocol),
  async check(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return null;const j=await r.json();return j&&j.v?{v:String(j.v),notes:Array.isArray(j.notes)?j.notes:[]}:null}catch(e){return null}},
