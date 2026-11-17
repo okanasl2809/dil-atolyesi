@@ -1,8 +1,11 @@
 {
- "v": "2026.11.17-7",
+ "v": "2026.11.17-8",
  "notes": [
-  "🔧 Bir güncelleme sorunu giderildi: bazı telefonlarda 'yeni güncelleme' ekranı güncelledikten sonra bile yeniden çıkabiliyordu. Artık düzgün kapanıyor.",
-  "⚡ Uygulamanın kodu küçültüldü; dosya biraz daha ufak ve açılış biraz daha hızlı.",
+  "🎮 Oyunlar baştan yenilendi: artık oynadıkça kelimelerin PEKİŞİYOR (oyunlar önce tekrar zamanı gelen kelimeleri sorar).",
+  "🎯 Günün oyunu: güne özel 12 karışık soru, her gün kendi skorunu geç.",
+  "⚡ Kelime yarışı: doğru yaptıkça hızlanan, seri (combo) biriktiren canlı oyun.",
+  "⌨️ Duy ve yaz: kelimeyi dinle, doğru yaz; harf harf ipucu al.",
+  "✨ Combo, puan baloncukları ve titreşimle daha keyifli; bitişte kaç kelime pekiştirdiğini görürsün.",
   "✅ İlerlemen, puanların ve serin aynen duruyor."
  ]
 }
