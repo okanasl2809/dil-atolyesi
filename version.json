@@ -1,11 +1,8 @@
 {
- "v": "2026.11.17-5",
+ "v": "2026.11.17-6",
  "notes": [
-  "🎨 Yeni logo ve uygulama simgesi: konuşma balonu biçiminde bir D ve küçük bir yıldız. Ana ekran simgen de yenilenir.",
-  "✨ Açılışta kısa bir karşılama ekranı.",
-  "🧭 Sayfa geçişleri yenilendi: derine inerken sağdan, geri dönerken soldan, derse başlarken aşağıdan yumuşakça gelir. Sekmeler arasında yumuşak geçiş.",
-  "📋 Tablolar daha okunaklı: başlık satırı, satır ayrımı ve dar ekranda yana kaydırma.",
-  "🖌️ Renk, yazı ve küçük ayrıntılarda ince ayarlar.",
+  "🧭 Koçun artık YDS planını da tanıyor: yalnızca sınav tarihi ve hedef puan girdiysen de sınav günü yaklaşırken ve deneme sonuçların hedefinin altındayken seni uyarır.",
+  "🔍 Uygulamanın her sayfası baştan sona gözden geçirildi; küçük tutarsızlıklar giderildi.",
   "✅ İlerlemen, puanların ve serin aynen duruyor."
  ]
 }
