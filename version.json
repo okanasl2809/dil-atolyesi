@@ -1,9 +1,9 @@
 {
- "v": "2026.11.17-9",
+ "v": "2026.11.17-10",
  "notes": [
-  "📝 YDS sekmesinin adı \"Sınavlar\" oldu; içinde yeni Mini deneme (10/20/40 karışık soru) ve Rastgele soru tipi var.",
-  "📚 Öğren'e Konuya göre kelime (aile, yiyecek, seyahat… 22 tema) ve Okuma turu eklendi.",
-  "📱 Alt menü artık sayfanın altındaki içeriği örtmüyor (opak yapıldı, boşluk artırıldı).",
+  "🎨 Arayüz tazelendi: simgeler yuvarlak renkli kutulara alındı, kartlara yumuşak derinlik ve gölge geldi.",
+  "🌙 Karanlık temada yüzeyler daha dengeli; öne çıkan kartlar hafif aydınlık tonla ayrışıyor.",
+  "⭕ Günlük hedef halkası daha belirgin ve yuvarlak uçlu; düğmelerde hafif derinlik var.",
   "✅ İlerlemen, puanların ve serin aynen duruyor."
  ]
 }
