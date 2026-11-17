@@ -1,11 +1,9 @@
 {
- "v": "2026.11.17-8",
+ "v": "2026.11.17-9",
  "notes": [
-  "🎮 Oyunlar baştan yenilendi: artık oynadıkça kelimelerin PEKİŞİYOR (oyunlar önce tekrar zamanı gelen kelimeleri sorar).",
-  "🎯 Günün oyunu: güne özel 12 karışık soru, her gün kendi skorunu geç.",
-  "⚡ Kelime yarışı: doğru yaptıkça hızlanan, seri (combo) biriktiren canlı oyun.",
-  "⌨️ Duy ve yaz: kelimeyi dinle, doğru yaz; harf harf ipucu al.",
-  "✨ Combo, puan baloncukları ve titreşimle daha keyifli; bitişte kaç kelime pekiştirdiğini görürsün.",
+  "📝 YDS sekmesinin adı \"Sınavlar\" oldu; içinde yeni Mini deneme (10/20/40 karışık soru) ve Rastgele soru tipi var.",
+  "📚 Öğren'e Konuya göre kelime (aile, yiyecek, seyahat… 22 tema) ve Okuma turu eklendi.",
+  "📱 Alt menü artık sayfanın altındaki içeriği örtmüyor (opak yapıldı, boşluk artırıldı).",
   "✅ İlerlemen, puanların ve serin aynen duruyor."
  ]
 }
