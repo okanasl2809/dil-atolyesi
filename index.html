@@ -4180,7 +4180,7 @@ function openAbout(){const back=()=>setTab("book");
 (function(){const _vb=viewBook;viewBook=function(){_vb();const sec=document.createElement("section");sec.className="sec";
  sec.innerHTML=`<h2>Uygulama</h2><div class="list"><button class="item" id="ob"><span style="font-size:1.4rem">💾</span><span class="grow"><span class="t">Yedekle ve geri yükle</span><br><span class="muted small">Son yedek: ${st.lastBackup||"hiç alınmadı"}</span></span><span>›</span></button>
  <button class="item" id="ov2"><span style="font-size:1.4rem">🔊</span><span class="grow"><span class="t">Ses ayarları</span><br><span class="muted small">İngilizce ses ve konuşma hızı</span></span><span>›</span></button>
- <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.11.17-3 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
+ <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.11.17-4 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
  <button class="item" id="oa"><span style="font-size:1.4rem">ℹ️</span><span class="grow"><span class="t">Hakkında, gizlilik ve lisanslar</span><br><span class="muted small">Hata bildirimlerin de burada</span></span><span>›</span></button></div>`;
  app.appendChild(sec);$("ob").onclick=openBackup;$("oup").onclick=e=>UPD.manual(e.currentTarget);$("ov2").onclick=openVoice;$("oa").onclick=openAbout;}})();
 (function(){const _vh=viewHome;viewHome=function(){_vh();const p=document.createElement("p");p.className="small muted";p.style.cssText="text-align:center;margin-top:28px";p.innerHTML='Dil Atölyesi, geliştirici: <b>Okan Asl</b>';app.appendChild(p)}})();
@@ -4677,8 +4677,8 @@ function plHomeCard(){const k=dayKey();if(!st.plan)return`<button class="tile-ca
   <button class="btn alt sm" id="pls2" style="margin-top:10px">Planı aç ›</button></div>`;app.appendChild(d);$("pls2").onclick=()=>openPlanner("month")}catch(e){}}})();
 
 /* ===== YENİLİKLER: her sürümde bir kez gösterilir ===== */
-const WN_VER="2026.11.17-3";
-const WN_NOTES=["🖼️ Kelimelerde resim: yeni kelime kartlarında ve tekrarlarda somut kelimeler (hayvan, yiyecek, eşya…) resimle geliyor. Öğren sayfasında yeni Resimli tur.", "🧩 Dil bilgisi derslerinde Türkçeden İngilizce cümle kurma alıştırması.", "🕒 Zaman konularında (present perfect, past continuous…) zaman çizgisi ve Türkçe karşılığı.", "🎯 Sık hatalar turu: Türklerin en çok yanıldığı a/the, edat ve zaman soruları.", "ℹ️ Hakkında: veri etiketi, öğretim yöntemi ve kaynakça, sayılarla uygulama, destek bilgisi ve web'deki gizlilik politikası.", "✅ İlerlemen, puanların ve serin aynen duruyor."];
+const WN_VER="2026.11.17-4";
+const WN_NOTES=["🧭 Yeni seviye tespit sınavı: binlerce soruluk havuzdan, her cevaba göre yeniden hesaplanan uyarlanabilir test. Ölçüm kesinleşince kendiliğinden biter; sonuçta seviye olasılıkları, beceri profili ve dil bilgisi teşhisi var.", "🧑‍🏫 Koçun: Bugün sayfasında ve Çalışma planında. Planına uyup uymadığını, doğruluğunu, biriken tekrarları ve sınav hazırlığını izler; gerektiğinde uyarır ve ne yapacağını söyler.", "🕗 Planına söz ver: ne zaman, nerede ve olmazsa ne yapacağını belirle.", "🪞 Haftalık değerlendirme: ne iyi gitti, ne zorladı, neyi değiştireceksin.", "🧩 Dil bilgisi derslerinde 'Önce fark et' bölümü; zaman konularında önce anlam soruları, sonra boşluk doldurma, hata bulma ve cümle kurma.", "✅ İlerlemen, puanların ve serin aynen duruyor."];
 const WN_OLD=["🇹🇷 Yeni: Bütün örnek cümlelerin Türkçesi eklendi. 10.500'den fazla cümlenin altında artık ne anlama geldiği yazıyor (kelime kartlarında ve kelime listelerinde).", "📖 Yeni: Kısa hikâyeler. Her seviyede (A1'den C2'ye) 10 hikâye, toplam 60 hikâye. Her hikâyenin sonunda anlama soruları var. İngilizce sekmesinde \"Kısa hikâyeler\"e dokun.", "🎯 Yeni: Zayıf noktalarım. En çok yanlış yaptığın kelimeleri ve konuları tek sayfada gör, sadece onlardan alıştırma yap.", "🎭 Yeni: Diyaloglarda sesli rol yapma. Rolünü seç, \"Sesli söyleyerek\"i işaretle; sıra sana gelince cümleyi kendin söyle.", "🏅 Yeni: Rozetler ve aylık hedef. Ayda kaç gün çalışacağını seç; çalıştıkça 32 rozetin kilidini aç. Gelişim sekmesinde ve ana sayfada.", "🔎 Okurken bilinmeyen bir kelimeye dokununca anlamı artık internet olmadan da çıkıyor.", "🎓 İngilizce kursu: İngilizce kursu. Ders, kelime, diyalog, dinleme ve sınavdan oluşan üniteler; \"Devam et\"e bas, kurs seni sıradaki adıma götürsün. Ünite sınavını geçince sıradaki açılır.", "🏅 Seviye sınavı ve belge: Bir seviyenin tüm ünitelerini bitirince seviye sınavına gir, geçince başarı belgeni al.", "🗣️ Kelimelerin okunuşu eklendi: Her kelimenin yanında Türkçe harflerle nasıl okunduğu (vurgulu hece büyük harfle) ve uluslararası okunuşu yazıyor.", "🎮 Yeni: Kelime oyunları. Doğru mu yanlış mı, harfleri diz, adam asmaca, dinle ve bul, eşleştirme yarışı. Çalıştığın kelimelerle oynarsın, rekorun kaydedilir.", "👅 Türkler için telaffuz: th, w ile v, ship ile sheep gibi zor sesler; dinleyip ayırt etme alıştırması.", "🚫 Türklerin sık yaptığı 51 hata (\"I am agree\" gibi) ve alıştırmaları.", "🎙️ Dinle ve tekrar et: Cümleyi dinle, sesli söyle; doğru söylediğin kelimeler yeşil görünür. Ayrıca Türkçeden İngilizceye yazma alıştırması.", "🔁 Günlük tekrar ve daha akıllı kelime tekrarı: Aynı gün tekrar etmek artık kelimeyi erkenden \"öğrenildi\" saymıyor; bitirdiğin konular aralıklarla tekrar karşına çıkıyor."];
 function showWhatsNew(tries=0){let seen=null;try{seen=localStorage.getItem("da:seenVer")}catch(e){}
  if(seen===WN_VER)return;
@@ -6742,6 +6742,7 @@ const mkDocs=()=>{const local=!CL||ME.mode!=="cloud";return{
   secs:HOW.map(h=>[h[0]+" "+h[1],`<p>${h[2]}</p><p class="small"><b>Uygulamada:</b> ${h[3]}</p><p class="small muted"><b>Kaynak:</b> ${h[4]}</p>`]).concat([["Sınırlarımız",`<p>Telefon sürümünde sesli okuma cihazın makine sesiyle yapılır; dinleme becerisi için gerçek İngilizce yayınlar (podcast, dizi) dinlemeni öneririz. Konuşma ve yazma için kişiye özel düzeltme henüz yok; kendini kontrol listesi ve örnek cümlelerle karşılaştırma var.</p>`]])},
  log:{ic:"🗒️",t:"Sürüm notları",tag:"Yenilikler",d:"Her güncellemede neler değişti",min:2,sum:null,secs:null}}};
 const CHANGELOG=[
+ ["2026.11.17-4","17 Kasım 2026",["Uyarlanabilir seviye tespit sınavı (kesinliğe göre biten, olasılık ve teşhis raporlu)","Çalışma koçu: plan uyumu, doğruluk, tekrar ve sınav takibi","Planına söz: ne zaman, nerede, olmazsa ne","Haftalık değerlendirme","Dil bilgisinde Önce fark et ve anlam soruları"]],
  ["2026.11.17-3","17 Kasım 2026",["Kelime kartlarında ve yeni Resimli turda resimler","Derslerde Türkçeden cümle kurma","Zaman konularında zaman çizgisi ve Türkçe karşılığı","Türklerin sık yaptığı hatalar turu","Hakkında: veri etiketi, öğretim yöntemi ve kaynakça, sayılarla uygulama, web'deki gizlilik politikası"]],
  ["2026.11.17-2","17 Kasım 2026",["Hakkında bölümü yenilendi: gizlilik özeti, verilerin, KVKK aydınlatma metni ve erişilebilirlik beyanı","Dersler adım adım açılıyor","Yanlışta önce ipucu, sonra bir hak daha","Hız turu ve kolay okuma (dakikada kelime)","Ünitelerde Kendin yaz ve Kendin söyle","Tahmini kelime hazinen ve YDS sınav günü stratejisi","Kelime tekrarları sınav tarihine göre ayarlanıyor"]],
  ["2026.11.17-1","17 Kasım 2026",["Öğrenme yolu ve hafta şeridi","Ana sayfada sınav geri sayımı","Kelime kartları dokununca dönüyor","Oturum sonunda doğru, puan ve süre özeti"]],
@@ -6908,7 +6909,261 @@ function en10(){if(S||tab!=="en"||!$("lvs"))return;const t=app.querySelector(".u
  t.insertAdjacentHTML("beforeend",`<button class="uxtool" type="button" id="uxPR"><span class="ic">🖼️</span><b>Resimli tur</b><small>Resme bak, İngilizcesini seç</small></button><button class="uxtool" type="button" id="uxEH"><span class="ic">🎯</span><b>Sık hatalar</b><small>Türklerin en çok yanıldığı yapılar</small></button>`);
  $("uxPR").onclick=picRound;$("uxEH").onclick=errRound}
 const _ar10=afterRender;afterRender=function(){_ar10();try{lesson10();en10()}catch(e){}};
-window.uxPicRound=picRound;window.uxErrRound=errRound;
+window.uxPicRound=picRound;window.uxErrRound=errRound;window.uxTL=TL;
+})();
+
+/* ===== TASARIM 11 (2026.11.17-4): seviye tespit sınavı 3, dil bilgisi öğretim teknikleri, çalışma koçu ===== */
+(function(){
+const css=`
+.uxdist{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;align-items:end;height:120px;margin:12px 0 4px}
+.uxdist div{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;gap:4px}
+.uxdist i{display:block;width:100%;border-radius:8px 8px 3px 3px;background:var(--line2);min-height:4px}
+.uxdist div.on i{background:var(--pri)}.uxdist b{font-size:12px}.uxdist span{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.uxcando{display:grid;gap:8px;margin-top:8px}.uxcando div{background:var(--soft);border-radius:12px;padding:10px 12px}.uxcando b{display:block;font-size:13px;color:var(--muted)}
+.uxchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.uxchips button{min-height:40px;padding:0 12px;border-radius:99px;border:1px solid var(--line2);background:var(--card);color:var(--ink);font-weight:600;font-size:13px}
+.uxwarn{border-left:6px solid var(--hl)!important}
+.uxnotice{background:var(--soft);border-radius:14px;padding:12px 14px;margin:0 0 14px}
+.uxnotice mark{background:color-mix(in srgb,var(--hl) 55%,transparent);color:inherit;border-radius:4px;padding:0 2px;font-weight:700}
+/* koç */
+.uxcoach{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin:0 0 16px;box-shadow:var(--sh1);display:flex;gap:12px;align-items:flex-start}
+.uxcoach .av{flex:0 0 44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:22px;background:color-mix(in srgb,var(--pri) 14%,var(--card))}
+.uxcoach .bd{flex:1;min-width:0}.uxcoach .tt{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.02em;text-transform:uppercase}
+.uxcoach b.m{display:block;margin:2px 0;font-size:var(--fs-md,1rem);line-height:1.35}.uxcoach p{margin:0;font-size:14px;color:var(--muted);line-height:1.45}
+.uxcoach .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.uxcoach.bad{border-left:6px solid var(--bad)}.uxcoach.warn{border-left:6px solid var(--hl)}.uxcoach.ok{border-left:6px solid var(--ok)}.uxcoach.info{border-left:6px solid var(--pri)}
+.uxpromise{display:inline-flex;gap:6px;align-items:center;font-size:13px;font-weight:600;background:var(--soft);border-radius:99px;padding:4px 10px;margin-top:8px}
+.uxcl{display:grid;gap:10px}
+.uxkpi{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 0 14px}@media(min-width:768px){.uxkpi{grid-template-columns:repeat(4,1fr)}}
+.uxkpi div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}.uxkpi b{display:block;font:800 1.4rem/1.1 "Bricolage Grotesque",sans-serif;font-variant-numeric:tabular-nums}.uxkpi span{font-size:12.5px;color:var(--muted)}
+.uxchart{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin:0 0 14px}.uxchart svg{width:100%;height:auto;display:block}
+.uxlegend{display:flex;gap:14px;font-size:12px;color:var(--muted);margin-top:6px}.uxlegend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.uxq{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin:0 0 12px}
+.uxq textarea{width:100%;min-height:72px;font:inherit;padding:10px;border-radius:12px;border:1px solid var(--line2);background:var(--card);color:var(--ink);margin-top:6px}
+.uxmeter{display:flex;gap:4px;margin:6px 0}.uxmeter i{flex:1;height:8px;border-radius:99px;background:var(--line2)}.uxmeter i.on{background:var(--ok)}
+.uxsel{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.uxsel button{min-height:44px;padding:0 14px;border-radius:99px;border:1px solid var(--line2);background:var(--card);color:var(--ink);font-weight:600;font-size:14px}
+.uxsel button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+`;
+const s=document.createElement("style");s.id="ux11";s.textContent=css;document.head.appendChild(s);
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+
+/* ================= 1) SEVİYE TESPİT SINAVI 3 ================= */
+const CANDO2={
+ A1:["Kendini ve aileni tanıtabilir, çok basit soruları anlayıp cevaplayabilirsin.","Kısa tabelaları, basit formları ve tanıdık kelimeleri okuyabilirsin."],
+ A2:["Alışveriş, yol tarifi, iş gibi günlük konularda kısa konuşmalar yapabilirsin.","Kısa, basit mesajları ve ilanları anlayabilirsin."],
+ B1:["Tanıdık konulardaki konuşma ve metinlerin ana fikrini anlayabilirsin.","Deneyimlerini, planlarını ve fikirlerini basitçe gerekçelendirerek anlatabilirsin."],
+ B2:["Soyut konulardaki karmaşık metinlerin ana fikrini anlayabilirsin.","Ana dili İngilizce olan biriyle zorlanmadan, akıcı konuşabilirsin. YDS'de 60–75 bandı."],
+ C1:["Uzun ve zor metinleri, ima edilen anlamları anlayabilirsin.","Dili akademik ve mesleki amaçlarla esnek kullanabilirsin. YDS'de 75 üstü."],
+ C2:["Okuduğun ve duyduğun hemen her şeyi kolayca anlayabilirsin.","İnce anlam farklarını bile kesin biçimde ifade edebilirsin."]};
+window.uxCando=CANDO2;
+let _bank3=null;
+function bank3(){if(_bank3)return _bank3;const B=ptBank();
+ const gv=[...PT_GV.map(x=>({q:x.q,o:x.o,lv:x.lv})),...PT_GV2.map(x=>({q:x[0],o:x[1],lv:x[2]})),
+  ...GRAMMAR.filter(g=>LESSON[g[1]]).flatMap(g=>LESSON[g[1]].q.map(q=>({q:q[0],o:q[1],lv:LVI(g[0]),gid:g[1]})))].map((x,i)=>({...x,type:"mc",k:"g"+i}));
+ const rd=[...B.rd];BOOKS.filter(b=>b.lv&&!b.gen).forEach(b=>(b.ch||[]).forEach((c,ci)=>{const n=(c.x||"").split(/\s+/).length;if(n<40||n>230)return;(c.q||[]).forEach((q,qi)=>{if(q[1]&&q[1].length>=3)rd.push({type:"mc",p:c.x,q:q[0],o:q[1],lv:LVI(b.lv),k:"b:"+b.id+":"+ci+":"+qi})})}));
+ const ls=[...B.ls];UNITS.filter(u=>u.kind==="dlg"&&u.lv).forEach(u=>{const lines=(u.s||[]).filter(l=>{const n=l[0].split(/\s+/).length;return n>=5&&n<=18&&l[1]});
+  lines.forEach((l,i)=>{const others=pickN(lines.filter(x=>x!==l).map(x=>x[1]),3);if(others.length<3)return;ls.push({type:"mc",listen:l[0],limit:2,q:"Ne duydun? Anlamını seç.",o:[l[1],...others],lv:LVI(u.lv),k:"d:"+u.id+":"+i})})});
+ _bank3={gv,rd,ls};return _bank3}
+const MODES={full:{max:40,min:24,sd:.30,mk:{g:6,v:5,r:4,l:4},q:{g:.32,v:.24,r:.22,l:.22}},quick:{max:24,min:14,sd:.42,mk:{g:4,v:3,r:3,l:3},q:{g:.32,v:.26,r:.21,l:.21}}};
+const SKN={v:"Kelime bilgisi",g:"Dil bilgisi",r:"Okuma",l:"Dinleme"};
+startPlace=function(){S=null;const hist=st.placeHist||[];const B=bank3();
+ app.innerHTML=`<button class="link" id="bk">‹ Geri</button><h1 style="margin-top:14px"><span class="mk">Seviye tespit sınavı</span></h1>
+ <p class="muted" style="margin-top:6px">Duolingo English Test ve EF SET gibi uluslararası sınavların yöntemiyle çalışır: her cevaptan sonra seviyen istatistiksel olarak yeniden hesaplanır, sıradaki soru tam senin seviyene göre seçilir. Ölçüm yeterince kesinleşince test kendiliğinden biter.</p>
+ <div class="uxkpi" style="margin-top:14px"><div><b>${B.gv.length.toLocaleString("tr")}</b><span>dil bilgisi sorusu</span></div><div><b>8.657</b><span>kelimeden seçilen sorular</span></div><div><b>${B.rd.length}</b><span>okuma sorusu</span></div><div><b>${B.ls.length}</b><span>dinleme sorusu</span></div></div>
+ <div class="card stack"><b>Nasıl çalışır?</b>
+  <div class="small">1. Kendini değerlendirirsin; bu sadece başlangıç noktasıdır.</div>
+  <div class="small">2. İlk 4 soru giderek zorlaşır ve seviyeni kabaca bulur.</div>
+  <div class="small">3. Sonra dört beceri sırayla gelir: kelime, dil bilgisi, okuma, dinleme. Her soru, o anki tahminine en çok bilgi verecek zorlukta seçilir.</div>
+  <div class="small">4. Sonuç A1'den C2'ye 6 seviyede, alt seviyesiyle (ör. B1+) ve ne kadar emin olduğumuzla birlikte verilir.</div></div>
+ <h2 style="margin-top:20px">Test türü</h2>
+ <button class="pick" data-m="full" aria-pressed="true"><b>Ayrıntılı</b>: 24–40 soru, yaklaşık 20–30 dakika<br><span class="muted small">Beceri profili, dil bilgisi teşhisi ve en kesin sonuç.</span></button>
+ <button class="pick" data-m="quick"><b>Hızlı</b>: 14–24 soru, yaklaşık 10–15 dakika<br><span class="muted small">Kabaca seviye için.</span></button>
+ <p class="muted small" style="margin-top:12px">Cevaplar test bitene kadar gösterilmez. Bilmediğin soruda <b>"Bilmiyorum"</b> de: tahmin sonucu bozar. Sessiz bir yerde ol ve sesini aç. Daha önce gördüğün sorular mümkün olduğunca tekrar gelmez.</p>
+ ${hist.length?`<div class="card" style="margin-top:12px"><b>Önceki sonuçların</b><div class="small" style="margin-top:6px">${hist.slice(-5).reverse().map(h=>`${h.at}: <b>${esc(h.lvl)}</b>`).join("<br>")}</div></div>`:""}
+ <button class="btn pri wide" id="go" style="margin-top:14px">Devam</button>`;
+ let mode="full";on(".pick[data-m]",el=>{mode=el.dataset.m;document.querySelectorAll(".pick[data-m]").forEach(b=>b.setAttribute("aria-pressed",b===el))});
+ $("bk").onclick=()=>setTab(tab);$("go").onclick=()=>selfRate(mode);window.scrollTo(0,0)};
+runPlace2=function(mode,prior){const M=MODES[mode]||MODES.full;const B=bank3();
+ const seen=new Set(st.ptSeen||[]),used=new Set();let G=post(prior,1.4);const SP={v:post(prior,1.6),g:post(prior,1.6),r:post(prior,1.6),l:post(prior,1.6)};
+ const log=[],cnt={v:0,g:0,r:0,l:0};const calib=[prior-1.5,prior-.5,prior+.5,prior+1.5];let lastT=Date.now(),lastP=null;const t0=Date.now();
+ const nextSkill=()=>{if(log.length<4)return["g","v","r","l"][log.length];let best=null,bv=1e9;for(const k of ["g","v","r","l"]){const v=cnt[k]/M.q[k]+(lastP===k?.25:0);if(v<bv){bv=v;best=k}}return best};
+ const target=()=>log.length<4?clamp(calib[log.length],1,6):clamp(stats(G).m+.18,1,6);
+ const pick=()=>{const k=nextSkill(),tgt=target();lastP=k;let it;
+  if(k==="v"){let tries=0;do{it=vocItem(clamp(Math.round(tgt+(Math.random()-.5)*.6),1,6));tries++}while(used.has(it.k)&&tries<8)}
+  else{const bank=k==="g"?B.gv:k==="r"?B.rd:B.ls;const pool=bank.filter(x=>!used.has(x.k));const sc=x=>Math.abs(x.lv-tgt)+(seen.has(x.k)?1.2:0)+Math.random()*.4;it=pool.sort((a,b)=>sc(a)-sc(b))[0]}
+  used.add(it.k);return{...it,o:it.o.slice(),_o:null,_sk:k,step:`${SKN[k]} · soru ${log.length+1}`}};
+ const done=()=>{const n=log.length;if(n>=M.max)return true;if(n<M.min)return false;if(Object.keys(M.mk).some(k=>cnt[k]<M.mk[k]))return false;return stats(G).sd<M.sd};
+ startSession("Seviye tespit sınavı",[pick()],{silent:true,idk:true,total:M.max,back:()=>setTab(tab),
+  adaptive:(ok,it,idk)=>{const now=Date.now(),dt=now-lastT;lastT=now;const k=it._sk;const c=idk?0:1/it.o.length;G=upd(G,it.lv,ok,c);SP[k]=upd(SP[k],it.lv,ok,c);cnt[k]++;
+   log.push({k,lv:it.lv,ok,idk:!!idk,key:it.k,gid:it.gid||null,dt});if(!done())S.items.push(pick());else S.total=S.items.length},
+  onEnd:()=>{const g=stats(G),sk={};Object.keys(SP).forEach(k=>{sk[k]=cnt[k]?stats(SP[k]):null});
+   const dist=LEVELS.map(L=>{let m=0;G.forEach((p,i)=>{if(th2L(TH[i])===L)m+=p});return m});const tot=dist.reduce((a,b)=>a+b,0);
+   const vocTh=sk.v?sk.v.m:g.m;let vsize=0;LEVELS.forEach((l,i)=>{vsize+=WCOUNT[l]/(1+Math.exp(-1.7*(vocTh-(i+1))))});
+   const lvl=subL(g.m);st.level=th2L(g.m);st.viewLv=st.level;
+   const wg=[...new Set(log.filter(x=>x.gid&&!x.ok&&x.lv<=Math.round(g.m)+0.5).map(x=>x.gid))].slice(0,6);
+   const fast=log.filter(x=>!x.ok&&!x.idk&&x.dt<3500).length;
+   const res={v:3,mode,at:dayKey(),th:+g.m.toFixed(2),sd:+g.sd.toFixed(2),lvl,dist:dist.map(x=>Math.round(100*x/tot)),
+    sk:Object.fromEntries(Object.entries(sk).filter(([k,v])=>v).map(([k,v])=>[k,+v.m.toFixed(2)])),skd:Object.fromEntries(Object.entries(sk).filter(([k,v])=>v).map(([k,v])=>[k,+v.sd.toFixed(2)])),
+    vsize:Math.round(vsize/50)*50,n:log.length,ok:log.filter(x=>x.ok).length,idk:log.filter(x=>x.idk).length,wg,fast,min:Math.max(1,Math.round((Date.now()-t0)/60000)),next:dayKey(30)};
+   st.place={g:th2L((sk.g||g).m),r:th2L((sk.r||g).m),l:th2L((sk.l||g).m),o:res.th,at:res.at};st.place2=res;st.placeHist=[...(st.placeHist||[]),{at:res.at,lvl,th:res.th}].slice(-20);
+   st.ptSeen=[...new Set([...(st.ptSeen||[]),...log.map(x=>x.key)])].slice(-600);save();addXP(40)},
+  endScreen:placeResult2})};
+placeResult2=function(){S=null;const r=st.place2,lv=st.level;if(!r)return setTab("test");
+ const ent=Object.entries(r.sk).sort((a,b)=>a[1]-b[1]);const weak=ent[0],strong=ent[ent.length-1];
+ const yds={A1:"20 altı",A2:"20–35",B1:"35–55",B2:"55–75",C1:"75–90",C2:"90 ve üzeri"}[lv];
+ const li=LEVELS.indexOf(lv);const top=(r.dist||[]).map((p,i)=>[LEVELS[i],p]).sort((a,b)=>b[1]-a[1]);
+ const sure=top[0][1]>=70?"Sonuçtan oldukça eminiz.":top[0][1]>=50?`Büyük olasılıkla ${top[0][0]}; ${top[1][0]} olma olasılığı da var.`:`${top[0][0]} ile ${top[1][0]} arasındasın; testi bir süre sonra tekrar çözmek sonucu netleştirir.`;
+ const bar=(k,v)=>`<div style="margin-top:12px"><div class="row"><span class="grow">${SKN[k]}</span><b>${subL(v)}</b></div><div class="bar" style="height:14px;position:relative">${[1,2,3,4,5].map(i=>`<span style="position:absolute;left:${i*100/6}%;top:0;bottom:0;width:1px;background:var(--card)"></span>`).join("")}<i style="width:${Math.max(4,Math.min(100,(v-0.3)/6.4*100))}%"></i></div></div>`;
+ const hist=st.placeHist||[];const prev=hist.length>1?hist[hist.length-2]:null;
+ const go={v:()=>{st.viewLv=lv;openWordLevel(lv)},g:()=>{st.viewLv=lv;setTab("en")},r:()=>{st.libLv=lv;setTab("lib")},l:()=>{st.viewLv=lv;setTab("en")}};
+ const tip={v:`${lv} kelime setleri ve günlük kelime tekrarıyla başla.`,g:`${lv} dil bilgisi derslerine sırayla çalış.`,r:`Kütüphanede ${lv} kitaplarını oku; YDS için okuma parçası çöz.`,l:`${lv} diyaloglarını önce Türkçesiz dinle, sonra gölge tekrar yap.`};
+ const nx=LEVELS[Math.min(5,li+1)];
+ app.innerHTML=`<div class="cel"><p class="muted">Genel seviyen</p><div class="n">${esc(r.lvl)}</div><h2 style="margin-top:6px">${LVNAME[lv]||""}</h2>
+ <p class="small muted">${r.ok}/${r.n} doğru${r.idk?", "+r.idk+" kez bilmiyorum":""} · ${r.min} dakika</p>
+ ${prev?`<p class="small">${prev.at} tarihli önceki sonucun: <b>${esc(prev.lvl)}</b> ${r.th>prev.th+0.15?"📈 ilerleme var!":r.th<prev.th-0.15?"(biraz düşük; günlük farklılık olabilir)":"(benzer)"}</p>`:""}</div>
+ <div class="card"><b>Seviye olasılıkları</b><p class="small muted" style="margin:2px 0 0">${sure}</p>
+  <div class="uxdist" role="img" aria-label="${LEVELS.map((L,i)=>L+" yüzde "+r.dist[i]).join(", ")}">${LEVELS.map((L,i)=>`<div class="${L===lv?"on":""}"><span>%${r.dist[i]}</span><i style="height:${Math.max(3,r.dist[i])}%"></i><b>${L}</b></div>`).join("")}</div></div>
+ <div class="card" style="margin-top:12px"><b>Bu seviyede neler yapabilirsin?</b><div class="uxcando"><div><b>${lv} · şu an</b>${CANDO2[lv].map(esc).join("<br>")}</div>${nx!==lv?`<div><b>${nx} · sıradaki hedefin</b>${CANDO2[nx].map(esc).join("<br>")}</div>`:""}</div></div>
+ <div class="card" style="margin-top:12px"><b>Beceri profilin</b><div class="row small muted" style="justify-content:space-between;margin-top:10px">${LEVELS.map(l=>`<span>${l}</span>`).join("")}</div>${Object.entries(r.sk).map(([k,v])=>bar(k,v)).join("")}
+  <p class="small" style="margin:12px 0 0"><b>Güçlü yanın:</b> ${SKN[strong[0]]} (${subL(strong[1])}) · <b>Geliştirmen gereken:</b> ${SKN[weak[0]]} (${subL(weak[1])}). ${esc(tip[weak[0]])}</p></div>
+ ${r.wg&&r.wg.length?`<div class="card" style="margin-top:12px"><b>Dil bilgisi teşhisi</b><p class="small muted" style="margin:2px 0 0">Seviyendeki ya da altındaki bu konularda yanlış yaptın. Dokun, dersi aç:</p><div class="uxchips">${r.wg.map(id=>{const g=GRAMMAR.find(x=>x[1]===id);return g?`<button type="button" data-gid="${id}">${g[0]} · ${esc(g[2])}</button>`:""}).join("")}</div></div>`:""}
+ ${r.fast>=4?`<div class="card uxwarn" style="margin-top:12px"><b>⚠️ Bazı sorulara çok hızlı cevap verdin</b><p class="small muted" style="margin:4px 0 0">${r.fast} soruyu 3–4 saniyede yanlış cevapladın. Bu tahmin olabilir ve sonucu düşürür. Bilmediğinde "Bilmiyorum" demek daha doğru sonuç verir.</p></div>`:""}
+ <div class="grid2" style="margin-top:12px">
+  <div class="card"><b>Tahmini kelime hazinen</b><div style="font:800 1.8rem/1.2 'Bricolage Grotesque',sans-serif;margin-top:6px">~${r.vsize.toLocaleString("tr-TR")}</div><p class="small muted" style="margin-bottom:0">8.657 kelimelik CEFR listesinde bildiğin tahmini kelime sayısı.</p></div>
+  <div class="card"><b>YDS için kaba tahmin</b><div style="font:800 1.8rem/1.2 'Bricolage Grotesque',sans-serif;margin-top:6px">${yds}</div><p class="small muted" style="margin-bottom:0">Seviye ile YDS puanı arasındaki genel ilişkiye dayanır; soru teknikleri puanı belirgin artırır.</p></div></div>
+ <div class="stack" style="margin-top:16px"><button class="btn pri wide" id="pa">Kursu ${lv} seviyesinden sürdür</button>${st.plan?`<button class="btn alt wide" id="pp">Çalışma planımı ${lv} seviyesine göre güncelle</button>`:`<button class="btn alt wide" id="pp">Bu seviyeye göre çalışma planı oluştur</button>`}<button class="btn alt wide" id="pw">Zayıf yanımdan başla: ${SKN[weak[0]]}</button></div>
+ <p class="small muted" style="margin-top:14px">Sınırlar: Konuşma ve yazma bu testte ölçülmez. Sonuç CEFR'ye göre bir tahmindir, resmî belge yerine geçmez. Ölçüm hassasiyeti ±${r.sd<0.35?"çeyrek":r.sd<0.55?"yarım":"bir"} seviye. Bir sonraki ölçüm için önerilen tarih: <b>${r.next}</b> (koçun hatırlatacak).</p>`;
+ on("[data-gid]",el=>openLesson(el.dataset.gid));
+ $("pa").onclick=()=>{try{CS().cur=lv;save()}catch(e){}setTab("home")};
+ $("pp").onclick=()=>{if(st.plan){st.plan.level=lv;save();openPlanner()}else planSetup()};
+ $("pw").onclick=go[weak[0]];window.scrollTo(0,0);const cl=()=>app.querySelectorAll(".cel .uxstats,.cel .uxstreak").forEach(e=>e.remove());setTimeout(cl,0);setTimeout(cl,300)};
+
+/* ================= 2) DİL BİLGİSİ: fark et → anlam → kalıp → hata → üret ================= */
+const STOP=new Set("i you he she it we they the a an to of and or not my your his her our their me him us them this that these those is am are be".split(" "));
+function formTokens(L){const t=new Set();(L.form||[]).slice(1).forEach(r=>r.slice(1).forEach(c=>String(c).replace(/\(.*?\)/g," ").split(/[\s\/,;+…\.]+/).forEach(w=>{w=w.toLowerCase().replace(/[^a-z'-]/g,"");if(w.length>=2&&!STOP.has(w))t.add(w)})));
+ const id=L.__id;if(["be"].includes(id))["am","is","are"].forEach(w=>t.add(w));if(id==="art")["a","an","the"].forEach(w=>t.add(w));return[...t]}
+function markUp(en,toks){if(!toks.length)return esc(en);const re=new RegExp("\\b("+toks.map(t=>t.replace(/[-']/g,m=>"\\"+m)).join("|")+")\\b","gi");return esc(en).replace(re,"<mark>$1</mark>")}
+const _ol11=openLesson;openLesson=function(id){const r=_ol11.apply(this,arguments);try{const L=LESSON[id];if(!L)return r;L.__id=id;const toks=formTokens(L);
+ const eg=(L.eg||[]).filter(e=>toks.length&&new RegExp("\\b("+toks.map(t=>t.replace(/[-']/g,m=>"\\"+m)).join("|")+")\\b","i").test(e[0])).slice(0,3);
+ const konu=[...app.querySelectorAll(":scope>section.sec")].find(x=>/^Konu anlatımı/.test(((x.querySelector("h2")||{}).textContent||"").trim()));
+ if(eg.length>=2&&konu&&!app.querySelector(".uxnotice")){const sec=document.createElement("section");sec.className="sec";
+  sec.innerHTML=`<h2>Önce fark et</h2><div class="uxnotice"><p class="small muted" style="margin:0 0 8px">Kuralı okumadan önce bu cümlelere bak. İşaretli kelimeler neyi gösteriyor, ortak noktaları ne? Bir an düşün.</p>${eg.map(e=>`<p lang="en" style="margin:6px 0"><b>${markUp(e[0],toks)}</b><br><span class="small muted">${esc(e[1])}</span></p>`).join("")}<p class="small" style="margin:10px 0 0">💭 Tahmin ettin mi? Şimdi <b>Konu anlatımı</b>'nda kuralı kontrol et.</p></div>`;
+  konu.before(sec)}}catch(e){}return r};
+const _lit11=lessonItems;lessonItems=function(id){let r=_lit11.apply(this,arguments);try{const TL=window.uxTL||{};const d=TL[id];
+ if(d){const what=d.find(x=>typeof x==="string");const others=Object.entries(TL).filter(([k])=>k!==id).map(([k,v])=>v.find(x=>typeof x==="string"));
+  const eg=pickN((LESSON[id].eg||[]).filter(e=>e[0].split(" ").length>=3),2);
+  eg.forEach(e=>r.push({type:"mc",si:1,q:`"${e[0]}"\n\nBu cümle hangi durumu anlatıyor?`,o:[what,...pickN(others,3)],why:`${e[0]} = ${e[1]}\nBu yapı şunu anlatır: ${what}.`,cat:(GRAMMAR.find(g=>g[1]===id)||[])[2]}))}
+ const rank=it=>it.si?0:it.type==="tiles"?3:(it.o&&it.o.length===2)?2:1;r=r.map((x,i)=>[x,i]).sort((a,b)=>rank(a[0])-rank(b[0])||a[1]-b[1]).map(x=>x[0])}catch(e){}return r};
+function lesson11(){if(S)return;const qz=$("qz");if(!qz||qz.dataset.ux11)return;const h=app.querySelector("h1");const x=GRAMMAR.find(g=>h&&g[2]===h.textContent.trim());if(!x||!(window.uxTL||{})[x[1]])return;qz.dataset.ux11=1;
+ const b=qz.querySelector("b");if(b)b.textContent=b.textContent.replace(/\((\d+) soru\)/,(m,n)=>`(${+n+2} soru)`);const sm=qz.querySelector(".muted");if(sm)sm.textContent="Önce 2 anlam sorusu, sonra "+sm.textContent.charAt(0).toLowerCase()+sm.textContent.slice(1)}
+
+/* ================= 3) ÇALIŞMA KOÇU ================= */
+const CO=()=>st.coach||(st.coach={rev:{},hide:{}});
+const actDay=k=>(st.act||{})[k]||[];
+function dayMin(k){const a=actDay(k).reduce((s,e)=>s+(e.min||0),0);const p=Math.round(Object.values((st.ptime||{})[k]||{}).reduce((s,x)=>s+x,0)/60);return Math.max(a,p)}
+function planned(k){try{return st.plan?plTasks(k).reduce((s,x)=>s+x.m,0):0}catch(e){return 0}}
+function accRange(from,to){let ok=0,n=0;for(let i=from;i<=to;i++)actDay(dayKey(-i)).forEach(e=>{if(e.n){ok+=e.ok||0;n+=e.n}});return n?{p:Math.round(100*ok/n),n}:null}
+function adh(days){if(!st.plan)return null;let t=0,n=0,miss=0,run=0,maxRun=0;for(let i=days;i>=1;i--){const k=dayKey(-i);if(k<st.plan.start)continue;let p=plDayPct(k);if(p==null)continue;const pm=planned(k);if(pm)p=Math.max(p,Math.min(100,Math.round(100*dayMin(k)/pm)));n++;t+=p;if(p<20){miss++;run++;maxRun=Math.max(maxRun,run)}else run=0}
+ return n?{p:Math.round(t/n),n,miss,run}:null}
+const hourNow=()=>{const d=new Date();return d.getHours()+d.getMinutes()/60};
+const hh=t=>{const m=String(t||"").match(/(\d+):(\d+)/);return m?+m[1]+(+m[2])/60:null};
+function signals(){const out=[];const add=(lvl,ic,t,d,acts,id)=>out.push({lvl,ic,t,d,acts:acts||[],id:id||t});const today=dayKey();const P=st.plan;
+ const tp=P?plDayPct(today):null,tm=planned(today),done=dayMin(today);
+ // plan yoksa
+ if(!P)add("info","📅","Henüz bir çalışma planın yok","Sınav tarihini, gününü ve süreni söyle; her gün ne çalışacağını ben çıkarayım.",[["Plan oluştur",()=>planSetup()]],"noplan");
+ if(P&&!P.when)add("info","🕗","Ne zaman ve nerede çalışacaksın?","Önceden 'Şu olunca, şunu yaparım' diye karar verenlerin planına uyma olasılığı belirgin biçimde artar. 1 dakikada belirleyelim.",[["Belirle",openIntent]],"intent");
+ // bugün
+ if(P&&tm>0){const w=P.when&&hh(P.when.t);const h=hourNow();
+  if(tp>=100)add("ok","✅","Bugünkü planını tamamladın","Harika. Bugün ekstra yapmak yerine dinlenmek de öğrenmenin parçası.",[],"todaydone");
+  else if(w!=null&&h>=w+0.5&&(tp||0)<20)add("warn","⏰",`Saat ${P.when.t} geçti, bugünkü çalışmana henüz başlamadın`,`Sözün: ${P.when.cue||"belirlediğin saatte"}. Hepsini yapamasan da 10 dakikayla başla; zinciri kırmamak süreden önemli.`,[["Hemen başla",()=>openPlanner("today")],["10 dk kelime",startVocabDay]],"late");
+  else if(h>=19&&(tp||0)<50)add("warn","🌙",`Bugün planının %${tp||0}'ini yaptın`,`Kalan ${Math.max(0,tm-done)} dakika. Yatmadan önce kısa bir tekrar bile bugünü kurtarır.`,[["Planı aç",()=>openPlanner("today")]],"evening")}
+ // uyum
+ const a7=adh(7),a14=adh(14);
+ if(a7&&a7.run>=2)add("bad","🚨",`Son ${a7.run} planlı gününde çalışmadın`,"Plan fazla mı geldi? Süreyi kısaltmak bırakmaktan iyidir. Ya da bugün sadece 10 dakika yap ve zinciri yeniden başlat.",[["Bugün 10 dk",startVocabDay],["Planı hafiflet",lighten]],"miss");
+ else if(a14&&a14.n>=4&&a14.p<50)add("warn","📉",`Son 2 haftada planına uyumun %${a14.p}`,"Hedef gerçekçi olmayabilir. Araştırmalar, zor ama ulaşılabilir hedeflerin en iyi sonucu verdiğini gösteriyor. Günlük süreyi biraz azaltmayı dene.",[["Planı hafiflet",lighten],["Planı düzenle",()=>planSetup()]],"lowadh");
+ else if(a7&&a7.n>=3&&a7.p>=85)add("ok","🏅",`Bu hafta planına uyumun %${a7.p}`,"Böyle devam et. Düzenli kısa çalışma, seyrek uzun çalışmadan daha kalıcıdır.",[],"goodadh");
+ // aşırı yüklenme
+ if(P){let over=0;for(let i=1;i<=3;i++){const k=dayKey(-i),pm=planned(k);if(pm&&dayMin(k)>pm*2)over++}if(over>=3)add("info","🛌","Üç gündür planının iki katı çalışıyorsun","Çok iyi, ama yorgunluk kalıcılığı düşürür. Uyku, öğrendiklerinin yerleşmesi için gerekli; ara vermeyi unutma.",[],"over")}
+ // tekrar birikmesi
+ let due=0;try{due=dueWords().length}catch(e){}
+ if(due>=60)add("warn","🔁",`${due} kelime tekrar bekliyor`,"Tekrarlar birikince unutma hızlanır. Bugün yeni kelime yerine önce tekrarları bitir.",[["Tekrara başla",startVocabDay]],"due");
+ else if(due>=15)add("info","🔁",`${due} kelimenin tekrar zamanı geldi`,"Unutmak üzereyken tekrar etmek en kalıcı yoldur.",[["Tekrar et",startVocabDay]],"due2");
+ // dil bilgisi tekrarı
+ try{const t=today;st.grev=st.grev||{};const dg=GRAMMAR.filter(g=>LESSON[g[1]]&&gramStatus(g[1])==="done"&&(!st.grev[g[1]]||st.grev[g[1]].d<=t)).length;if(dg>=3)add("info","🧩",`${dg} dil bilgisi konusunun tekrar zamanı`,"Bitirdiğin konuları aralıklarla karışık tekrar etmek, tek tek çalışmaktan daha kalıcıdır.",[["Karışık tekrar",dailyReview]],"grev")}catch(e){}
+ // doğruluk
+ const n7=accRange(1,7),p7=accRange(8,14);
+ if(n7&&p7&&n7.n>=30&&p7.n>=30&&n7.p<p7.p-10)add("warn","🎯",`Doğruluğun düştü: %${p7.p} → %${n7.p}`,"Acele ediyor ya da zorlaştırmış olabilirsin. Yanlışlarını tekrar et, gerekirse bir önceki seviyeye dön.",[...(st.mist&&st.mist.length?[["Hata defteri",startMist]]:[]),["Sık hatalar",()=>window.uxErrRound&&window.uxErrRound()]],"accdrop");
+ else if(n7&&n7.n>=40&&n7.p>=93)add("info","🚀",`Son 7 günde doğruluğun %${n7.p}`,"Çok kolay geliyor olabilir. Bir üst seviyeye geçmeyi ya da seviye testini tekrar çözmeyi düşün.",[["Seviye testi",startPlace]],"easy");
+ else if(n7&&n7.n>=30&&n7.p<60)add("warn","🧗",`Son 7 günde doğruluğun %${n7.p}`,"Sorular seviyenin üstünde olabilir. Doğruluk %70–85 arasındayken en iyi öğrenirsin.",[["Seviye testi",startPlace]],"hard");
+ // zayıf alan
+ try{const q=Object.entries(st.qs||{}).filter(([k,v])=>v.n>=12).map(([k,v])=>[k,Math.round(100*v.ok/v.n),v.n]).sort((a,b)=>a[1]-b[1])[0];if(q&&q[1]<65)add("info","🔎",`En zayıf alanın: ${q[0]} (%${q[1]})`,"Bu hafta bu konuya biraz daha zaman ayır.",[],"weak")}catch(e){}
+ // sınav
+ if(P&&P.goal!=="en"&&P.date){const left=Math.round((plD(P.date)-plD(today))/864e5);const ms=(st.mocks||[]);const last=ms[ms.length-1];
+  if(left>=0&&left<=60){const recent=ms.filter(m=>m.at>=dayKey(-10)).length;if(!recent)add(left<=21?"bad":"warn","📝",`Sınava ${left} gün kaldı, son 10 günde deneme çözmedin`,"Süre tutarak deneme çözmek, sınav gününe en iyi hazırlıktır.",[["Deneme çöz",()=>{setTab("test")}]],"mock")}
+  if(last&&P.target&&left>=0){const gap=Math.round(P.target-last.score);if(gap>15&&left<45)add("warn","🎯",`Son denemen ${Math.round(last.score)}, hedefin ${P.target}`,`Aradaki ${gap} puanı kapatmak için en çok puan kaybettiğin bölüme odaklan.`,[["Deneme sonuçları",()=>setTab("test")]],"gap");else if(gap<=0)add("ok","🏆",`Son denemende hedefini yakaladın (${Math.round(last.score)})`,"Şimdi bu seviyeyi korumak için düzenli deneme ve kelime tekrarına devam.",[],"hit")}}
+ // seviye testi zamanı
+ const pl=st.place2;if(!pl&&totalXP()>200)add("info","🧭","Seviyeni ölçelim","Seviye tespit sınavı sana en uygun dersleri ve planı seçmemi sağlar.",[["Sınava gir",startPlace]],"place0");
+ else if(pl&&pl.next&&today>=pl.next)add("info","🧭","Seviye testini tekrar çözme zamanı","Son ölçümün "+pl.at+". İlerlemeni görmek için yeniden ölç.",[["Sınava gir",startPlace]],"place");
+ // haftalık değerlendirme
+ const wk=plMonday(today),dow=new Date().getDay();if((dow===0||dow===1)&&!CO().rev[wk]&&!CO().rev[plAdd(wk,-7)]&&totalXP()>0)add("info","🪞","Haftalık değerlendirme zamanı","2 dakika: Ne iyi gitti, ne zorladı, gelecek hafta neyi değiştireceksin? Kendini değerlendirmek öğrenmeyi hızlandırır.",[["Başla",openReflect]],"reflect");
+ // seri tehlikede
+ try{const sk=streak();if(sk>=3&&todayXP()===0&&hourNow()>=20)add("warn","🔥",`${sk} günlük serin tehlikede`,"Bugün 5 dakikalık bir tekrar seriyi korur.",[["5 dk tekrar",startVocabDay]],"streak")}catch(e){}
+ if(!out.length)add("ok","🌱","Her şey yolunda","Planına uyuyorsun ve tekrarların güncel. Bugün de küçük bir adım at.",[["Bugünün kelimeleri",startVocabDay]],"fine");
+ const hide=CO().hide[today]||[];const ord={bad:0,warn:1,info:2,ok:3};return out.filter(x=>!hide.includes(x.id)).sort((a,b)=>ord[a.lvl]-ord[b.lvl])}
+function lighten(){if(!st.plan)return;const opts=[20,30,45,60,90,120,180];const cur=st.plan.min||60;const lower=opts.filter(m=>m<cur).pop()||cur;
+ uiDialog(`Günlük süreni ${cur} dakikadan ${lower} dakikaya indirelim mi? Daha kısa ama her gün çalışmak, uzun ama düzensiz çalışmaktan daha iyidir.`,{ok:"Evet, indir",cancel:"Vazgeç"}).then(ok=>{if(ok===true){st.plan.min=lower;save();uiAlert(`Plan güncellendi: günde ${lower} dakika.`);openCoach()}})}
+function promise(){const w=st.plan&&st.plan.when;if(!w)return"";return`<span class="uxpromise">🕗 ${esc(w.t)} · ${esc(w.cue)}${w.place?" · "+esc(w.place):""}</span>`}
+function coachCard(sig,compact){const top=sig[0];return`<div class="uxcoach ${top.lvl}" role="region" aria-label="Koçun"><span class="av" aria-hidden="true">🧭</span><div class="bd"><span class="tt">Koçun${sig.length>1?` · ${sig.length} not`:""}</span><b class="m">${top.ic} ${esc(top.t)}</b><p>${esc(top.d)}</p>${compact?promise():""}
+ <div class="acts">${top.acts.map((a,i)=>`<button class="btn ${i?"alt":"pri"} sm" type="button" data-ca="${i}">${esc(a[0])}</button>`).join("")}<button class="btn alt sm" type="button" data-co="1">Koç raporu ›</button></div></div></div>`}
+function bindCard(root,sig){root.querySelectorAll("[data-ca]").forEach(b=>b.onclick=()=>{S=null;sig[0].acts[+b.dataset.ca][1]()});root.querySelectorAll("[data-co]").forEach(b=>b.onclick=openCoach)}
+function home11(){if(S||tab!=="home"||app.querySelector(".uxcoach")||app.querySelector(":scope>#bk"))return;const anchor=app.querySelector(".uxweek")||app.querySelector(".uxcdc")||app.querySelector(":scope>.hero");if(!anchor)return;
+ const sig=signals();const w=document.createElement("div");w.innerHTML=coachCard(sig,true);const el=w.firstElementChild;(anchor.closest("#app>*")||anchor).after(el);bindCard(el,sig)}
+function chart14(){const W=320,H=120,days=[...Array(14)].map((_,i)=>dayKey(i-13));const mx=Math.max(30,...days.map(k=>Math.max(dayMin(k),planned(k))));const bw=W/14;
+ return`<svg viewBox="0 0 ${W} ${H+18}" role="img" aria-label="Son 14 günde planlanan ve çalışılan dakikalar">${days.map((k,i)=>{const p=planned(k),d=dayMin(k),x=i*bw;const hp=p/mx*H,hd=d/mx*H;
+  return`${p?`<rect x="${x+2}" y="${H-hp}" width="${bw-4}" height="${hp}" rx="3" fill="none" stroke="var(--line2)" stroke-width="1.5" stroke-dasharray="3 2"/>`:""}<rect x="${x+5}" y="${H-hd}" width="${bw-10}" height="${hd}" rx="3" fill="${p&&d>=p*.8?"var(--ok)":d?"var(--pri)":"transparent"}"/><text x="${x+bw/2}" y="${H+13}" text-anchor="middle" font-size="8" fill="currentColor" fill-opacity="${k===dayKey()?1:.55}">${PL_DOW[plD(k).getDay()]}</text>`}).join("")}</svg>`}
+function openCoach(){S=null;const sig=signals();const a7=adh(7),a30=adh(30);const n7=accRange(1,7);let due=0;try{due=dueWords().length}catch(e){}
+ let m7=0;for(let i=0;i<7;i++)m7+=dayMin(dayKey(-i));
+ app.innerHTML=`<button class="link" id="bk">‹ Geri</button><h1 style="margin-top:14px"><span class="mk">🧭 Koçun</span></h1>
+ <p class="muted">Çalışıp çalışmadığını, öğrenip öğrenmediğini ve planına uyup uymadığını her gün kontrol ederim. Gerekince uyarır, yolu gösteririm.</p>
+ <div class="uxkpi"><div><b>${a7?"%"+a7.p:"—"}</b><span>plana uyum · 7 gün</span></div><div><b>${a30?"%"+a30.p:"—"}</b><span>plana uyum · 30 gün</span></div><div><b>${m7} dk</b><span>son 7 günde çalışma</span></div><div><b>${n7?"%"+n7.p:"—"}</b><span>doğruluk · 7 gün${n7?" ("+n7.n+" soru)":""}</span></div></div>
+ <div class="uxchart"><b>Son 14 gün</b>${chart14()}<div class="uxlegend"><span><i style="border:1.5px dashed var(--line2)"></i>Planlanan</span><span><i style="background:var(--ok)"></i>Plan tamam</span><span><i style="background:var(--pri)"></i>Çalışılan</span></div></div>
+ <h2 style="margin:18px 0 10px">Bugün için notlarım</h2><div class="uxcl">${sig.map((x,i)=>`<div class="uxcoach ${x.lvl}" data-i="${i}"><span class="av" aria-hidden="true">${x.ic}</span><div class="bd"><b class="m">${esc(x.t)}</b><p>${esc(x.d)}</p><div class="acts">${x.acts.map((a,j)=>`<button class="btn ${j?"alt":"pri"} sm" type="button" data-a="${i}:${j}">${esc(a[0])}</button>`).join("")}${x.lvl!=="ok"?`<button class="btn alt sm" type="button" data-h="${i}">Bugün gösterme</button>`:""}</div></div></div>`).join("")}</div>
+ <h2 style="margin:22px 0 10px">Planına sözün</h2><div class="uxq">${st.plan&&st.plan.when?`<p style="margin:0"><b>Eğer saat ${esc(st.plan.when.t)} olursa ve ${esc(st.plan.when.cue.toLocaleLowerCase("tr"))} ${st.plan.when.place?`(${esc(st.plan.when.place)})`:""}, o zaman ${st.plan.min||30} dakika İngilizce çalışırım.</b></p>${st.plan.when.backup?`<p class="small muted" style="margin:6px 0 0">Olmazsa: ${esc(st.plan.when.backup)}</p>`:""}`:`<p class="small muted" style="margin:0">Henüz belirlemedin.</p>`}<button class="btn alt sm" id="ci" style="margin-top:10px">${st.plan&&st.plan.when?"Değiştir":"Belirle"}</button></div>
+ <h2 style="margin:22px 0 10px">Haftalık değerlendirmelerin</h2>${Object.keys(CO().rev).length?Object.entries(CO().rev).sort((a,b)=>b[0].localeCompare(a[0])).slice(0,4).map(([k,v])=>`<div class="uxq"><b>${plFmt(k)} haftası</b> <span class="small muted">· kendine ${"★".repeat(v.r||0)}${"☆".repeat(5-(v.r||0))}</span>${v.g?`<p class="small" style="margin:6px 0 0">✅ ${esc(v.g)}</p>`:""}${v.h?`<p class="small" style="margin:4px 0 0">🧱 ${esc(v.h)}</p>`:""}${v.c?`<p class="small" style="margin:4px 0 0">🔧 ${esc(v.c)}</p>`:""}</div>`).join(""):`<p class="small muted">Her pazartesi kısa bir değerlendirme yapmanı öneririm.</p>`}<button class="btn alt wide" id="cr">Bu haftayı değerlendir</button>
+ <h2 style="margin:22px 0 10px">Nasıl karar veriyorum?</h2><div class="uxq small"><p style="margin:0">Notlarım şu verilere dayanır: plandaki günlük süreler ve tamamladıkların, son 7 ve 14 gündeki doğruluk oranın, tekrar bekleyen kelimeler, bitirip tekrar zamanı gelen dil bilgisi konuları, deneme sonuçların ve sınav tarihin. Bu veriler yalnızca bu cihazda işlenir.</p><p class="muted" style="margin:8px 0 0">Dayandığım araştırmalar: uygulama niyetleri (Gollwitzer ve Sheeran 2006), hedef belirleme (Locke ve Latham 2002), öz düzenlemeli öğrenme döngüsü (Zimmerman 2002), aralıklı tekrar (Cepeda ve ark. 2008).</p></div>`;
+ $("bk").onclick=()=>setTab(tab);$("ci").onclick=openIntent;$("cr").onclick=openReflect;
+ app.querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>{const [i,j]=b.dataset.a.split(":").map(Number);sig[i].acts[j][1]()});
+ app.querySelectorAll("[data-h]").forEach(b=>b.onclick=()=>{const x=sig[+b.dataset.h];const t=dayKey();const h=CO().hide;Object.keys(h).forEach(k=>{if(k<t)delete h[k]});(h[t]=h[t]||[]).push(x.id);save();openCoach()});
+ window.scrollTo(0,0)}
+window.uxOpenCoach=openCoach;
+function openIntent(){S=null;if(!st.plan){planSetup();return}const w=Object.assign({t:"",cue:"",place:"",backup:""},st.plan.when||{});
+ const T=["07:00","08:30","12:30","18:00","20:00","21:30"],C=["Sabah kahvemi içince","Kahvaltıdan sonra","İşe/okula giderken","Öğle arasında","Eve gelince","Akşam yemeğinden sonra","Yatmadan önce"],
+ Pl=["Evde masamda","Toplu taşımada","İşte / okulda","Kütüphanede","Kafede"],Bk=["Yatmadan önce 10 dakika kelime tekrarı yaparım","Ertesi sabah 15 dakikayla telafi ederim","Telefonda 5 dakikalık hız turu yaparım"];
+ const q=()=>[!!w.t,!!w.cue,!!w.place,!!w.backup].filter(Boolean).length;
+ const sel=(arr,key)=>`<div class="uxsel">${arr.map(v=>`<button type="button" data-k="${key}" data-v="${esc(v)}" aria-pressed="${w[key]===v}">${esc(v)}</button>`).join("")}</div>`;
+ const draw=()=>{app.innerHTML=`<button class="link" id="bk">‹ Koçun</button><h1 style="margin-top:14px"><span class="mk">Ne zaman, nerede?</span></h1>
+ <p class="muted">"Bir ara çalışırım" yerine "<b>Şu olunca, şunu yaparım</b>" diye önceden karar vermek, planına uyma olasılığını belirgin biçimde artırır. Ne kadar belirgin olursa o kadar iyi.</p>
+ <div class="uxq"><b>Plan kaliten: ${q()}/4</b><div class="uxmeter">${[0,1,2,3].map(i=>`<i class="${i<q()?"on":""}"></i>`).join("")}</div><p class="small muted" style="margin:0">Saat, tetikleyici an, yer ve yedek plan: dördü de olunca planın en güçlü hâlindedir.</p></div>
+ <div class="uxq"><b>1. Saat kaçta?</b>${sel(T,"t")}<input type="time" id="tt" value="${esc(w.t)}" style="margin-top:8px;font:inherit;padding:9px;border:1px solid var(--line2);border-radius:12px;background:var(--card);color:var(--ink)" aria-label="Saat"></div>
+ <div class="uxq"><b>2. Hangi andan sonra?</b> <span class="small muted">Her gün zaten yaptığın bir şeye bağla.</span>${sel(C,"cue")}</div>
+ <div class="uxq"><b>3. Nerede?</b>${sel(Pl,"place")}</div>
+ <div class="uxq"><b>4. Olmazsa ne yaparsın?</b> <span class="small muted">Aksilik olursa ne yapacağını şimdiden bil.</span>${sel(Bk,"backup")}</div>
+ <div class="uxq" style="background:var(--soft)"><b>Sözün</b><p style="margin:6px 0 0">${w.t&&w.cue?`Eğer saat <b>${esc(w.t)}</b> olursa ve <b>${esc(w.cue.toLocaleLowerCase("tr"))}</b>${w.place?` (<b>${esc(w.place)}</b>)`:""}, o zaman <b>${st.plan.min||30} dakika</b> İngilizce çalışırım.${w.backup?` Olmazsa: ${esc(w.backup.toLocaleLowerCase("tr"))}.`:""}`:"Saat ve anı seçince sözün burada oluşur."}</p></div>
+ <button class="btn pri wide" id="sv" ${w.t&&w.cue?"":"disabled"}>Sözümü kaydet</button>`;
+  $("bk").onclick=openCoach;app.querySelectorAll(".uxsel button").forEach(b=>b.onclick=()=>{w[b.dataset.k]=w[b.dataset.k]===b.dataset.v?"":b.dataset.v;draw()});
+  $("tt").onchange=e=>{w.t=e.target.value;draw()};$("sv").onclick=()=>{st.plan.when=w;save();uiAlert("Sözün kaydedildi. Koçun her gün bunu hatırlatacak.");openCoach()};window.scrollTo(0,0)};draw()}
+function openReflect(){S=null;const wk=plMonday(dayKey());const v=Object.assign({g:"",h:"",c:"",r:0},CO().rev[wk]||{});let m7=0;for(let i=1;i<=7;i++)m7+=dayMin(dayKey(-i));const a7=adh(7),n7=accRange(1,7);
+ const draw=()=>{app.innerHTML=`<button class="link" id="bk">‹ Koçun</button><h1 style="margin-top:14px"><span class="mk">Haftalık değerlendirme</span></h1>
+ <p class="muted">Geçen hafta: <b>${m7} dakika</b> çalıştın${a7?`, planına uyumun <b>%${a7.p}</b>`:""}${n7?`, doğruluğun <b>%${n7.p}</b>`:""}. İyi öğrenciler planlar, uygular ve sonra geriye bakıp ayarlar.</p>
+ <div class="uxq"><b>Bu hafta kendine kaç puan verirsin?</b><div class="uxsel">${[1,2,3,4,5].map(n=>`<button type="button" data-r="${n}" aria-pressed="${v.r===n}">${"★".repeat(n)}</button>`).join("")}</div></div>
+ <div class="uxq"><b>✅ Ne iyi gitti?</b><textarea id="rg" placeholder="Örn: Her sabah kelime tekrarını yaptım.">${esc(v.g)}</textarea></div>
+ <div class="uxq"><b>🧱 Ne zorladı?</b><textarea id="rh" placeholder="Örn: Okuma parçalarında süre yetmedi.">${esc(v.h)}</textarea></div>
+ <div class="uxq"><b>🔧 Gelecek hafta neyi değiştireceksin?</b><textarea id="rc" placeholder="Örn: Okumaya günde 10 dakika daha ayıracağım.">${esc(v.c)}</textarea></div>
+ <button class="btn pri wide" id="sv">Kaydet</button>`;
+  $("bk").onclick=openCoach;app.querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{v.g=$("rg").value;v.h=$("rh").value;v.c=$("rc").value;v.r=+b.dataset.r;draw()});
+  $("sv").onclick=()=>{v.g=$("rg").value.trim();v.h=$("rh").value.trim();v.c=$("rc").value.trim();v.at=dayKey();const first=!CO().rev[wk];CO().rev[wk]=v;const ks=Object.keys(CO().rev).sort();while(ks.length>26)delete CO().rev[ks.shift()];if(first)addXP(10);save();uiAlert("Değerlendirmen kaydedildi.");openCoach()};window.scrollTo(0,0)};draw()}
+// planlayıcıya koç özeti
+const _op11=openPlanner;openPlanner=function(){const r=_op11.apply(this,arguments);try{if(st.plan){const c=app.querySelector(".card");const sig=signals();if(c&&!app.querySelector(".uxcoach")){const w=document.createElement("div");w.innerHTML=coachCard(sig,true);const el=w.firstElementChild;el.style.marginTop="12px";c.after(el);bindCard(el,sig)}}}catch(e){}return r};
+const _ar11=afterRender;afterRender=function(){_ar11();try{home11();lesson11()}catch(e){}};
 })();
 
 fixHeader();
@@ -6931,7 +7186,7 @@ fixHeader();
 <script>
 if("serviceWorker" in navigator&&location.protocol.startsWith("http")){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").then(r=>{r.addEventListener("updatefound",()=>{const w=r.installing;w&&w.addEventListener("statechange",()=>{if(w.state==="installed"&&navigator.serviceWorker.controller){const b=document.createElement("button");b.className="btn pri";b.textContent="Yeni sürüm hazır, yenile";b.style.cssText="position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:50;box-shadow:0 6px 20px rgba(0,0,0,.25)";b.onclick=()=>UPD.run(b);document.body.appendChild(b)}})})}).catch(()=>{})})}
 /* ===== GÜNCELLEME: yeni sürüm varsa açılışta zorunlu güncelleme ekranı ===== */
-const APP_VER="2026.11.17-3";
+const APP_VER="2026.11.17-4";
 const UPD={
  web:()=>/^https?:$/.test(location.protocol),
  async check(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return null;const j=await r.json();return j&&j.v?{v:String(j.v),notes:Array.isArray(j.notes)?j.notes:[]}:null}catch(e){return null}},
