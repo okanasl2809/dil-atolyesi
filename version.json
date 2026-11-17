@@ -1,8 +1,8 @@
 {
- "v": "2026.11.17-6",
+ "v": "2026.11.17-7",
  "notes": [
-  "🧭 Koçun artık YDS planını da tanıyor: yalnızca sınav tarihi ve hedef puan girdiysen de sınav günü yaklaşırken ve deneme sonuçların hedefinin altındayken seni uyarır.",
-  "🔍 Uygulamanın her sayfası baştan sona gözden geçirildi; küçük tutarsızlıklar giderildi.",
+  "🔧 Bir güncelleme sorunu giderildi: bazı telefonlarda 'yeni güncelleme' ekranı güncelledikten sonra bile yeniden çıkabiliyordu. Artık düzgün kapanıyor.",
+  "⚡ Uygulamanın kodu küçültüldü; dosya biraz daha ufak ve açılış biraz daha hızlı.",
   "✅ İlerlemen, puanların ve serin aynen duruyor."
  ]
 }
