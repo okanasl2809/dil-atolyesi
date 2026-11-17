@@ -1,13 +1,11 @@
 {
- "v": "2026.11.17-2",
+ "v": "2026.11.17-3",
  "notes": [
-  "ℹ️ Yeni Hakkında bölümü (Ben › Hakkında): gizlilik özeti, verilerin, Verilerimi indir, KVKK aydınlatma metni, erişilebilirlik beyanı, lisanslar ve sürüm notları.",
-  "📘 Dersler artık adım adım açılıyor: önce konu anlatımı, 'Anladım' deyince sıradaki bölüm.",
-  "💡 Yanlış cevapta önce bir ipucu ve bir hak daha; sonra açıklama.",
-  "⚡ Öğren sayfasında Hız turu (60 saniye) ve Kolay okuma (dakikada kaç kelime okuduğunu ölçer).",
-  "✍️ Ünitelerde Kendin yaz ve Kendin söyle: yapıyı kendi cümlelerinle kullan.",
-  "📊 Gelişim'de tahmini kelime hazinen; YDS sayfasında sınav günü stratejisi ve süre planı.",
-  "📅 YDS tarihin varsa kelime tekrarları sınavdan önceye denk gelecek şekilde ayarlanıyor.",
+  "🖼️ Kelimelerde resim: yeni kelime kartlarında ve tekrarlarda somut kelimeler (hayvan, yiyecek, eşya…) resimle geliyor. Öğren sayfasında yeni Resimli tur.",
+  "🧩 Dil bilgisi derslerinde Türkçeden İngilizce cümle kurma alıştırması.",
+  "🕒 Zaman konularında (present perfect, past continuous…) zaman çizgisi ve Türkçe karşılığı.",
+  "🎯 Sık hatalar turu: Türklerin en çok yanıldığı a/the, edat ve zaman soruları.",
+  "ℹ️ Hakkında: veri etiketi, öğretim yöntemi ve kaynakça, sayılarla uygulama, destek bilgisi ve web'deki gizlilik politikası.",
   "✅ İlerlemen, puanların ve serin aynen duruyor."
  ]
 }
