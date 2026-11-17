@@ -1,11 +1,11 @@
 {
- "v": "2026.11.17-4",
+ "v": "2026.11.17-5",
  "notes": [
-  "🧭 Yeni seviye tespit sınavı: binlerce soruluk havuzdan, her cevaba göre yeniden hesaplanan uyarlanabilir test. Ölçüm kesinleşince kendiliğinden biter; sonuçta seviye olasılıkları, beceri profili ve dil bilgisi teşhisi var.",
-  "🧑‍🏫 Koçun: Bugün sayfasında ve Çalışma planında. Planına uyup uymadığını, doğruluğunu, biriken tekrarları ve sınav hazırlığını izler; gerektiğinde uyarır ve ne yapacağını söyler.",
-  "🕗 Planına söz ver: ne zaman, nerede ve olmazsa ne yapacağını belirle.",
-  "🪞 Haftalık değerlendirme: ne iyi gitti, ne zorladı, neyi değiştireceksin.",
-  "🧩 Dil bilgisi derslerinde 'Önce fark et' bölümü; zaman konularında önce anlam soruları, sonra boşluk doldurma, hata bulma ve cümle kurma.",
+  "🎨 Yeni logo ve uygulama simgesi: konuşma balonu biçiminde bir D ve küçük bir yıldız. Ana ekran simgen de yenilenir.",
+  "✨ Açılışta kısa bir karşılama ekranı.",
+  "🧭 Sayfa geçişleri yenilendi: derine inerken sağdan, geri dönerken soldan, derse başlarken aşağıdan yumuşakça gelir. Sekmeler arasında yumuşak geçiş.",
+  "📋 Tablolar daha okunaklı: başlık satırı, satır ayrımı ve dar ekranda yana kaydırma.",
+  "🖌️ Renk, yazı ve küçük ayrıntılarda ince ayarlar.",
   "✅ İlerlemen, puanların ve serin aynen duruyor."
  ]
 }

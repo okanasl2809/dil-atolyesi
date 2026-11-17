@@ -4180,7 +4180,7 @@ function openAbout(){const back=()=>setTab("book");
 (function(){const _vb=viewBook;viewBook=function(){_vb();const sec=document.createElement("section");sec.className="sec";
  sec.innerHTML=`<h2>Uygulama</h2><div class="list"><button class="item" id="ob"><span style="font-size:1.4rem">💾</span><span class="grow"><span class="t">Yedekle ve geri yükle</span><br><span class="muted small">Son yedek: ${st.lastBackup||"hiç alınmadı"}</span></span><span>›</span></button>
  <button class="item" id="ov2"><span style="font-size:1.4rem">🔊</span><span class="grow"><span class="t">Ses ayarları</span><br><span class="muted small">İngilizce ses ve konuşma hızı</span></span><span>›</span></button>
- <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.11.17-4 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
+ <button class="item" id="oup"><span style="font-size:1.4rem">🔄</span><span class="grow"><span class="t">Uygulamayı güncelle</span><br><span class="muted small">Sürüm 2026.11.17-5 · en yeni sürümü yükler, ilerlemen korunur</span></span><span>›</span></button>
  <button class="item" id="oa"><span style="font-size:1.4rem">ℹ️</span><span class="grow"><span class="t">Hakkında, gizlilik ve lisanslar</span><br><span class="muted small">Hata bildirimlerin de burada</span></span><span>›</span></button></div>`;
  app.appendChild(sec);$("ob").onclick=openBackup;$("oup").onclick=e=>UPD.manual(e.currentTarget);$("ov2").onclick=openVoice;$("oa").onclick=openAbout;}})();
 (function(){const _vh=viewHome;viewHome=function(){_vh();const p=document.createElement("p");p.className="small muted";p.style.cssText="text-align:center;margin-top:28px";p.innerHTML='Dil Atölyesi, geliştirici: <b>Okan Asl</b>';app.appendChild(p)}})();
@@ -4677,8 +4677,8 @@ function plHomeCard(){const k=dayKey();if(!st.plan)return`<button class="tile-ca
   <button class="btn alt sm" id="pls2" style="margin-top:10px">Planı aç ›</button></div>`;app.appendChild(d);$("pls2").onclick=()=>openPlanner("month")}catch(e){}}})();
 
 /* ===== YENİLİKLER: her sürümde bir kez gösterilir ===== */
-const WN_VER="2026.11.17-4";
-const WN_NOTES=["🧭 Yeni seviye tespit sınavı: binlerce soruluk havuzdan, her cevaba göre yeniden hesaplanan uyarlanabilir test. Ölçüm kesinleşince kendiliğinden biter; sonuçta seviye olasılıkları, beceri profili ve dil bilgisi teşhisi var.", "🧑‍🏫 Koçun: Bugün sayfasında ve Çalışma planında. Planına uyup uymadığını, doğruluğunu, biriken tekrarları ve sınav hazırlığını izler; gerektiğinde uyarır ve ne yapacağını söyler.", "🕗 Planına söz ver: ne zaman, nerede ve olmazsa ne yapacağını belirle.", "🪞 Haftalık değerlendirme: ne iyi gitti, ne zorladı, neyi değiştireceksin.", "🧩 Dil bilgisi derslerinde 'Önce fark et' bölümü; zaman konularında önce anlam soruları, sonra boşluk doldurma, hata bulma ve cümle kurma.", "✅ İlerlemen, puanların ve serin aynen duruyor."];
+const WN_VER="2026.11.17-5";
+const WN_NOTES=["🎨 Yeni logo ve uygulama simgesi: konuşma balonu biçiminde bir D ve küçük bir yıldız. Ana ekran simgen de yenilenir.", "✨ Açılışta kısa bir karşılama ekranı.", "🧭 Sayfa geçişleri yenilendi: derine inerken sağdan, geri dönerken soldan, derse başlarken aşağıdan yumuşakça gelir. Sekmeler arasında yumuşak geçiş.", "📋 Tablolar daha okunaklı: başlık satırı, satır ayrımı ve dar ekranda yana kaydırma.", "🖌️ Renk, yazı ve küçük ayrıntılarda ince ayarlar.", "✅ İlerlemen, puanların ve serin aynen duruyor."];
 const WN_OLD=["🇹🇷 Yeni: Bütün örnek cümlelerin Türkçesi eklendi. 10.500'den fazla cümlenin altında artık ne anlama geldiği yazıyor (kelime kartlarında ve kelime listelerinde).", "📖 Yeni: Kısa hikâyeler. Her seviyede (A1'den C2'ye) 10 hikâye, toplam 60 hikâye. Her hikâyenin sonunda anlama soruları var. İngilizce sekmesinde \"Kısa hikâyeler\"e dokun.", "🎯 Yeni: Zayıf noktalarım. En çok yanlış yaptığın kelimeleri ve konuları tek sayfada gör, sadece onlardan alıştırma yap.", "🎭 Yeni: Diyaloglarda sesli rol yapma. Rolünü seç, \"Sesli söyleyerek\"i işaretle; sıra sana gelince cümleyi kendin söyle.", "🏅 Yeni: Rozetler ve aylık hedef. Ayda kaç gün çalışacağını seç; çalıştıkça 32 rozetin kilidini aç. Gelişim sekmesinde ve ana sayfada.", "🔎 Okurken bilinmeyen bir kelimeye dokununca anlamı artık internet olmadan da çıkıyor.", "🎓 İngilizce kursu: İngilizce kursu. Ders, kelime, diyalog, dinleme ve sınavdan oluşan üniteler; \"Devam et\"e bas, kurs seni sıradaki adıma götürsün. Ünite sınavını geçince sıradaki açılır.", "🏅 Seviye sınavı ve belge: Bir seviyenin tüm ünitelerini bitirince seviye sınavına gir, geçince başarı belgeni al.", "🗣️ Kelimelerin okunuşu eklendi: Her kelimenin yanında Türkçe harflerle nasıl okunduğu (vurgulu hece büyük harfle) ve uluslararası okunuşu yazıyor.", "🎮 Yeni: Kelime oyunları. Doğru mu yanlış mı, harfleri diz, adam asmaca, dinle ve bul, eşleştirme yarışı. Çalıştığın kelimelerle oynarsın, rekorun kaydedilir.", "👅 Türkler için telaffuz: th, w ile v, ship ile sheep gibi zor sesler; dinleyip ayırt etme alıştırması.", "🚫 Türklerin sık yaptığı 51 hata (\"I am agree\" gibi) ve alıştırmaları.", "🎙️ Dinle ve tekrar et: Cümleyi dinle, sesli söyle; doğru söylediğin kelimeler yeşil görünür. Ayrıca Türkçeden İngilizceye yazma alıştırması.", "🔁 Günlük tekrar ve daha akıllı kelime tekrarı: Aynı gün tekrar etmek artık kelimeyi erkenden \"öğrenildi\" saymıyor; bitirdiğin konular aralıklarla tekrar karşına çıkıyor."];
 function showWhatsNew(tries=0){let seen=null;try{seen=localStorage.getItem("da:seenVer")}catch(e){}
  if(seen===WN_VER)return;
@@ -6742,6 +6742,7 @@ const mkDocs=()=>{const local=!CL||ME.mode!=="cloud";return{
   secs:HOW.map(h=>[h[0]+" "+h[1],`<p>${h[2]}</p><p class="small"><b>Uygulamada:</b> ${h[3]}</p><p class="small muted"><b>Kaynak:</b> ${h[4]}</p>`]).concat([["Sınırlarımız",`<p>Telefon sürümünde sesli okuma cihazın makine sesiyle yapılır; dinleme becerisi için gerçek İngilizce yayınlar (podcast, dizi) dinlemeni öneririz. Konuşma ve yazma için kişiye özel düzeltme henüz yok; kendini kontrol listesi ve örnek cümlelerle karşılaştırma var.</p>`]])},
  log:{ic:"🗒️",t:"Sürüm notları",tag:"Yenilikler",d:"Her güncellemede neler değişti",min:2,sum:null,secs:null}}};
 const CHANGELOG=[
+ ["2026.11.17-5","17 Kasım 2026",["Yeni logo ve uygulama simgesi","Açılış ekranı","Material 3 sayfa geçişleri","Daha okunaklı tablolar","Renk ve yazı ince ayarları"]],
  ["2026.11.17-4","17 Kasım 2026",["Uyarlanabilir seviye tespit sınavı (kesinliğe göre biten, olasılık ve teşhis raporlu)","Çalışma koçu: plan uyumu, doğruluk, tekrar ve sınav takibi","Planına söz: ne zaman, nerede, olmazsa ne","Haftalık değerlendirme","Dil bilgisinde Önce fark et ve anlam soruları"]],
  ["2026.11.17-3","17 Kasım 2026",["Kelime kartlarında ve yeni Resimli turda resimler","Derslerde Türkçeden cümle kurma","Zaman konularında zaman çizgisi ve Türkçe karşılığı","Türklerin sık yaptığı hatalar turu","Hakkında: veri etiketi, öğretim yöntemi ve kaynakça, sayılarla uygulama, web'deki gizlilik politikası"]],
  ["2026.11.17-2","17 Kasım 2026",["Hakkında bölümü yenilendi: gizlilik özeti, verilerin, KVKK aydınlatma metni ve erişilebilirlik beyanı","Dersler adım adım açılıyor","Yanlışta önce ipucu, sonra bir hak daha","Hız turu ve kolay okuma (dakikada kelime)","Ünitelerde Kendin yaz ve Kendin söyle","Tahmini kelime hazinen ve YDS sınav günü stratejisi","Kelime tekrarları sınav tarihine göre ayarlanıyor"]],
@@ -7166,6 +7167,96 @@ const _op11=openPlanner;openPlanner=function(){const r=_op11.apply(this,argument
 const _ar11=afterRender;afterRender=function(){_ar11();try{home11();lesson11()}catch(e){}};
 })();
 
+/* ===== TASARIM 12 (2026.11.17-5): marka (logo, simge), açılış ekranı, Material 3 geçişleri, tablolar, ince ayarlar ===== */
+(function(){
+const DP='M168 116 H262 A140 140 0 0 1 262 396 H204 L134 446 L146 392 Q128 386 128 360 V156 Q128 116 168 116 Z';
+const CP='M208 190 H256 A66 66 0 0 1 256 322 H208 Z';
+const SP='M404 84 l12 30 30 12 -30 12 -12 30 -12 -30 -30 -12 30 -12z';
+const GR='<linearGradient id="uxlg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3A5BEB"/><stop offset="1" stop-color="#1C2E9C"/></linearGradient>';
+const ICON=`<svg viewBox="0 0 512 512" aria-hidden="true" focusable="false"><defs>${GR}</defs><rect width="512" height="512" rx="116" fill="url(#uxlg)"/><g transform="translate(-14 0)"><path d="${DP}" fill="#fff"/><path d="${CP}" fill="url(#uxlg)"/><path d="${SP}" fill="#FFD84D"/></g></svg>`;
+const GLYPH=`<svg viewBox="110 70 350 390" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="${DP} ${CP}" fill="currentColor"/><path d="${SP}" fill="#FFD84D"/></svg>`;
+window.uxLogo=ICON;window.uxGlyph=GLYPH;
+const EASE="cubic-bezier(.05,.7,.1,1)";
+const css=`
+/* marka */
+#brand{display:inline-flex;align-items:center;gap:8px}
+#brand .uxmark{width:28px;height:28px;flex:0 0 28px;display:block;border-radius:8px;box-shadow:0 2px 6px rgba(28,46,156,.28)}
+#brand .uxmark svg{width:100%;height:100%;display:block}
+.uxwel .logo{background:none!important;box-shadow:none!important;width:76px!important;height:76px!important;padding:0!important;border-radius:20px!important;overflow:visible}
+.uxwel .logo svg{width:100%;height:100%;display:block;filter:drop-shadow(0 10px 22px rgba(28,46,156,.35))}
+.uxab-hero .lg{background:rgba(255,255,255,.14)!important;padding:10px;color:#fff}
+.uxab-hero .lg svg{width:100%;height:100%;display:block}
+/* açılış ekranı */
+#uxsplash{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:linear-gradient(135deg,#3A5BEB,#1C2E9C);color:#fff;pointer-events:none;transition:opacity .28s cubic-bezier(.3,0,.8,.15),visibility .28s}
+#uxsplash .in{display:flex;flex-direction:column;align-items:center;gap:14px;animation:uxsplin .5s ${EASE} both}
+#uxsplash .g{width:92px;height:102px;color:#fff}#uxsplash .g svg{width:100%;height:100%}
+#uxsplash b{font:800 28px/1 "Bricolage Grotesque",sans-serif;letter-spacing:-.5px}#uxsplash small{opacity:.85;font-size:14px}
+#uxsplash.out{opacity:0;visibility:hidden}
+@keyframes uxsplin{from{opacity:0;transform:scale(.86)}}
+/* Material 3 geçişleri: sekmeler arası "fade through", derinlik "shared axis X", ders başlangıcı "shared axis Y" */
+main.uxfade{animation:uxft .3s cubic-bezier(.2,0,0,1)!important}
+@keyframes uxft{from{opacity:0;transform:scale(.985)}}
+#app.ux-n-fwd>*:not(.foot):not(#fb):not(.qhead){animation:uxsxf .34s ${EASE} both}
+#app.ux-n-back>*:not(.foot):not(#fb):not(.qhead){animation:uxsxb .34s ${EASE} both}
+#app.ux-n-up>*:not(.foot):not(#fb){animation:uxsy .36s ${EASE} both}
+@keyframes uxsxf{from{opacity:0;transform:translateX(28px)}}
+@keyframes uxsxb{from{opacity:0;transform:translateX(-28px)}}
+@keyframes uxsy{from{opacity:0;transform:translateY(22px)}}
+@media (prefers-reduced-motion:reduce){#app.ux-n-fwd>*,#app.ux-n-back>*,#app.ux-n-up>*{animation:uxfo .15s linear both!important}main.uxfade{animation:none!important}#uxsplash .in{animation:none}@keyframes uxfo{from{opacity:0}}}
+/* tablolar */
+.uxtw{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:14px;margin:8px 0;background:var(--card)}
+.uxtw table{margin:0!important;border:0!important;min-width:100%}
+#app table{border-collapse:separate;border-spacing:0;font-variant-numeric:tabular-nums}
+#app .uxtw th,#app .uxtw td{padding:10px 12px!important;border:0!important;border-top:1px solid var(--line)!important;text-align:left;vertical-align:top;line-height:1.45}
+#app .uxtw tr:first-child>*{border-top:0!important}
+#app .uxtw thead th,#app .uxtw tr:first-child th{background:var(--soft);font-size:12.5px;font-weight:700;letter-spacing:.02em;color:var(--muted)}
+#app .uxtw tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--soft) 45%,transparent)}
+#app .uxtw td:first-child{font-weight:600}
+#app .uxtw td[style*="text-align:right"],#app .uxtw td.num{text-align:right}
+/* ince ayarlar */
+::selection{background:color-mix(in srgb,var(--hl) 70%,transparent);color:inherit}
+html{-webkit-tap-highlight-color:transparent;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+img,svg{image-rendering:auto}
+.btn,.opt,.item,.tile,.tile-card,.pick,.uxtool,.uxsub button,.tabs button{transition:transform .12s cubic-bezier(.2,0,0,1),background-color .2s,border-color .2s,box-shadow .2s}
+.uxsub button[aria-current="page"]{transition:background-color .25s cubic-bezier(.2,0,0,1),color .25s}
+`;
+const s=document.createElement("style");s.id="ux12";s.textContent=css;document.head.appendChild(s);
+
+/* favicon + tema rengi */
+try{const ic="data:image/svg+xml,"+encodeURIComponent(ICON.replace('<svg ','<svg xmlns="http://www.w3.org/2000/svg" '));let l=document.querySelector('link[rel="icon"][type="image/svg+xml"]');if(!l){l=document.createElement("link");l.rel="icon";l.type="image/svg+xml";document.head.prepend(l)}l.href=ic}catch(e){}
+function themeColor(){try{const c=getComputedStyle(document.documentElement).getPropertyValue("--bg").trim();if(!c)return;let m=document.querySelector('meta[name="theme-color"]');if(!m){m=document.createElement("meta");m.name="theme-color";document.head.appendChild(m)}if(m.content!==c)m.content=c}catch(e){}}
+
+/* açılış ekranı */
+let splash=null;try{if(!sessionStorage.getItem("uxspl")){splash=document.createElement("div");splash.id="uxsplash";splash.setAttribute("aria-hidden","true");splash.innerHTML=`<div class="in"><span class="g">${GLYPH}</span><b>Dil Atölyesi</b><small>İngilizce ve YDS</small></div>`;document.body.appendChild(splash);sessionStorage.setItem("uxspl","1")}}catch(e){}
+const t0=Date.now();function hideSplash(){if(!splash)return;const w=Math.max(0,650-(Date.now()-t0));const sp=splash;splash=null;setTimeout(()=>{sp.classList.add("out");setTimeout(()=>sp.remove(),400)},w)}
+setTimeout(hideSplash,2500);
+
+/* gezinme niyeti */
+let nav=null,lastSig="",lastS=false;
+document.addEventListener("click",e=>{const t=e.target.closest("button,a,[role=button]");if(!t)return;
+ if(t.closest(".tabs")){nav="tab";return}
+ const tx=(t.textContent||"").trim();if(t.id==="bk"||t.id==="bk2"||/^‹/.test(tx)||t.classList.contains("x")||t.id==="qx2"){nav="back";return}
+ if(t.closest(".uxsub")){nav="tab";return}
+ if(t.closest("#app"))nav="fwd"},true);
+function animate(){const sig=(S?"S":"P")+"|"+((app.querySelector("h1")||{}).textContent||"")+"|"+((app.querySelector("#bk")||{}).textContent||"")+"|"+(app.dataset.view||"");
+ if(sig===lastSig){return}const wasS=lastS;lastSig=sig;lastS=!!S;const n=nav;nav=null;if(!n||n==="tab")return;
+ const cls=S&&!wasS?"ux-n-up":n==="back"?"ux-n-back":"ux-n-fwd";if(S&&wasS)return;
+ app.classList.remove("ux-n-fwd","ux-n-back","ux-n-up");void app.offsetWidth;app.classList.add(cls);clearTimeout(animate._t);animate._t=setTimeout(()=>app.classList.remove(cls),420)}
+
+/* marka yerleştirme ve ince düzeltmeler */
+function brand(){const b=$("brand");if(b&&!b.querySelector(".uxmark")){b.insertAdjacentHTML("afterbegin",`<span class="uxmark">${ICON}</span>`)}
+ const lg=document.querySelector(".uxab-hero .lg");if(lg&&!lg.querySelector("svg"))lg.innerHTML=GLYPH;
+ const wl=document.querySelector(".uxwel .logo");if(wl&&!wl.querySelector("svg"))wl.innerHTML=ICON}
+function tables(){app.querySelectorAll("table").forEach(t=>{if(t.parentElement.classList.contains("uxtw"))return;const w=document.createElement("div");w.className="uxtw";t.before(w);w.appendChild(t)})}
+function tidy(){if(S)return;if(tab==="home"){const ph=$("plh");if(ph&&!st.plan&&app.querySelector(".uxcoach"))ph.style.display="none";
+ app.querySelectorAll("p").forEach(p=>{if(/24 soru, yaklaşık 15 dakika/.test(p.textContent))p.textContent=p.textContent.replace("24 soru, yaklaşık 15 dakika","14–40 soru; ölçüm kesinleşince kendiliğinden biter")})}}
+const _ar12=afterRender;afterRender=function(){_ar12();try{brand();tables();tidy();animate();themeColor();hideSplash()}catch(e){}};
+new MutationObserver(()=>{try{brand()}catch(e){}}).observe(document.body,{childList:true,subtree:false});
+const ov=document.getElementById("ov");if(ov)new MutationObserver(()=>{try{brand();if(ov.innerHTML.trim())hideSplash()}catch(e){}}).observe(ov,{childList:true,subtree:true});
+try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>setTimeout(themeColor,50))}catch(e){}
+setTimeout(()=>{try{brand();themeColor()}catch(e){}},0);
+})();
+
 fixHeader();
 })();
 
@@ -7186,7 +7277,7 @@ fixHeader();
 <script>
 if("serviceWorker" in navigator&&location.protocol.startsWith("http")){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").then(r=>{r.addEventListener("updatefound",()=>{const w=r.installing;w&&w.addEventListener("statechange",()=>{if(w.state==="installed"&&navigator.serviceWorker.controller){const b=document.createElement("button");b.className="btn pri";b.textContent="Yeni sürüm hazır, yenile";b.style.cssText="position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:50;box-shadow:0 6px 20px rgba(0,0,0,.25)";b.onclick=()=>UPD.run(b);document.body.appendChild(b)}})})}).catch(()=>{})})}
 /* ===== GÜNCELLEME: yeni sürüm varsa açılışta zorunlu güncelleme ekranı ===== */
-const APP_VER="2026.11.17-4";
+const APP_VER="2026.11.17-5";
 const UPD={
  web:()=>/^https?:$/.test(location.protocol),
  async check(){try{const r=await fetch("version.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return null;const j=await r.json();return j&&j.v?{v:String(j.v),notes:Array.isArray(j.notes)?j.notes:[]}:null}catch(e){return null}},
