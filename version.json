@@ -1,9 +1,9 @@
 {
- "v": "2026.11.17-10",
+ "v": "2026.11.19-1",
  "notes": [
-  "🎨 Arayüz tazelendi: simgeler yuvarlak renkli kutulara alındı, kartlara yumuşak derinlik ve gölge geldi.",
-  "🌙 Karanlık temada yüzeyler daha dengeli; öne çıkan kartlar hafif aydınlık tonla ayrışıyor.",
-  "⭕ Günlük hedef halkası daha belirgin ve yuvarlak uçlu; düğmelerde hafif derinlik var.",
+  "✍️ Yeni: Cümle Atölyesi — öğrendiğin kelime ve gramerle cümle kur, sesli söyleyerek konuşma pratiği yap.",
+  "🧩 Karışık pratik (diz · eksik parça · sesli söyle) ve 🏗️ Cümle kurucu (11 gramer kalıbı, Türkçeden İngilizceye) eklendi.",
+  "🔁 Kurduğun cümlelerdeki kelimeler akıllı tekrara girer; Öğren sekmesinde \"Cümle kurma\".",
   "✅ İlerlemen, puanların ve serin aynen duruyor."
  ]
 }
